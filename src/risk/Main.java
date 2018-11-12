@@ -88,12 +88,12 @@ public class Main extends JFrame implements Runnable
         addKeyListener(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
-            {                       
+            {
                 if (e.getKeyCode() == KeyEvent.VK_Q)
                 {
                     if (!isConnecting)
-                    {                    
-                        try {     
+                    {
+                        try {
                             isConnecting = true;
                             System.out.println("is connecting true");
                             ServerHandler.recieveConnect(portNumber);   //5657
@@ -103,7 +103,7 @@ public class Main extends JFrame implements Runnable
                                 isClient = false;
                                 gameStarted = true;
                                 isConnecting = false;
-                            }                        
+                            }
                         }
                         catch (IOException ex)
                         {
@@ -132,8 +132,8 @@ public class Main extends JFrame implements Runnable
                                 System.out.println("Cannot join server: " + ex.getMessage());
                                 isConnecting = false;
                             }                    
-                    }                  
-                }                
+                    }
+                }
                 else
                 {
                     if (!gameStarted)
