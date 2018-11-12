@@ -23,6 +23,9 @@ public class Titlescreen {
     static private Image e;
     static private sound menuMusic = null;
     static private sound buttonSound = null;
+    //MULTIPLAYER SOUNDS
+    static private sound multiButtonSound = null;
+    static private int whichButton=0;
     static private boolean mute=false;
     static int timeCount = 0;
     
@@ -119,7 +122,8 @@ public class Titlescreen {
     
     static private void drawMulti(int x, int y, Main m, String host) {
         
-   
+        
+        
         
         g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
@@ -129,8 +133,8 @@ public class Titlescreen {
         try {
             g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
             g.setColor(Color.white);
-            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 496);
-            g.drawString(host, 261, 580);
+            g.drawString(InetAddress.getLocalHost().getHostAddress(), 270, 490);
+            g.drawString(host, 270, 580);
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
@@ -140,6 +144,23 @@ public class Titlescreen {
             multiActive=false;
             mainActive=true;
         }
+        
+        //HOST BUTTON
+        else if(x>256 && x<430 && y>666 && y<760){
+            if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=1){
+                multiButtonSound=new sound("multiButtonCheer.wav");
+                whichButton=1;
+            }
+        }
+        //JOIN BUTTON
+        else if(x>477 && x<649 && y>666 && y<760){
+            if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=2){
+                multiButtonSound=new sound("multiButtonCheer.wav");
+                whichButton=2;
+            }
+        }
+        
+        
                  
      
     }
