@@ -36,12 +36,8 @@ public class Main extends JFrame implements Runnable
             {
                 e.getX();
                 e.getY();
-                if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Sound.getMute()==false)
-                    Sound.muteAllSounds();
-                else if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Sound.getMute()==true)
-                    Sound.unmute();
                 
-                System.out.println(e.getX() +"        " + e.getY());
+                System.out.println(e.getX() + "        " + e.getY());
                 
                 repaint();
             }
@@ -299,8 +295,6 @@ public class Main extends JFrame implements Runnable
 
             reset();
         }
-        if(Titlescreen.isActive())
-            Titlescreen.checkMusicLoop();
     }
 
     // //////////////////////////////////////////////////////////////////////////
