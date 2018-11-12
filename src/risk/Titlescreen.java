@@ -136,6 +136,17 @@ public class Titlescreen {
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
+<<<<<<< HEAD
+=======
+        
+        //Home screen hitbox
+        if(x>13 && x<111 && y>730 && y<783){
+            multiActive=false;
+            mainActive=true;
+        }
+                 
+     
+>>>>>>> liam's-dev-branch
     }
     
     static public void pressedButton() {
