@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import static risk.Main.g;
 import java.net.*;
 
@@ -16,13 +17,16 @@ public class Titlescreen {
     static private boolean onFirstButton;
     static private boolean onSecondButton;
     static private boolean onThirdButton;
+    static private boolean onHomeButton;
+    static private boolean onHostButton;
+    static private boolean onJoinButton;
     static private Image mainImage;
     static private Image multiImage;
     static private Image emberImage;
     static private Image muteImage;
-    static private Image e;
     static private Sound menuMusic = null;
     static private Sound buttonSound = null;
+    static private Image e;
     //MULTIPLAYER SOUNDS
     static private Sound multiButtonSound = null;
     static private int whichButton=0;
@@ -35,6 +39,9 @@ public class Titlescreen {
         onFirstButton=false;
         onSecondButton=false;
         onThirdButton=false;
+        onHomeButton=false;
+        onHostButton=false;
+        onJoinButton=false;
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
@@ -45,7 +52,7 @@ public class Titlescreen {
         timeCount=0;
     }
     
-    static void drawMenu(int mousePos [],Main m, String host){
+    static void drawMenu(int mousePos [],Main m){
         //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
@@ -54,7 +61,7 @@ public class Titlescreen {
         else if (singleActive)
         { drawSingle(x, y, m); }
         else if (multiActive)
-        { drawMulti(x, y, m, host); }
+        { drawMulti(x, y, m); }
     }
     
     static private void drawMain(int x, int y, Main m) {
@@ -116,34 +123,24 @@ public class Titlescreen {
     }
     
     static private void drawSingle(int x, int y, Main m) {
-        System.out.println("In drawSingle");
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
     }
     
-    static private void drawMulti(int x, int y, Main m, String host) {
-        
-        
-        
-        
+    static private void drawMulti(int x, int y, Main m) {
         g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        //g.drawString("Enemies IP Address:", 50, 450);
-        //g.draw3DRect(260, 430, 120, 30, true);
-        
         try {
             g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
             g.setColor(Color.white);
-            g.drawString(InetAddress.getLocalHost().getHostAddress(), 270, 490);
-            g.drawString(host, 270, 580);
+            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
+            g.drawString(Connect.getHost(), 261, 580);
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
         
-        //Home screen hitbox
-        if(x>13 && x<111 && y>730 && y<783){
-            multiActive=false;
-            mainActive=true;
-        }
+        // home button detection
+        if(x>13 && x<111 && y>730 && y<783)
+        { onHomeButton = true; }
         
         //HOST BUTTON
         else if(x>256 && x<430 && y>666 && y<760){
@@ -152,6 +149,7 @@ public class Titlescreen {
                 whichButton=1;
             }
         }
+        
         //JOIN BUTTON
         else if(x>477 && x<649 && y>666 && y<760){
             if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=2){
@@ -159,16 +157,13 @@ public class Titlescreen {
                 whichButton=2;
             }
         }
-        
-        
-                 
-     
     }
     
     static public void pressedButton() {
         if (onFirstButton) { onFirstButton = false; activateFirstButton(); }
         else if (onSecondButton) { onSecondButton = false; activateSecondButton(); }
         else if (onThirdButton) { onThirdButton = false; activateThirdButton(); }
+        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; }
     }
     
     static private void activateFirstButton() {

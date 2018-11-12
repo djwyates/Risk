@@ -51,7 +51,7 @@ public class ServerHandler
         pw = null;
         br = null;
         connected = false;
-        Main.gameStarted = false;
+        Connect.setGameStarted(false);
         Main.reset();
     }
     

@@ -58,7 +58,7 @@ public class ClientHandler
 		out = null;
 		br = null;
 		connected = false;
-		Main.gameStarted = false;
+		Connect.setGameStarted(false);
 		Main.reset();
 	}
     public static void sendInfo()
