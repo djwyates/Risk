@@ -25,6 +25,7 @@ public class Titlescreen {
     static private Image muteImage;
     static private Sound menuMusic = null;
     static private Sound buttonSound = null;
+    static private Image e;
     static private boolean mute=false;
     static int timeCount = 0;
     
@@ -37,7 +38,7 @@ public class Titlescreen {
         onHostButton=false;
         onJoinButton=false;
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
-        multiImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
+        multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         menuMusic=new Sound("titlemusic.wav");
@@ -60,7 +61,7 @@ public class Titlescreen {
     
     static private void drawMain(int x, int y, Main m) {
         // Draw backgroung and set font
-        //g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(muteImage,760,760,20,20,m);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
@@ -121,15 +122,22 @@ public class Titlescreen {
     }
     
     static private void drawMulti(int x, int y, Main m) {
+        g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         try {
-            g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, 30));
-            g.setColor(Color.orange);
-            g.drawString("YOUR IP ADDRESS: " + InetAddress.getLocalHost().getHostAddress(), 50, 450);
-            g.drawString("ENTER ENEMY'S IP ADDRESS: " + Connect.getHost(), 50, 500);
+            g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
+            g.setColor(Color.white);
+            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 496);
+            g.drawString(Connect.getHost(), 261, 580);
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
+        
+        //Home screen hitbox
+        if(x>13 && x<111 && y>730 && y<783){
+            multiActive=false;
+            mainActive=true;
+        }
     }
     
     static public void pressedButton() {

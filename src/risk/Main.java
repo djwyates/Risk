@@ -41,6 +41,8 @@ public class Main extends JFrame implements Runnable
                 else if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Titlescreen.getMute()==true)
                     Titlescreen.setMute(false);
                 
+                System.out.println(e.getX() +"        " + e.getY());
+                
                 
                 repaint();
             }
@@ -143,6 +145,9 @@ public class Main extends JFrame implements Runnable
                             if(Connect.getHost().length() > 0)
                                 Connect.deleteFromHost();
                         }
+                        
+                        if(Connect.getHost().length()>20)
+                            Connect.deleteFromHost();
                     }
                 }
                 
