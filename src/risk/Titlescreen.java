@@ -5,8 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import static risk.Main.g;
 import java.net.*;
+import static risk.Main.gameStarted;
+import static risk.Main.isClient;
+import static risk.Main.isConnecting;
 
 public class Titlescreen {
     static private boolean mainActive;
@@ -16,6 +20,8 @@ public class Titlescreen {
     static private boolean onFirstButton;
     static private boolean onSecondButton;
     static private boolean onThirdButton;
+    static private boolean onHostButton;
+    static private boolean onJoinButton;
     static private Image mainImage;
     static private Image multiImage;
     static private Image emberImage;
@@ -24,6 +30,7 @@ public class Titlescreen {
     static private sound buttonSound = null;
     static private boolean mute=false;
     static int timeCount = 0;
+    static final int PORT_NUMBER = 5657;
     
     static void reset(){
         mainActive=true;
@@ -31,6 +38,8 @@ public class Titlescreen {
         onFirstButton=false;
         onSecondButton=false;
         onThirdButton=false;
+        onHostButton=false;
+        onJoinButton=false;
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
@@ -112,18 +121,11 @@ public class Titlescreen {
     }
     
     static private void drawSingle(int x, int y, Main m) {
-        System.out.println("In drawSingle");
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
     }
     
     static private void drawMulti(int x, int y, Main m, String host) {
-        
-   
-          
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        //g.drawString("Enemies IP Address:", 50, 450);
-        //g.draw3DRect(260, 430, 120, 30, true);
-        
         try {
             g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, 30));
             g.setColor(Color.orange);
@@ -132,8 +134,6 @@ public class Titlescreen {
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
-                 
-     
     }
     
     static public void pressedButton() {
@@ -156,6 +156,51 @@ public class Titlescreen {
     
     static private void activateThirdButton()
     { System.exit(0); }
+    
+    static private void hostGame() {
+        if (!isConnecting)
+        {
+            try {
+                isConnecting = true;
+                System.out.println("is connecting true");
+                ServerHandler.recieveConnect(PORT_NUMBER);
+                System.out.println("after recieveConnect");
+                if (ServerHandler.connected)
+                {
+                    isClient = false;
+                    gameStarted = true;
+                    isConnecting = false;
+                }
+            }
+            catch (IOException ex)
+            {
+                System.out.println("Cannot host server: " + ex.getMessage());
+                isConnecting = false;
+            }
+        }
+    }
+    
+    static private void connectToGame(String host) {
+        if (!isConnecting)
+        {                   
+                try
+                {                 
+                    isConnecting = true;
+                    ClientHandler.connect(host, PORT_NUMBER);
+                    if (ClientHandler.connected)
+                    {
+                        isClient = true;
+                        gameStarted = true;
+                        isConnecting = false;
+                    }
+                }
+                catch (IOException ex)
+                {
+                    System.out.println("Cannot join server: " + ex.getMessage());
+                    isConnecting = false;
+                }                    
+        }
+    }
     
     static public void checkMusicLoop() {
         if (!mute && menuMusic.donePlaying)
