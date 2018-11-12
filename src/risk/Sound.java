@@ -6,11 +6,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
-class sound implements Runnable {
+class Sound implements Runnable {
     Thread myThread;
     File soundFile;
     public boolean donePlaying = false;
-    sound(String _name)
+    Sound(String _name)
     {
         soundFile = new File(_name);
         myThread = new Thread(this);
