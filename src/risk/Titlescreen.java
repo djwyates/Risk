@@ -135,10 +135,7 @@ public class Titlescreen {
             g.drawString(host, 261, 580);
         }
         catch (UnknownHostException e)
-        { e.printStackTrace();
-            multiActive=false;
-            mainActive=true;
-        }
+        { e.printStackTrace(); }
     }
     
     static public void pressedButton() {
