@@ -111,14 +111,35 @@ public class Main extends JFrame implements Runnable
                             Connect.addToHost("8");
                         else if (e.getKeyCode() == KeyEvent.VK_9)
                             Connect.addToHost("9");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
+                            Connect.addToHost("0");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1)
+                            Connect.addToHost("1");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD2)
+                            Connect.addToHost("2");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3)
+                            Connect.addToHost("3");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4)
+                            Connect.addToHost("4");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5)
+                            Connect.addToHost("5");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6)
+                            Connect.addToHost("6");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7)
+                            Connect.addToHost("7");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD8)
+                            Connect.addToHost("8");
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9)
+                            Connect.addToHost("9");
                         else if (e.getKeyCode() == KeyEvent.VK_PERIOD)
+                            Connect.addToHost(".");
+                        else if (e.getKeyCode() == KeyEvent.VK_DECIMAL)
                             Connect.addToHost(".");
                         else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                             if(Connect.getHost().length() > 0)
                                 Connect.deleteFromHost();
                         }
-                        
-                        if(Connect.getHost().length()>15)
+                        if(Connect.getHost().length()>19)
                             Connect.deleteFromHost();
                     }
                 }
