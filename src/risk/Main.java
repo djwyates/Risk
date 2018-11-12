@@ -43,7 +43,6 @@ public class Main extends JFrame implements Runnable
                 
                 System.out.println(e.getX() +"        " + e.getY());
                 
-                
                 repaint();
             }
         });
@@ -54,18 +53,14 @@ public class Main extends JFrame implements Runnable
             public void mouseReleased(MouseEvent e)
             {
                 if (e.BUTTON1 == e.getButton())
-                {
                     Titlescreen.pressedButton();
-                }
                 repaint();
             }
         });
         
        
-        addMouseMotionListener(new MouseMotionAdapter()
-        {
-            public void mouseDragged(MouseEvent e)
-            {
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
                 repaint();
             }
         });
@@ -97,56 +92,33 @@ public class Main extends JFrame implements Runnable
                     if (!Connect.gameStarted())
                     {
                         if (e.getKeyCode() == KeyEvent.VK_0)
-                        {
                             Connect.addToHost("0");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_1)
-                        {
                             Connect.addToHost("1");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_2)
-                        {
                             Connect.addToHost("2");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_3)
-                        {
                             Connect.addToHost("3");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_4)
-                        {
                             Connect.addToHost("4");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_5)
-                        {
                             Connect.addToHost("5");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_6)
-                        {
                             Connect.addToHost("6");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_7)
-                        {
                             Connect.addToHost("7");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_8)
-                        {
                             Connect.addToHost("8");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_9)
-                        {
                             Connect.addToHost("9");
-                        }
                         else if (e.getKeyCode() == KeyEvent.VK_PERIOD)
-                        {
                             Connect.addToHost(".");
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                        {
+                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                             if(Connect.getHost().length() > 0)
                                 Connect.deleteFromHost();
                         }
                         
-                        if(Connect.getHost().length()>20)
+                        if(Connect.getHost().length()>15)
                             Connect.deleteFromHost();
                     }
                 }
@@ -330,9 +302,4 @@ public class Main extends JFrame implements Runnable
         }
         relaxer = null;
     }
-    
-    
-
-
-    
 }

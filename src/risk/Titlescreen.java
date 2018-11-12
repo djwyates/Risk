@@ -17,6 +17,7 @@ public class Titlescreen {
     static private boolean onFirstButton;
     static private boolean onSecondButton;
     static private boolean onThirdButton;
+    static private boolean onHomeButton;
     static private boolean onHostButton;
     static private boolean onJoinButton;
     static private Image mainImage;
@@ -35,6 +36,7 @@ public class Titlescreen {
         onFirstButton=false;
         onSecondButton=false;
         onThirdButton=false;
+        onHomeButton=false;
         onHostButton=false;
         onJoinButton=false;
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
@@ -134,16 +136,15 @@ public class Titlescreen {
         { e.printStackTrace(); }
         
         //Home screen hitbox
-        if(x>13 && x<111 && y>730 && y<783){
-            multiActive=false;
-            mainActive=true;
-        }
+        if(x>13 && x<111 && y>730 && y<783)
+        { onHomeButton = true; }
     }
     
     static public void pressedButton() {
         if (onFirstButton) { onFirstButton = false; activateFirstButton(); }
         else if (onSecondButton) { onSecondButton = false; activateSecondButton(); }
         else if (onThirdButton) { onThirdButton = false; activateThirdButton(); }
+        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; }
     }
     
     static private void activateFirstButton() {
