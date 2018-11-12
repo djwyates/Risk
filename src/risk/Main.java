@@ -178,6 +178,50 @@ public class Main extends JFrame implements Runnable
                         {
                             host += "9";
                         }
+                        if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
+                        {
+                            host += "0";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
+                        {
+                            host += "0";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1)
+                        {
+                            host += "1";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD2)
+                        {
+                            host += "2";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3)
+                        {
+                            host += "3";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4)
+                        {
+                            host += "4";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5)
+                        {
+                            host += "5";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6)
+                        {
+                            host += "6";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7)
+                        {
+                            host += "7";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD8)
+                        {
+                            host += "8";
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9)
+                        {
+                            host += "9";
+                        }
                         else if (e.getKeyCode() == KeyEvent.VK_PERIOD)
                         {
                             host += ".";
@@ -188,7 +232,7 @@ public class Main extends JFrame implements Runnable
                                 host=host.substring(0, host.length()-1);
                         }
                         
-                        if(host.length()>20){
+                        if(host.length()>19){
                             host=host.substring(0, host.length()-1);
                         }
                     }
