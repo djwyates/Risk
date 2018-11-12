@@ -13,11 +13,6 @@ public class Main extends JFrame implements Runnable
 {
     public static Image image;
     public static Graphics2D g;
-    final int portNumber = 5657;
-    public static boolean gameStarted = false;
-    String host = new String();
-    public static boolean isConnecting = false;
-    public static boolean isClient;
 
     Thread relaxer;
     int mousePos []= new int[2];
@@ -48,7 +43,6 @@ public class Main extends JFrame implements Runnable
                 
                 System.out.println(e.getX() +"        " + e.getY());
                 
-                
                 repaint();
             }
         });
@@ -59,18 +53,14 @@ public class Main extends JFrame implements Runnable
             public void mouseReleased(MouseEvent e)
             {
                 if (e.BUTTON1 == e.getButton())
-                {
                     Titlescreen.pressedButton();
-                }
                 repaint();
             }
         });
         
        
-        addMouseMotionListener(new MouseMotionAdapter()
-        {
-            public void mouseDragged(MouseEvent e)
-            {
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
                 repaint();
             }
         });
@@ -91,154 +81,49 @@ public class Main extends JFrame implements Runnable
             {
                 if (e.getKeyCode() == KeyEvent.VK_Q)
                 {
-                    if (!isConnecting)
-                    {
-                        try {
-                            isConnecting = true;
-                            System.out.println("is connecting true");
-                            ServerHandler.recieveConnect(portNumber);   //5657
-                            System.out.println("after recieveConnect");
-                            if (ServerHandler.connected)
-                            {
-                                isClient = false;
-                                gameStarted = true;
-                                isConnecting = false;
-                            }
-                        }
-                        catch (IOException ex)
-                        {
-                            System.out.println("Cannot host server: " + ex.getMessage());
-                            isConnecting = false;
-                        }                       
-                    }
+                    
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_C)
                 {
-                    if (!isConnecting)
-                    {                   
-                            try
-                            {                 
-                                isConnecting = true;
-                                ClientHandler.connect(host, portNumber);
-                                if (ClientHandler.connected)
-                                {
-                                    isClient = true;
-                                    gameStarted = true;
-                                    isConnecting = false;
-                                }
-                            }
-                            catch (IOException ex)
-                            {
-                                System.out.println("Cannot join server: " + ex.getMessage());
-                                isConnecting = false;
-                            }                    
-                    }
+                    
                 }
                 else
                 {
-                    if (!gameStarted)
+                    if (!Connect.gameStarted())
                     {
                         if (e.getKeyCode() == KeyEvent.VK_0)
-                        {
-                            host += "0";
-                        }
+                            Connect.addToHost("0");
                         else if (e.getKeyCode() == KeyEvent.VK_1)
-                        {
-                            host += "1";
-                        }
+                            Connect.addToHost("1");
                         else if (e.getKeyCode() == KeyEvent.VK_2)
-                        {
-                            host += "2";
-                        }
+                            Connect.addToHost("2");
                         else if (e.getKeyCode() == KeyEvent.VK_3)
-                        {
-                            host += "3";
-                        }
+                            Connect.addToHost("3");
                         else if (e.getKeyCode() == KeyEvent.VK_4)
-                        {
-                            host += "4";
-                        }
+                            Connect.addToHost("4");
                         else if (e.getKeyCode() == KeyEvent.VK_5)
-                        {
-                            host += "5";
-                        }
+                            Connect.addToHost("5");
                         else if (e.getKeyCode() == KeyEvent.VK_6)
-                        {
-                            host += "6";
-                        }
+                            Connect.addToHost("6");
                         else if (e.getKeyCode() == KeyEvent.VK_7)
-                        {
-                            host += "7";
-                        }
+                            Connect.addToHost("7");
                         else if (e.getKeyCode() == KeyEvent.VK_8)
-                        {
-                            host += "8";
-                        }
+                            Connect.addToHost("8");
                         else if (e.getKeyCode() == KeyEvent.VK_9)
-                        {
-                            host += "9";
-                        }
-                        if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
-                        {
-                            host += "0";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
-                        {
-                            host += "0";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1)
-                        {
-                            host += "1";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD2)
-                        {
-                            host += "2";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3)
-                        {
-                            host += "3";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4)
-                        {
-                            host += "4";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5)
-                        {
-                            host += "5";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6)
-                        {
-                            host += "6";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7)
-                        {
-                            host += "7";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD8)
-                        {
-                            host += "8";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9)
-                        {
-                            host += "9";
-                        }
+                            Connect.addToHost("9");
                         else if (e.getKeyCode() == KeyEvent.VK_PERIOD)
-                        {
-                            host += ".";
-                        }
-                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-                        {
-                            if(host.length() > 0)
-                                host=host.substring(0, host.length()-1);
+                            Connect.addToHost(".");
+                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                            if(Connect.getHost().length() > 0)
+                                Connect.deleteFromHost();
                         }
                         
-                        if(host.length()>19){
-                            host=host.substring(0, host.length()-1);
-                        }
+                        if(Connect.getHost().length()>15)
+                            Connect.deleteFromHost();
                     }
                 }
                 
-                if (gameStarted)
+                if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
                     }
@@ -255,7 +140,7 @@ public class Main extends JFrame implements Runnable
             
             public void keyReleased(KeyEvent e)
             {  
-                if (gameStarted)
+                if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
                     }
@@ -304,7 +189,7 @@ public class Main extends JFrame implements Runnable
         
         
         if(Titlescreen.isActive()){
-            Titlescreen.drawMenu(mousePos, this, host);
+            Titlescreen.drawMenu(mousePos, this);
         }
         
         
@@ -315,7 +200,7 @@ public class Main extends JFrame implements Runnable
 //            g.drawString("Not Connected",100,150);
 //            
 //        }
-        else if (isClient)
+        else if (Connect.isClient())
         {
             g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
             g.setColor(Color.black);
@@ -417,9 +302,4 @@ public class Main extends JFrame implements Runnable
         }
         relaxer = null;
     }
-    
-    
-
-
-    
 }
