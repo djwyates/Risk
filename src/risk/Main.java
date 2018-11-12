@@ -46,6 +46,8 @@ public class Main extends JFrame implements Runnable
                 else if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Titlescreen.getMute()==true)
                     Titlescreen.setMute(false);
                 
+                System.out.println(e.getX() +"        " + e.getY());
+                
                 
                 repaint();
             }
@@ -184,6 +186,10 @@ public class Main extends JFrame implements Runnable
                         {
                             if(host.length() > 0)
                                 host=host.substring(0, host.length()-1);
+                        }
+                        
+                        if(host.length()>20){
+                            host=host.substring(0, host.length()-1);
                         }
                     }
                 }

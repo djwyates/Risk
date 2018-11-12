@@ -20,6 +20,7 @@ public class Titlescreen {
     static private Image multiImage;
     static private Image emberImage;
     static private Image muteImage;
+    static private Image e;
     static private sound menuMusic = null;
     static private sound buttonSound = null;
     static private boolean mute=false;
@@ -32,7 +33,7 @@ public class Titlescreen {
         onSecondButton=false;
         onThirdButton=false;
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
-        multiImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
+        multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         menuMusic=new sound("titlemusic.wav");
@@ -55,7 +56,7 @@ public class Titlescreen {
     
     static private void drawMain(int x, int y, Main m) {
         // Draw backgroung and set font
-        //g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(muteImage,760,760,20,20,m);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
@@ -119,16 +120,17 @@ public class Titlescreen {
     static private void drawMulti(int x, int y, Main m, String host) {
         
    
-          
+        
+        g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         //g.drawString("Enemies IP Address:", 50, 450);
         //g.draw3DRect(260, 430, 120, 30, true);
         
         try {
-            g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, 30));
-            g.setColor(Color.orange);
-            g.drawString("YOUR IP ADDRESS: " + InetAddress.getLocalHost().getHostAddress(), 50, 450);
-            g.drawString("ENTER ENEMY'S IP ADDRESS: " + host, 50, 500);
+            g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
+            g.setColor(Color.white);
+            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 496);
+            g.drawString(host, 261, 580);
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
