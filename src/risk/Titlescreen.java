@@ -134,6 +134,10 @@ public class Titlescreen {
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
+        if(x>13 && x<111 && y>730 && y<783){
+            multiActive=false;
+            mainActive=true;
+        }
                  
      
     }
