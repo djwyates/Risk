@@ -148,6 +148,8 @@ public class Titlescreen {
                 multiButtonSound=new Sound("multiButtonCheer.wav");
                 whichButton=1;
             }
+            onHostButton = true;
+            
         }
         
         // join button detection
@@ -156,14 +158,18 @@ public class Titlescreen {
                 multiButtonSound=new Sound("multiButtonCheer.wav");
                 whichButton=2;
             }
+            onJoinButton = true;
+            
         }
     }
     
     static public void pressedButton() {
-        if (onFirstButton) { onFirstButton = false; activateFirstButton(); }
-        else if (onSecondButton) { onSecondButton = false; activateSecondButton(); }
-        else if (onThirdButton) { onThirdButton = false; activateThirdButton(); }
-        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; }
+        if (onFirstButton) { onFirstButton = false; activateFirstButton(); } //Home singleplayer button
+        else if (onSecondButton) { onSecondButton = false; activateSecondButton(); } //Home multiplayer button
+        else if (onThirdButton) { onThirdButton = false; activateThirdButton(); } //Home exit button
+        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; } //Multiplayer home button
+        else if (onHostButton){onHostButton=false;Connect.hostGame();} //Multiplayer host button
+        else if(onJoinButton){onJoinButton=false;Connect.connectToGame();} //Multiplayer join button
     }
     
     static private void activateFirstButton() {

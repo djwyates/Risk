@@ -21,6 +21,7 @@ public class Connect {
                     isClient = false;
                     gameStarted = true;
                     isConnecting = false;
+                    System.out.println("Connected as server");
                 }
             }
             catch (IOException ex) {
@@ -39,6 +40,7 @@ public class Connect {
                         isClient = true;
                         gameStarted = true;
                         isConnecting = false;
+                        System.out.println("Connected as client");
                     }
                 }
                 catch (IOException ex) {
