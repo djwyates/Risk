@@ -134,6 +134,8 @@ public class Titlescreen {
         }
         catch (UnknownHostException e)
         { e.printStackTrace(); }
+        
+        //Home screen hitbox
         if(x>13 && x<111 && y>730 && y<783){
             multiActive=false;
             mainActive=true;
