@@ -36,10 +36,10 @@ public class Main extends JFrame implements Runnable
             {
                 e.getX();
                 e.getY();
-                if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Titlescreen.getMute()==false)
-                    Titlescreen.setMute(true);
-                else if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Titlescreen.getMute()==true)
-                    Titlescreen.setMute(false);
+                if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Sound.getMute()==false)
+                    Sound.muteAllSounds();
+                else if(e.getX()>760 && e.getX()<800 && e.getY()>760 && e.getY()<800 && Sound.getMute()==true)
+                    Sound.unmute();
                 
                 System.out.println(e.getX() +"        " + e.getY());
                 
@@ -288,7 +288,6 @@ public class Main extends JFrame implements Runnable
 
     public void animate()
     {
-
         if (Window.animateFirstTime)
         {
             Window.animateFirstTime = false;

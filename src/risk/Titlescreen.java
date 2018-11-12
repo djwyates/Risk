@@ -24,13 +24,12 @@ public class Titlescreen {
     static private Image multiImage;
     static private Image emberImage;
     static private Image muteImage;
-    static private Sound menuMusic = null;
+    static private Sound menuSounds = null;
     static private Sound buttonSound = null;
     static private Image e;
     //MULTIPLAYER SOUNDS
     static private Sound multiButtonSound = null;
     static private int whichButton=0;
-    static private boolean mute=false;
     static int timeCount = 0;
     
     static void reset(){
@@ -46,8 +45,11 @@ public class Titlescreen {
         multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
-        menuMusic=new Sound("titlemusic.wav");
-        mute=false;
+        menuSounds=new Sound();
+        menuSounds.addSound("titlemusic.wav");
+        menuSounds.addSound("swordClashTitleScreen.wav");
+        menuSounds.addSound("multiButtonCheer.wav");
+        menuSounds.play("titlemusic.wav");
         
         timeCount=0;
     }
@@ -71,16 +73,10 @@ public class Titlescreen {
         g.drawImage(muteImage,760,760,20,20,m);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
-        if(mute)
-            menuMusic=null;
-        else if(menuMusic==null)
-            menuMusic=new Sound("titlemusic.wav");
-        
         // Singleplayer button
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(onFirstButton==false && !mute){
-                buttonSound=new Sound("swordClashTitleScreen.wav");
-            }
+            if(onFirstButton==false)
+                menuSounds.play("swordClashTitleScreen.wav");
             onFirstButton = true;
             g.setColor(Color.white);
             
@@ -92,9 +88,8 @@ public class Titlescreen {
         
         // Multiplayer button
         if((x>280&&x<483&&y>520&&y<595)) {
-            if(onSecondButton==false && !mute){
-                buttonSound=new Sound("swordClashTitleScreen.wav");
-            }
+            if(onSecondButton==false)
+                menuSounds.play("swordClashTitleScreen.wav");
             onSecondButton = true;
             g.setColor(Color.white);
         } else {
@@ -105,9 +100,8 @@ public class Titlescreen {
         
         // Exit button
         if(x>280 && x<483 && y>620 && y<700) {
-            if(onThirdButton==false && !mute){
-                buttonSound=new Sound("swordClashTitleScreen.wav");
-            }
+            if(onThirdButton==false)
+                menuSounds.play("swordClashTitleScreen.wav");
             onThirdButton = true;
             g.setColor(Color.white);
         } else {
@@ -145,7 +139,7 @@ public class Titlescreen {
         // host button detection
         else if(x>256 && x<430 && y>666 && y<760){
             if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=1){
-                multiButtonSound=new Sound("multiButtonCheer.wav");
+                menuSounds.play("multiButtonCheer.wav");
                 whichButton=1;
             }
         }
@@ -153,7 +147,7 @@ public class Titlescreen {
         // join button detection
         else if(x>477 && x<649 && y>666 && y<760){
             if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=2){
-                multiButtonSound=new Sound("multiButtonCheer.wav");
+                menuSounds.play("multiButtonCheer.wav");
                 whichButton=2;
             }
         }
@@ -181,17 +175,9 @@ public class Titlescreen {
     static private void activateThirdButton()
     { System.exit(0); }
     
-    static public void checkMusicLoop() {
-        if (!mute && menuMusic.donePlaying)
-            menuMusic = new Sound("titlemusic.wav");
-    }
-    
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }
     
-    static boolean getMute()
-    { return mute; }
-    
-    static void setMute(boolean m)
-    { mute=m; menuMusic.myThread.stop(); }
+    static public void checkMusicLoop()
+    { menuSounds.checkMusicLoop(); }
 }
