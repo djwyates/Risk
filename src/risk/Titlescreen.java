@@ -142,7 +142,7 @@ public class Titlescreen {
         if(x>13 && x<111 && y>730 && y<783)
         { onHomeButton = true; }
         
-        //HOST BUTTON
+        // host button detection
         else if(x>256 && x<430 && y>666 && y<760){
             if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=1){
                 multiButtonSound=new Sound("multiButtonCheer.wav");
@@ -150,7 +150,7 @@ public class Titlescreen {
             }
         }
         
-        //JOIN BUTTON
+        // join button detection
         else if(x>477 && x<649 && y>666 && y<760){
             if((multiButtonSound==null || multiButtonSound.donePlaying)&& whichButton!=2){
                 multiButtonSound=new Sound("multiButtonCheer.wav");
@@ -193,5 +193,5 @@ public class Titlescreen {
     { return mute; }
     
     static void setMute(boolean m)
-    { mute=m; }
+    { mute=m; menuMusic.myThread.stop(); }
 }
