@@ -23,9 +23,6 @@ class SoundManager {
     public void addSound(String name) {
         Sound sound = new Sound(name);
         sounds.put(name, sound);
-
-        if (name.equalsIgnoreCase("titlemusic.wav"))
-            titleMusic = sound;
     }
     
     static public void toggleMute() {
