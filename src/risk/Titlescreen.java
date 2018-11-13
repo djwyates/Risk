@@ -3,8 +3,13 @@ package risk;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static risk.Main.g;
 import java.net.*;
@@ -59,7 +64,7 @@ public class Titlescreen {
         timeCount=0;
     }
     
-    static void drawMenu(int mousePos [],Main m){
+    static void drawMenu(int mousePos [],Main m) throws FontFormatException, IOException{
         //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
@@ -80,7 +85,6 @@ public class Titlescreen {
             g.drawImage(speakerOn,760,760,20,20,m);
         else
             g.drawImage(speakerOff,760,760,20,20,m);
-        System.out.println(mute);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
         // Singleplayer button detection & sound effect
@@ -121,7 +125,7 @@ public class Titlescreen {
         g.drawString("Exit", 360, 665);
         
         // Mute button detection
-        if(x>760 && x<800 && y>760 && y<800) {
+        if(x>740 && x<800 && y>740 && y<800) {
             onMuteButton = true;
         } else {
             onMuteButton = false;
@@ -136,7 +140,7 @@ public class Titlescreen {
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
     }
     
-    static private void multiHandler(int x, int y, Main m) {
+    static private void multiHandler(int x, int y, Main m) throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         if(!mute)
@@ -144,7 +148,7 @@ public class Titlescreen {
         else
             g.drawImage(speakerOff,760,760,20,20,m);
         try {
-            g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
+            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Allan.ttf"))).deriveFont(Font.PLAIN,45));
             g.setColor(Color.white);
             g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
             g.drawString(Connect.getHost(), 261, 580);
@@ -170,8 +174,8 @@ public class Titlescreen {
         else
         { onJoinButton = false; }
         
-        
-        if(x>760 && x<800 && y>760 && y<800) 
+        // Mute button detection
+        if(x>740 && x<800 && y>740 && y<800) 
         {onMuteButton = true;} 
         else 
         {onMuteButton = false;}

@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends JFrame implements Runnable
 {
@@ -206,7 +208,13 @@ public class Main extends JFrame implements Runnable
         
         
         if(Titlescreen.isActive()){
-            Titlescreen.drawMenu(mousePos, this);
+            try  {
+                Titlescreen.drawMenu(mousePos, this);
+            } catch (FontFormatException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
