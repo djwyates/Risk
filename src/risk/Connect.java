@@ -53,8 +53,11 @@ public class Connect {
     static public void addToHost (String character)
     { host += character; }
     
-    static public void deleteFromHost()
+    static public void deleteCharFromHost()
     {  host = host.substring(0, host.length()-1); }
+    
+    static public void deleteAllCharsFromHost()
+    { host = ""; }
     
     static public String getHost()
     { return(host); }

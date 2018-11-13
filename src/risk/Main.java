@@ -133,10 +133,10 @@ public class Main extends JFrame implements Runnable
                             Connect.addToHost(".");
                         else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                             if(Connect.getHost().length() > 0)
-                                Connect.deleteFromHost();
+                                Connect.deleteCharFromHost();
                         }
                         if(Connect.getHost().length()>19)
-                            Connect.deleteFromHost();
+                            Connect.deleteCharFromHost();
                     }
                 }
                 

@@ -14,9 +14,9 @@ public class Titlescreen {
     static private boolean singleActive;
     static private boolean multiActive;
     static private int fontSize;
-    static private boolean onFirstButton;
-    static private boolean onSecondButton;
-    static private boolean onThirdButton;
+    static private boolean onSingleButton;
+    static private boolean onMultiButton;
+    static private boolean onExitButton;
     static private boolean onHomeButton;
     static private boolean onHostButton;
     static private boolean onJoinButton;
@@ -35,9 +35,9 @@ public class Titlescreen {
     static void reset(){
         mainActive=true;
         fontSize=20;
-        onFirstButton=false;
-        onSecondButton=false;
-        onThirdButton=false;
+        onSingleButton=false;
+        onMultiButton=false;
+        onExitButton=false;
         onHomeButton=false;
         onHostButton=false;
         onJoinButton=false;
@@ -62,53 +62,52 @@ public class Titlescreen {
         //if (isActive())
         //    menuSounds.loop("titlemusic.wav");
         if (mainActive)
-        { drawMain(x, y, m); }
+        { mainHandler(x, y, m); }
         else if (singleActive)
-        { drawSingle(x, y, m); }
+        { singleHandler(x, y, m); }
         else if (multiActive)
-        { drawMulti(x, y, m); }
+        { multiHandler(x, y, m); }
     }
     
-    static private void drawMain(int x, int y, Main m) {
-        // Draw backgroung and set font
-        
+    static private void mainHandler(int x, int y, Main m) {
+        // Draw main
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(muteImage,760,760,20,20,m);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
-        // Singleplayer button detection
+        // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(onFirstButton==false) {
+            if(onSingleButton==false) {
                 menuSounds.play("swordClashTitleScreen.wav");
             }
-            onFirstButton = true;
+            onSingleButton = true;
             g.setColor(Color.white);
         } else {
-            onFirstButton = false;
+            onSingleButton = false;
             g.setColor(Color.red);
         }
         g.drawString("Singleplayer", 320, 450);
         
-        // Multiplayer button detection
+        // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
-            if(onSecondButton==false)
+            if(onMultiButton==false)
                 menuSounds.play("swordClashTitleScreen.wav");
-            onSecondButton = true;
+            onMultiButton = true;
             g.setColor(Color.white);
         } else {
-            onSecondButton = false;
+            onMultiButton = false;
             g.setColor(Color.red);
         }
         g.drawString("Multiplayer", 320, 560);
         
-        // Exit button detection
+        // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
-            if(onThirdButton==false)
+            if(onExitButton==false)
                 menuSounds.play("swordClashTitleScreen.wav");
-            onThirdButton = true;
+            onExitButton = true;
             g.setColor(Color.white);
         } else {
-            onThirdButton = false;
+            onExitButton = false;
             g.setColor(Color.red);
         }
         g.drawString("Exit", 360, 665);
@@ -125,11 +124,11 @@ public class Titlescreen {
         //System.out.println(timeCount);
     }
     
-    static private void drawSingle(int x, int y, Main m) {
+    static private void singleHandler(int x, int y, Main m) {
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
     }
     
-    static private void drawMulti(int x, int y, Main m) {
+    static private void multiHandler(int x, int y, Main m) {
         g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         try {
@@ -161,10 +160,10 @@ public class Titlescreen {
     }
     
     static public void pressedButton() {
-        if (onFirstButton) { onFirstButton = false; activateFirstButton(); }
-        else if (onSecondButton) { onSecondButton = false; activateSecondButton(); }
-        else if (onThirdButton) { onThirdButton = false; activateThirdButton(); }
-        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; }
+        if (onSingleButton) { onSingleButton = false; activateFirstButton(); }
+        else if (onMultiButton) { onMultiButton = false; activateSecondButton(); }
+        else if (onExitButton) { onExitButton = false; activateThirdButton(); }
+        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; Connect.deleteAllCharsFromHost(); }
         else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.hostGame();
         else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.connectToGame();
         else if (onMuteButton) { SoundManager.toggleMute(); }
