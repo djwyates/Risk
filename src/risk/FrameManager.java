@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 
-public class Main extends JFrame implements Runnable
+public class FrameManager extends JFrame implements Runnable
 {
     public static Image image;
     public static Graphics2D g;
@@ -20,19 +20,24 @@ public class Main extends JFrame implements Runnable
 
     public static void main(String[] args)
     {
-        Main frame = new Main();
-        frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+        FrameManager frame = new FrameManager();
+        frame.setSize(Window.MENU_WINDOW_WIDTH, Window.MAIN_WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Risk");
         frame.setResizable(true);
     }    
-      public static void main()
+      public static void addWindow(int width, int height)
     {
+<<<<<<< HEAD:src/risk/Main.java
        
         Main frame = new Main();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+=======
+        FrameManager frame = new FrameManager();
+        frame.setSize(width, height);
+>>>>>>> 1cc9b210b8865d8e39d0b049495a6c1ae7ac23cf:src/risk/FrameManager.java
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -41,7 +46,7 @@ public class Main extends JFrame implements Runnable
     }    
     
      
-    public Main()
+    public FrameManager()
     {
         addMouseListener(new MouseAdapter()
         {
