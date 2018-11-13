@@ -52,7 +52,7 @@ public class ServerHandler
         br = null;
         connected = false;
         Connect.setGameStarted(false);
-        Main.reset();
+        FrameManager.reset();
     }
     
     

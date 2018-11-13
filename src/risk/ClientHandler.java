@@ -59,7 +59,7 @@ public class ClientHandler
 		br = null;
 		connected = false;
 		Connect.setGameStarted(false);
-		Main.reset();
+		FrameManager.reset();
 	}
     public static void sendInfo()
     {

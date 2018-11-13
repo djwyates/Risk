@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 
-public class Main extends JFrame implements Runnable
+public class FrameManager extends JFrame implements Runnable
 {
     public static Image image;
     public static Graphics2D g;
@@ -20,15 +20,27 @@ public class Main extends JFrame implements Runnable
 
     public static void main(String[] args)
     {
-        Main frame = new Main();
-        frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+        FrameManager frame = new FrameManager();
+        frame.setSize(Window.MENU_WINDOW_WIDTH, Window.MAIN_WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Risk");
         frame.setResizable(true);
     }    
-    public Main()
+      public static void addWindow(int width, int height)
+    {
+        FrameManager frame = new FrameManager();
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("Risk");
+        frame.setResizable(true);
+    }    
+    
+     
+    public FrameManager()
     {
         addMouseListener(new MouseAdapter()
         {
