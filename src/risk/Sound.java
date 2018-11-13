@@ -2,85 +2,56 @@
 package risk;
 
 import java.io.File;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.*;
 
-public class Sound implements Runnable {
-    private Thread myThread = null;
+public class Sound {
     private File soundFile = null;
     private boolean mute = false;
-    private boolean donePlaying = false;
-    private boolean playing = false;
-    
+    AudioInputStream stream = null;
+    AudioFormat format = null;
+    DataLine.Info info = null;
+    Clip clip = null;
+
     Sound(String name) {
         soundFile = new File(name);
     }
-    
-    public void play() {
-        myThread = new Thread(this);
-        if (!mute) {
-            myThread.start();
-            playing = true;
-        }
-    }
-    
-    public void run() {
-        try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
-            AudioFormat format = ais.getFormat();
-            // System.out.println("Format: " + format);
-            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-            SourceDataLine source = (SourceDataLine) AudioSystem.getLine(info);
-            source.open(format);
-            source.start();
-            int read = 0;
-            byte[] audioData = new byte[16384];
-            while (read > -1){
-                read = ais.read(audioData,0,audioData.length);
-                if (read >= 0) {
-                    source.write(audioData,0,read);
-                }
-            }
-            donePlaying = true;
 
-            source.drain();
-            source.close();
-        }
-        catch (Exception exc) {
-            System.out.println("error: " + exc.getMessage());
-            exc.printStackTrace();
-        }
-    }
-    
-    public void checkMusicLoop() {
-        if (!mute && donePlaying)
-            myThread.start();
-    }
-    
-    public void toggleMute() {
-        if (mute)
-            unmute();
-        else
-            mute();
-    }
-    
-    private void mute() {
-        if (playing && !mute) {
-            myThread.stop();
-            mute = true;
-        }
-    }
-    
-    private void unmute() {
-        if (playing && mute) {
-            myThread.start();
+
+    public void play(String fileName, boolean loop) {
+
+
+        try {
             mute = false;
+
+            soundFile = new File(fileName);
+            stream = AudioSystem.getAudioInputStream(soundFile);
+
+            format = stream.getFormat();
+            info = new DataLine.Info(Clip.class, format);
+
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
+            clip.start();
+
+
+            if (loop)
+              clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
-    public boolean getMute()
-    { return mute; }
+
+
+    public void toggleMute() {
+        if (clip != null) {
+            if (mute) {
+                clip.start();
+                mute = false;
+            } else {
+                clip.stop();
+                mute = true;
+            }
+        }
+    }
 }
