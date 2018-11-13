@@ -17,7 +17,8 @@ public class FrameManager extends JFrame implements Runnable
     Thread relaxer;
     int mousePos []= new int[2];
 
-
+  
+    
     public static void main(String[] args)
     {
         FrameManager frame = new FrameManager();
@@ -30,14 +31,8 @@ public class FrameManager extends JFrame implements Runnable
     }    
       public static void addWindow(int width, int height)
     {
-<<<<<<< HEAD:src/risk/Main.java
-       
-        Main frame = new Main();
-        frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
-=======
         FrameManager frame = new FrameManager();
         frame.setSize(width, height);
->>>>>>> 1cc9b210b8865d8e39d0b049495a6c1ae7ac23cf:src/risk/FrameManager.java
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -259,6 +254,7 @@ public class FrameManager extends JFrame implements Runnable
 //            {
 //                e.printStackTrace();
 //            }
+        Titlescreen.drawDice(this);
             
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));    
              

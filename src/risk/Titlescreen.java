@@ -34,8 +34,17 @@ public class Titlescreen {
     //MULTIPLAYER SOUNDS
     static private SoundManager multiButtonSound = null;
     static int timeCount = 0;
+    //Dice Variables
+    static private int Dice;
+    static private Image DiceImageOne;
+    static private Image DiceImageTwo;
+    static private Image DiceImageThree;
+    static private Image DiceImageFour;
+    static private Image DiceImageFive;
+    static private Image DiceImageSix;
     
     static void reset(){
+        System.out.println(Dice);
         boardActive = true;
         mainActive=true;
         fontSize=20;
@@ -57,7 +66,35 @@ public class Titlescreen {
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.loop("titlemusic.wav");
         
+        //Dice Pictures
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./Dice 1.jpg");
+        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./Dice 2.jpg");
+        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./Dice 3.jpg");
+        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./Dice 4.jpg");
+        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./Dice 5.jpg");
+        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./Dice 6.jpg");
+        
+        
+        
         timeCount=0;
+    }
+    
+    static void drawDice(FrameManager frame){
+        
+        if(Dice == 1)
+             g.drawImage(DiceImageOne,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        if(Dice == 2)
+             g.drawImage(DiceImageTwo,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        if(Dice == 3)
+             g.drawImage(DiceImageThree,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        if(Dice == 4)
+             g.drawImage(DiceImageFour,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        if(Dice == 5)
+             g.drawImage(DiceImageFive,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        if(Dice == 6)
+             g.drawImage(DiceImageSix,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+
+        
     }
     
     static void drawMenu(int mousePos [],FrameManager m){
@@ -129,14 +166,10 @@ public class Titlescreen {
         //System.out.println(timeCount);
     }
     
-<<<<<<< HEAD
-    static private void singleHandler(int x, int y, Main m) {
        
-=======
     static private void singleHandler(int x, int y, FrameManager frame) {
         int boardWidth = 1371;
         int boardHeight = 912;
->>>>>>> 1cc9b210b8865d8e39d0b049495a6c1ae7ac23cf
         
         if(boardActive){
             FrameManager.addWindow(boardWidth, boardHeight);
@@ -145,7 +178,7 @@ public class Titlescreen {
             frame.dispose();
         }
         
-        g.drawImage(BoardImage,0,0,boardWidth,boardHeight,frame);
+        g.drawImage(BoardImage,0,0,boardWidth-200,boardHeight,frame);
         
     }
     
