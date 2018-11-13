@@ -6,12 +6,12 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import static risk.Main.g;
+import static risk.FrameManager.g;
 import java.net.*;
 import javax.swing.JFrame;
 
 public class Titlescreen {
-    static private boolean BoardActive;
+    static private boolean boardActive;
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
@@ -36,7 +36,7 @@ public class Titlescreen {
     static int timeCount = 0;
     
     static void reset(){
-        BoardActive = true;
+        boardActive = true;
         mainActive=true;
         fontSize=20;
         onSingleButton=false;
@@ -60,7 +60,7 @@ public class Titlescreen {
         timeCount=0;
     }
     
-    static void drawMenu(int mousePos [],Main m){
+    static void drawMenu(int mousePos [],FrameManager m){
         //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
@@ -74,9 +74,9 @@ public class Titlescreen {
         { multiHandler(x, y, m); }
     }
     
-    static private void mainHandler(int x, int y, Main m) {
+    static private void mainHandler(int x, int y, FrameManager m) {
         // Draw main
-        g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,m);
         g.drawImage(muteImage,760,760,20,20,m);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
@@ -129,22 +129,24 @@ public class Titlescreen {
         //System.out.println(timeCount);
     }
     
-    static private void singleHandler(int x, int y, Main m) {
-        Window.WINDOW_WIDTH = 1371;
-        Window.WINDOW_HEIGHT = 912;
+    static private void singleHandler(int x, int y, FrameManager frame) {
+        int boardWidth = 1371;
+        int boardHeight = 912;
         
-        if(BoardActive){
-            Main.main();
-            BoardActive = false;
+        if(boardActive){
+            FrameManager.addWindow(boardWidth, boardHeight);
+            mainActive = false;
+            boardActive = false;
+            frame.dispose();
         }
         
-        g.drawImage(BoardImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        g.drawImage(BoardImage,0,0,boardWidth,boardHeight,frame);
         
     }
     
-    static private void multiHandler(int x, int y, Main m) {
-        g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+    static private void multiHandler(int x, int y, FrameManager frame) {
+        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
         try {
             g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
             g.setColor(Color.white);
