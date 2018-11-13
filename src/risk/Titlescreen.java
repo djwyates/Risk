@@ -21,10 +21,12 @@ public class Titlescreen {
     static private boolean onHostButton;
     static private boolean onJoinButton;
     static private boolean onMuteButton;
+    static private boolean mute;
     static private Image mainImage;
     static private Image multiImage;
     static private Image emberImage;
-    static private Image muteImage;
+    static private Image speakerOn;
+    static private Image speakerOff;
     static private SoundManager menuSounds = null;
     static private SoundManager buttonSound = null;
     static private Image e;
@@ -33,6 +35,7 @@ public class Titlescreen {
     static int timeCount = 0;
     
     static void reset(){
+        mute=false;
         mainActive=true;
         fontSize=20;
         onSingleButton=false;
@@ -45,7 +48,8 @@ public class Titlescreen {
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
-        muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        speakerOn=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        speakerOff=Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
         menuSounds=new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -72,7 +76,11 @@ public class Titlescreen {
     static private void mainHandler(int x, int y, Main m) {
         // Draw main
         g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        g.drawImage(muteImage,760,760,20,20,m);
+        if(mute==false)
+            g.drawImage(speakerOn,760,760,20,20,m);
+        else
+            g.drawImage(speakerOff,760,760,20,20,m);
+        System.out.println(mute);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
         // Singleplayer button detection & sound effect
@@ -131,6 +139,10 @@ public class Titlescreen {
     static private void multiHandler(int x, int y, Main m) {
         g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
         g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        if(!mute)
+            g.drawImage(speakerOn,760,760,20,20,m);
+        else
+            g.drawImage(speakerOff,760,760,20,20,m);
         try {
             g.setFont(new Font("Allan", Font.ROMAN_BASELINE, 45));
             g.setColor(Color.white);
@@ -157,6 +169,12 @@ public class Titlescreen {
         { onJoinButton = true; }
         else
         { onJoinButton = false; }
+        
+        
+        if(x>760 && x<800 && y>760 && y<800) 
+        {onMuteButton = true;} 
+        else 
+        {onMuteButton = false;}
     }
     
     static public void pressedButton() {
@@ -164,9 +182,9 @@ public class Titlescreen {
         else if (onMultiButton) { onMultiButton = false; activateSecondButton(); }
         else if (onExitButton) { onExitButton = false; activateThirdButton(); }
         else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; Connect.deleteAllCharsFromHost(); }
-        else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.hostGame();
-        else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.connectToGame();
-        else if (onMuteButton) { SoundManager.toggleMute(); }
+        else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.hostGame();} // todo: implement Connect.hostGame();
+        else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.connectToGame();} // todo: implement Connect.connectToGame();
+        else if (onMuteButton) { SoundManager.toggleMute(); if(mute==false)mute=true; else mute=false;}
     }
     
     static private void activateFirstButton() {
