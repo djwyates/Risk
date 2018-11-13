@@ -164,8 +164,8 @@ public class Titlescreen {
         else if (onMultiButton) { onMultiButton = false; activateSecondButton(); }
         else if (onExitButton) { onExitButton = false; activateThirdButton(); }
         else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; Connect.deleteAllCharsFromHost(); }
-        else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.hostGame(); } // todo: implement Connect.hostGame();
-        else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.connectToGame(); } // todo: implement Connect.connectToGame();
+        else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.hostGame();
+        else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); } // todo: implement Connect.connectToGame();
         else if (onMuteButton) { SoundManager.toggleMute(); }
     }
     

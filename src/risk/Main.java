@@ -1,4 +1,4 @@
-// Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David Yates
+// Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David yates
 package risk;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class Main extends JFrame implements Runnable
         frame.setLocationRelativeTo(null);
         frame.setTitle("Risk");
         frame.setResizable(true);
-    }
+    }    
     public Main()
     {
         addMouseListener(new MouseAdapter()
