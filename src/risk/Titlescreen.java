@@ -13,8 +13,10 @@ import java.io.IOException;
 
 import static risk.Main.g;
 import java.net.*;
+import javax.swing.JFrame;
 
 public class Titlescreen {
+    static private boolean boardActive;
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
@@ -30,8 +32,13 @@ public class Titlescreen {
     static private Image mainImage;
     static private Image multiImage;
     static private Image emberImage;
+
     static private Image speakerOn;
     static private Image speakerOff;
+
+    static private Image muteImage;
+    static private Image BoardImage;
+
     static private SoundManager menuSounds = null;
     static private SoundManager buttonSound = null;
     static private Image e;
@@ -40,7 +47,11 @@ public class Titlescreen {
     static int timeCount = 0;
     
     static void reset(){
+
         mute=false;
+
+        boardActive = true;
+
         mainActive=true;
         fontSize=20;
         onSingleButton=false;
@@ -53,8 +64,13 @@ public class Titlescreen {
         mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+
         speakerOn=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         speakerOff=Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
+
+        muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+
         menuSounds=new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -64,7 +80,11 @@ public class Titlescreen {
         timeCount=0;
     }
     
+
+
+
     static void drawMenu(int mousePos [],Main m) throws FontFormatException, IOException{
+
         //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
@@ -78,13 +98,16 @@ public class Titlescreen {
         { multiHandler(x, y, m); }
     }
     
-    static private void mainHandler(int x, int y, Main m) {
+    static private void mainHandler(int x, int y, Main frame) {
         // Draw main
-        g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        if(mute==false)
-            g.drawImage(speakerOn,760,760,20,20,m);
+
+        g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        
+        if(!mute)
+            g.drawImage(speakerOn,760,760,20,20,frame);
         else
-            g.drawImage(speakerOff,760,760,20,20,m);
+            g.drawImage(speakerOff,760,760,20,20,frame);
+
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
         // Singleplayer button detection & sound effect
@@ -136,17 +159,29 @@ public class Titlescreen {
         //System.out.println(timeCount);
     }
     
-    static private void singleHandler(int x, int y, Main m) {
-        g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+    static private void singleHandler(int x, int y, Main frame) {
+        int boardWidth = 1371;
+        int boardHeight = 912;
+        
+        if(boardActive){
+            Main.addWindow(boardWidth, boardHeight);
+            mainActive = false;
+            boardActive = false;
+            frame.dispose();
+        }
+        
+        g.drawImage(BoardImage,0,0,boardWidth,boardHeight,frame);
+        
     }
     
-    static private void multiHandler(int x, int y, Main m) throws FileNotFoundException, FontFormatException, IOException {
-        g.drawImage(emberImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
-        g.drawImage(multiImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        
+    static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
+        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
         if(!mute)
-            g.drawImage(speakerOn,760,760,20,20,m);
+            g.drawImage(speakerOn,760,760,20,20,frame);
         else
-            g.drawImage(speakerOff,760,760,20,20,m);
+            g.drawImage(speakerOff,760,760,20,20,frame);
         try {
             g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Allan.ttf"))).deriveFont(Font.PLAIN,45));
             g.setColor(Color.white);

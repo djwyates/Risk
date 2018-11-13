@@ -23,13 +23,25 @@ public class Main extends JFrame implements Runnable
     public static void main(String[] args)
     {
         Main frame = new Main();
-        frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+        frame.setSize(Window.MENU_WINDOW_WIDTH, Window.MAIN_WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Risk");
         frame.setResizable(true);
     }    
+      public static void addWindow(int width, int height)
+    {
+        Main frame = new Main();
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("Risk");
+        frame.setResizable(true);
+    }    
+    
+     
     public Main()
     {
         addMouseListener(new MouseAdapter()
