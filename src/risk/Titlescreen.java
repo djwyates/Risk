@@ -8,8 +8,10 @@ import java.awt.Toolkit;
 
 import static risk.Main.g;
 import java.net.*;
+import javax.swing.JFrame;
 
 public class Titlescreen {
+    static private boolean BoardActive;
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
@@ -25,6 +27,7 @@ public class Titlescreen {
     static private Image multiImage;
     static private Image emberImage;
     static private Image muteImage;
+    static private Image BoardImage;
     static private SoundManager menuSounds = null;
     static private SoundManager buttonSound = null;
     static private Image e;
@@ -33,6 +36,7 @@ public class Titlescreen {
     static int timeCount = 0;
     
     static void reset(){
+        BoardActive = true;
         mainActive=true;
         fontSize=20;
         onSingleButton=false;
@@ -46,6 +50,7 @@ public class Titlescreen {
         multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
         menuSounds=new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -125,7 +130,16 @@ public class Titlescreen {
     }
     
     static private void singleHandler(int x, int y, Main m) {
-        g.drawImage(mainImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        Window.WINDOW_WIDTH = 1371;
+        Window.WINDOW_HEIGHT = 912;
+        
+        if(BoardActive){
+            Main.main();
+            BoardActive = false;
+        }
+        
+        g.drawImage(BoardImage,0,0,Window.WINDOW_WIDTH,Window.WINDOW_HEIGHT,m);
+        
     }
     
     static private void multiHandler(int x, int y, Main m) {

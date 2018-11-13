@@ -7,8 +7,8 @@ public class Window {
     static final int YBORDER = 0;
     static final int YTITLE = 31;
     static final int WINDOW_BORDER = 8; 
-    static final int WINDOW_WIDTH = 800;
-    static final int WINDOW_HEIGHT = 800;    
+    static int WINDOW_WIDTH = 800;
+    static int WINDOW_HEIGHT = 800;    
 
     static int MIN_X;
     static int MAX_X;
