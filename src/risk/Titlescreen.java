@@ -130,8 +130,7 @@ public class Titlescreen {
     }
     
     static private void singleHandler(int x, int y, Main m) {
-        Window.WINDOW_WIDTH = 1371;
-        Window.WINDOW_HEIGHT = 912;
+       
         
         if(BoardActive){
             Main.main();
