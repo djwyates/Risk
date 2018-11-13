@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
+
 import static risk.Main.g;
 import java.net.*;
 
@@ -50,7 +50,7 @@ public class Titlescreen {
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
         menuSounds.addSound("multiButtonCheer.wav");
-        menuSounds.play("titlemusic.wav");
+        menuSounds.loop("titlemusic.wav");
         
         timeCount=0;
     }
@@ -59,8 +59,8 @@ public class Titlescreen {
         //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
-        if (isActive())
-            menuSounds.checkMusicLoops();
+        //if (isActive())
+        //    menuSounds.loop("titlemusic.wav");
         if (mainActive)
         { drawMain(x, y, m); }
         else if (singleActive)
@@ -78,8 +78,9 @@ public class Titlescreen {
         
         // Singleplayer button detection
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(onFirstButton==false)
+            if(onFirstButton==false) {
                 menuSounds.play("swordClashTitleScreen.wav");
+            }
             onFirstButton = true;
             g.setColor(Color.white);
         } else {
@@ -113,15 +114,15 @@ public class Titlescreen {
         g.drawString("Exit", 360, 665);
         
         // Mute button detection
-        if(x>760 && x<800 && y>760 && y<800)
-        { onMuteButton = true; }
-        else
-        { onMuteButton = false; }
-        
+        if(x>760 && x<800 && y>760 && y<800) {
+            onMuteButton = true;
+        } else {
+            onMuteButton = false;
+        }
         
         g.setColor(Color.red);
         timeCount++;
-        System.out.println(timeCount);
+        //System.out.println(timeCount);
     }
     
     static private void drawSingle(int x, int y, Main m) {
