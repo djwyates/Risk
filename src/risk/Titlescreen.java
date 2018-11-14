@@ -34,7 +34,7 @@ public class Titlescreen {
     static private Image muteOnImage;
     static private Image muteOffImage;
     static private Image mapImage;
-    static private SoundManager menuSounds;
+    static private SoundManager menuSounds = null;
     static private int fontSize;
     
     static void reset(){
@@ -62,9 +62,6 @@ public class Titlescreen {
         fontSize = 20;
     }
     
-
-
-
     static void titlescreenHandler(int mousePos[], Main frame) throws FontFormatException, IOException{
         int x = mousePos[0];
         int y = mousePos[1];
@@ -129,8 +126,9 @@ public class Titlescreen {
     }
     
     static private void singleHandler(int x, int y, Main frame) {
-        if(!drawnBoard){
+        if(!drawnBoard) {
             Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+            RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
             frame.dispose();
             mainActive = false;
             drawnBoard = true;
