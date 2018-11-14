@@ -20,7 +20,6 @@ public class Titlescreen {
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
-    static private int fontSize;
     static private boolean onSingleButton;
     static private boolean onMultiButton;
     static private boolean onExitButton;
@@ -29,54 +28,42 @@ public class Titlescreen {
     static private boolean onJoinButton;
     static private boolean onMuteButton;
     static private boolean mute;
-    static private Image mainImage;
-    static private Image multiImage;
-    static private Image emberImage;
-
-    static private Image speakerOn;
-    static private Image speakerOff;
-
-    static private Image muteImage;
-    static private Image BoardImage;
-
+    static private Image mainImage = null;
+    static private Image multiImage = null;
+    static private Image emberImage = null;
+    static private Image speakerOn = null;
+    static private Image speakerOff = null;
+    static private Image muteImage = null;
+    static private Image BoardImage = null;
+    static private Image e = null;
     static private SoundManager menuSounds = null;
-    static private SoundManager buttonSound = null;
-    static private Image e;
-    //MULTIPLAYER SOUNDS
-    static private SoundManager multiButtonSound = null;
-    static int timeCount = 0;
+    static private int fontSize;
+    static private int timeCount;
     
     static void reset(){
-
-        mute=false;
-
         boardActive = true;
-
-        mainActive=true;
-        fontSize=20;
-        onSingleButton=false;
-        onMultiButton=false;
-        onExitButton=false;
-        onHomeButton=false;
-        onHostButton=false;
-        onJoinButton=false;
-        onMuteButton=false;
-        mainImage=Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
-        multiImage=Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
-        emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
-
-        speakerOn=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
-        speakerOff=Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-
-        muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        mainActive = true;
+        onSingleButton = false;
+        onMultiButton = false;
+        onExitButton = false;
+        onHomeButton = false;
+        onHostButton = false;
+        onJoinButton = false;
+        onMuteButton = false;
+        mute = false;
+        mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
+        multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
+        emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+        speakerOn = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        speakerOff = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
+        muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-
-        menuSounds=new SoundManager();
+        menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.loop("titlemusic.wav");
-        
+        fontSize = 20;
         timeCount=0;
     }
     
@@ -101,7 +88,7 @@ public class Titlescreen {
     static private void mainHandler(int x, int y, Main frame) {
         // Draw main
 
-        g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         
         if(!mute)
             g.drawImage(speakerOn,760,760,20,20,frame);
@@ -164,7 +151,7 @@ public class Titlescreen {
         int boardHeight = 912;
         
         if(boardActive){
-            Main.addWindow(boardWidth, boardHeight);
+            Window.addWindow(boardWidth, boardHeight, "Risk - Singleplayer");
             mainActive = false;
             boardActive = false;
             frame.dispose();
@@ -176,8 +163,8 @@ public class Titlescreen {
     
         
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
-        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
+        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         if(!mute)
             g.drawImage(speakerOn,760,760,20,20,frame);
         else

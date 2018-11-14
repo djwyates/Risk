@@ -18,36 +18,14 @@ public class Main extends JFrame implements Runnable
 
     Thread relaxer;
     int mousePos []= new int[2];
-
-
-    public static void main(String[] args)
-    {
-        Main frame = new Main();
-        frame.setSize(Window.MENU_WINDOW_WIDTH, Window.MAIN_WINDOW_HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setTitle("Risk");
-        frame.setResizable(true);
-    }    
-      public static void addWindow(int width, int height)
-    {
-        Main frame = new Main();
-        frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setTitle("Risk");
-        frame.setResizable(true);
-    }    
     
-     
-    public Main()
-    {
-        addMouseListener(new MouseAdapter()
-        {
-            public void mousePressed(MouseEvent e)
-            {
+    public static void main(String[] args) {
+        Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
+    }
+    
+    public Main() {
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
                 
@@ -57,11 +35,9 @@ public class Main extends JFrame implements Runnable
             }
         });
 
-        addMouseListener(new MouseAdapter()
-        {
+        addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseReleased(MouseEvent e)
-            {
+            public void mouseReleased(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton())
                     Titlescreen.pressedButton();
                 repaint();

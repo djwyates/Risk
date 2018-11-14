@@ -1,6 +1,8 @@
 
 package risk;
 
+import javax.swing.JFrame;
+
 
 public class Window {
     static final int XBORDER = 0;
@@ -8,7 +10,7 @@ public class Window {
     static final int YTITLE = 31;
     static final int WINDOW_BORDER = 8; 
     static final int MENU_WINDOW_WIDTH = 800;
-    static final int MAIN_WINDOW_HEIGHT = 800;    
+    static final int MENU_WINDOW_HEIGHT = 800;    
 
     static int MIN_X;
     static int MAX_X;
@@ -22,6 +24,16 @@ public class Window {
 
 
 /////////////////////////////////////////////////////////////////////////
+    public static void addWindow(int width, int height, String title) {
+        Main frame = new Main();
+        frame.setSize(width, height);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle(title);
+        frame.setResizable(true);
+    }
+    
     public static int getX(int x) {
         return (x + XBORDER + WINDOW_BORDER);
     }
