@@ -49,7 +49,7 @@ public class FrameManager extends JFrame implements Runnable
             {
                 e.getX();
                 e.getY();
-                
+                Titlescreen.ChangeDice(e.getX(),e.getY());
                 System.out.println(e.getX() + "        " + e.getY());
                 
                 repaint();
@@ -63,6 +63,7 @@ public class FrameManager extends JFrame implements Runnable
             {
                 if (e.BUTTON1 == e.getButton())
                     Titlescreen.pressedButton();
+                    
                 repaint();
             }
         });
@@ -254,7 +255,6 @@ public class FrameManager extends JFrame implements Runnable
 //            {
 //                e.printStackTrace();
 //            }
-        Titlescreen.drawDice(this);
             
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));    
              
