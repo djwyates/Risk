@@ -33,9 +33,17 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
-    static private Image mapImage;
+    static private Image Wall;
+    static private Image DiceImageOne;
+    static private Image DiceImageTwo;
+    static private Image DiceImageThree;
+    static private Image DiceImageFour;
+    static private Image DiceImageFive;
+    static private Image DiceImageSix;
     static private SoundManager menuSounds = null;
+    static private int Dice;
     static private int fontSize;
+    static int timeCount = 0;
     
     static void reset(){
         mainActive = true;
@@ -53,16 +61,51 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-        mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+        Wall =  Toolkit.getDefaultToolkit().getImage("./WoodBack.jpg");
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceOne.png");
+        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
+        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
+        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
+        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
+        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.loop("titlemusic.wav");
+        Dice = (int)(Math.random()*6+1);
         fontSize = 20;
     }
     
-    static void titlescreenHandler(int mousePos[], Main frame) throws FontFormatException, IOException{
+    static void drawDice(Main frame,int x,int y){
+        
+        if(!drawnBoard){
+            if(Dice == 1)
+                  g.drawImage(DiceImageOne,1399,83,150,150,frame);
+            else if(Dice == 2)
+                 g.drawImage(DiceImageTwo,1399,83,150,150,frame);
+            else if(Dice == 3)
+                 g.drawImage(DiceImageThree,1399,83,150,150,frame);
+            else if(Dice == 4)
+                 g.drawImage(DiceImageFour,1399,83,150,150,frame);
+            else if(Dice == 5)
+                 g.drawImage(DiceImageFive,1399,83,150,150,frame);
+            else if(Dice == 6)
+                 g.drawImage(DiceImageSix,1399,83,150,150,frame);
+            
+        }
+    }
+    static void ChangeDice(int x,int y){
+        if(x > 1195 && x < 1326 && y > 74 && y < 204){
+            int _dice = Dice;
+                while(Dice == _dice){
+                    Dice =(int)(Math.random()*6+1); 
+                }
+        }
+    }
+    
+    static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
+        //Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
         if (mainActive)
@@ -71,6 +114,7 @@ public class Titlescreen {
         { singleHandler(x, y, frame); }
         else if (multiActive)
         { multiHandler(x, y, frame); }
+        drawDice(frame,x,y);
     }
     
     static private void mainHandler(int x, int y, Main frame) {
@@ -127,17 +171,19 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
-            Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+            Window.addWindow(Window.MAP_WINDOW_WIDTH+200, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
             RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
             frame.dispose();
             mainActive = false;
             drawnBoard = true;
         }
+       // g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
-        System.out.println(RiskMap.contains(x, y));
+        System.out.println(Dice);
+       // System.out.println(RiskMap.contains(x, y));
+        drawDice(frame,x,y);
     }
     
-        
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);

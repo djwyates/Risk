@@ -26,11 +26,7 @@ public class RiskMap {
         }
         return(null);
     }
-    
-    static public void constructCountries() {
-        
-    }
-    
+         
     RiskMap(Image _image) {
         image = _image;
         Polygon countryBoundry;

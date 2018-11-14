@@ -16,6 +16,7 @@ public class Main extends JFrame implements Runnable
     Thread relaxer;
     int mousePos []= new int[2];
     
+    
     public static void main(String[] args) {
         Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
     }
@@ -25,6 +26,11 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
+                Titlescreen.ChangeDice(e.getX(),e.getY());
+                System.out.println(e.getX());
+                System.out.println(e.getY());
+                
+                
                 System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
@@ -232,6 +238,7 @@ public class Main extends JFrame implements Runnable
 //            {
 //                e.printStackTrace();
 //            }
+
             
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));    
              
