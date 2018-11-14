@@ -33,7 +33,7 @@ public class Window {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle(title);
-        frame.setResizable(true);
+        frame.setResizable(false);
     }
     
     public static int getX(int x) {
