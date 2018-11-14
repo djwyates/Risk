@@ -173,8 +173,8 @@ public class Titlescreen {
         { onJoinButton = false; }
         
         // Mute button detection
-        if(x>740 && x<800 && y>740 && y<800) 
-        { onMuteButton = true;} 
+        if(x>740 && x<800 && y>740 && y<800)
+        { onMuteButton = true;}
         else 
         { onMuteButton = false;}
     }

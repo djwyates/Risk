@@ -15,4 +15,7 @@ public class Country {
         boundry = _boundry;
         name = _name;
     }
+    
+    public String toString()
+    { return(name); }
 }
