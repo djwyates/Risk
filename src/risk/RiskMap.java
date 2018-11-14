@@ -10,9 +10,8 @@ import static risk.Main.g;
 public class RiskMap {
     
     static private Image image;
+    static private Image[] diceImages = new Image[6];
     static private ArrayList<Country> countries = new ArrayList<Country>();
-    
-    
     
     static public void draw(Main frame) {
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);

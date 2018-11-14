@@ -47,6 +47,8 @@ public class Titlescreen {
     
     static void reset(){
         mainActive = true;
+        singleActive = false;
+        multiActive = false;
         onSingleButton = false;
         onMultiButton = false;
         onExitButton = false;
@@ -77,8 +79,7 @@ public class Titlescreen {
         fontSize = 20;
     }
     
-    static void drawDice(Main frame,int x,int y){
-        
+    static void drawDice(Main frame,int x,int y) {
         if(!drawnBoard){
             if(Dice == 1)
                   g.drawImage(DiceImageOne,1399,83,150,150,frame);
@@ -92,9 +93,9 @@ public class Titlescreen {
                  g.drawImage(DiceImageFive,1399,83,150,150,frame);
             else if(Dice == 6)
                  g.drawImage(DiceImageSix,1399,83,150,150,frame);
-            
         }
     }
+    
     static void ChangeDice(int x,int y){
         if(x > 1195 && x < 1326 && y > 74 && y < 204){
             int _dice = Dice;
@@ -171,16 +172,15 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
-            Window.addWindow(Window.MAP_WINDOW_WIDTH+200, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
             RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
-            frame.dispose();
             mainActive = false;
             drawnBoard = true;
         }
-       // g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
+        g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
-        System.out.println(Dice);
-       // System.out.println(RiskMap.contains(x, y));
+        g.drawImage(DiceImageOne,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,30,30,frame);
+        System.out.println(RiskMap.contains(x, y));
         drawDice(frame,x,y);
     }
     
