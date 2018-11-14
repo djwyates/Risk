@@ -76,27 +76,70 @@ public class Titlescreen {
         Dice = (int)(Math.random()*6+1);
         fontSize = 20;
     }
-    
-    static void drawDice(Main frame,int x,int y){
+    /*
+ static private void singleHandler(int x, int y, FrameManager frame) {
+        int boardWidth = 1571;
+        int boardHeight = 912;
         
-        if(!drawnBoard){
+        if(boardActive){
+            FrameManager.addWindow(boardWidth, boardHeight);
+            mainActive = false;
+            boardActive = false;
+            frame.dispose();
+        }
+        g.drawImage(Wall,0,0,boardWidth+200,boardHeight,frame);
+        g.drawImage(BoardImage,0,0,boardWidth-200,boardHeight,frame);
+        drawDice(frame,x,y);
+    }
+    
+    
+    static void drawDice(FrameManager f,int x,int y){
+        
+        if(!boardActive){
             if(Dice == 1)
-                  g.drawImage(DiceImageOne,1399,83,150,150,frame);
+                  g.drawImage(DiceImageOne,1386,65,150,150,f);
             else if(Dice == 2)
-                 g.drawImage(DiceImageTwo,1399,83,150,150,frame);
+                 g.drawImage(DiceImageTwo,1386,65,150,150,f);
             else if(Dice == 3)
-                 g.drawImage(DiceImageThree,1399,83,150,150,frame);
+                 g.drawImage(DiceImageThree,1386,65,150,150,f);
             else if(Dice == 4)
-                 g.drawImage(DiceImageFour,1399,83,150,150,frame);
+                 g.drawImage(DiceImageFour,1386,65,150,150,f);
             else if(Dice == 5)
-                 g.drawImage(DiceImageFive,1399,83,150,150,frame);
+                 g.drawImage(DiceImageFive,1386,65,150,150,f);
             else if(Dice == 6)
-                 g.drawImage(DiceImageSix,1399,83,150,150,frame);
+                 g.drawImage(DiceImageSix,1386,65,150,150,f);
             
         }
     }
     static void ChangeDice(int x,int y){
-        if(x > 1195 && x < 1326 && y > 74 && y < 204){
+        if(x > 1395 && x < 1526 && y > 74 && y < 204){
+            int _dice = Dice;
+                while(Dice == _dice){
+                    Dice =(int)(Math.random()*6+1); 
+                }
+        }
+    }   
+*/
+    static void drawDice(Main f,int x,int y){
+        
+        if(drawnBoard){
+             if(Dice == 1)
+                  g.drawImage(DiceImageOne,1386,65,150,150,f);
+            else if(Dice == 2)
+                 g.drawImage(DiceImageTwo,1386,65,150,150,f);
+            else if(Dice == 3)
+                 g.drawImage(DiceImageThree,1386,65,150,150,f);
+            else if(Dice == 4)
+                 g.drawImage(DiceImageFour,1386,65,150,150,f);
+            else if(Dice == 5)
+                 g.drawImage(DiceImageFive,1386,65,150,150,f);
+            else if(Dice == 6)
+                 g.drawImage(DiceImageSix,1386,65,150,150,f);
+            
+        }
+    }
+    static void ChangeDice(int x,int y){
+        if(x > 1395 && x < 1526 && y > 74 && y < 204){
             int _dice = Dice;
                 while(Dice == _dice){
                     Dice =(int)(Math.random()*6+1); 
@@ -177,7 +220,7 @@ public class Titlescreen {
             mainActive = false;
             drawnBoard = true;
         }
-       // g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
+        g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
         System.out.println(Dice);
        // System.out.println(RiskMap.contains(x, y));
