@@ -109,6 +109,7 @@ public class Titlescreen {
         { singleHandler(x, y, m); }
         else if (multiActive)
         { multiHandler(x, y, m); }
+        drawDice(m)
     }
     
     static private void mainHandler(int x, int y, FrameManager m) {
