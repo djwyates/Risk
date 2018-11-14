@@ -43,6 +43,7 @@ public class Titlescreen {
     static private Image DiceImageFour;
     static private Image DiceImageFive;
     static private Image DiceImageSix;
+    static private Image InGameBackButton;
     
     static void reset(){
         boardActive = true;
@@ -68,14 +69,15 @@ public class Titlescreen {
         menuSounds.loop("titlemusic.wav");
         
         //Dice Pictures
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
         DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
         DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
         DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
         DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
         DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
+        InGameBackButton = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
         
-       Dice = (int)(Math.random()*6+1);
+        Dice = (int)(Math.random()*6+1);
         
         timeCount=0;
     }
