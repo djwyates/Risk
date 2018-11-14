@@ -28,9 +28,7 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
-                
                 System.out.println(e.getX() + "        " + e.getY());
-                
                 repaint();
             }
         });
@@ -197,7 +195,7 @@ public class Main extends JFrame implements Runnable
         
         if(Titlescreen.isActive()){
             try  {
-                Titlescreen.drawMenu(mousePos, this);
+                Titlescreen.titlescreenHandler(mousePos, this);
             } catch (FontFormatException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -254,27 +252,23 @@ public class Main extends JFrame implements Runnable
     }
     // //////////////////////////////////////////////////////////////////////////
     // needed for implement runnable
-    public void run()
-    {
-        while (true)
-        {
+    public void run() {
+        while (true) {
             animate();
             repaint();
             double seconds = 1.0/Window.frameRate; // time that 1 frame takes.
             int miliseconds = (int) (1000.0 * seconds);
-            try
-            {
+            try {
                 Thread.sleep(miliseconds);
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
             }
         }
     }
 
 
     public static void reset() {
-            Titlescreen.reset();
+        Titlescreen.reset();
     }
 
 

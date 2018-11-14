@@ -7,15 +7,14 @@ class SoundManager {
     
     static private HashMap<String, Sound> sounds = new HashMap<String, Sound>();
     
-    
     public void play(String name) {
-        System.out.println("playing: " + name);
+        // System.out.println("playing: " + name);
         Sound sound = sounds.get(name);
         sound.play(name, false);
     }
 
     public void loop(String name) {
-        System.out.println("looping: " + name);
+        // System.out.println("looping: " + name);
         Sound sound = sounds.get(name);
         sound.play(name, true);
     }

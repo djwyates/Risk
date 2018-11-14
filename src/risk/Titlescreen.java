@@ -16,7 +16,6 @@ import java.net.*;
 import javax.swing.JFrame;
 
 public class Titlescreen {
-    static private boolean boardActive;
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
@@ -27,21 +26,18 @@ public class Titlescreen {
     static private boolean onHostButton;
     static private boolean onJoinButton;
     static private boolean onMuteButton;
-    static private boolean mute;
-    static private Image mainImage = null;
-    static private Image multiImage = null;
-    static private Image emberImage = null;
-    static private Image speakerOn = null;
-    static private Image speakerOff = null;
-    static private Image muteImage = null;
-    static private Image BoardImage = null;
-    static private Image e = null;
-    static private SoundManager menuSounds = null;
+    static private boolean drawMute;
+    static private boolean drawnBoard;
+    static private Image mainImage;
+    static private Image multiImage;
+    static private Image emberImage;
+    static private Image muteOnImage;
+    static private Image muteOffImage;
+    static private Image BoardImage;
+    static private SoundManager menuSounds;
     static private int fontSize;
-    static private int timeCount;
     
     static void reset(){
-        boardActive = true;
         mainActive = true;
         onSingleButton = false;
         onMultiButton = false;
@@ -50,13 +46,13 @@ public class Titlescreen {
         onHostButton = false;
         onJoinButton = false;
         onMuteButton = false;
-        mute = false;
+        drawMute = false;
+        drawnBoard = false;
         mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
-        speakerOn = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
-        speakerOff = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-        muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+        muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
         BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
@@ -64,51 +60,42 @@ public class Titlescreen {
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.loop("titlemusic.wav");
         fontSize = 20;
-        timeCount=0;
     }
     
 
 
 
-    static void drawMenu(int mousePos [],Main m) throws FontFormatException, IOException{
-
-        //Array of mouse position separated
+    static void titlescreenHandler(int mousePos[], Main frame) throws FontFormatException, IOException{
         int x = mousePos[0];
         int y = mousePos[1];
-        //if (isActive())
-        //    menuSounds.loop("titlemusic.wav");
         if (mainActive)
-        { mainHandler(x, y, m); }
+        { mainHandler(x, y, frame); }
         else if (singleActive)
-        { singleHandler(x, y, m); }
+        { singleHandler(x, y, frame); }
         else if (multiActive)
-        { multiHandler(x, y, m); }
+        { multiHandler(x, y, frame); }
     }
     
     static private void mainHandler(int x, int y, Main frame) {
-        // Draw main
-
+        // Draw
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        
-        if(!mute)
-            g.drawImage(speakerOn,760,760,20,20,frame);
+        if(!drawMute)
+            g.drawImage(muteOnImage,760,760,20,20,frame);
         else
-            g.drawImage(speakerOff,760,760,20,20,frame);
-
+            g.drawImage(muteOffImage,760,760,20,20,frame);
         g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
         
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(onSingleButton==false) {
+            if(onSingleButton==false)
                 menuSounds.play("swordClashTitleScreen.wav");
-            }
             onSingleButton = true;
             g.setColor(Color.white);
         } else {
             onSingleButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Singleplayer", 320, 450);
+        g.drawString("Singleplayer", 326, 455);
         
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
@@ -120,7 +107,7 @@ public class Titlescreen {
             onMultiButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Multiplayer", 320, 560);
+        g.drawString("Multiplayer", 332, 563);
         
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
@@ -132,43 +119,33 @@ public class Titlescreen {
             onExitButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Exit", 360, 665);
+        g.drawString("Exit", 363, 668);
         
         // Mute button detection
-        if(x>740 && x<800 && y>740 && y<800) {
-            onMuteButton = true;
-        } else {
-            onMuteButton = false;
-        }
-        
-        g.setColor(Color.red);
-        timeCount++;
-        //System.out.println(timeCount);
+        if(x>740 && x<800 && y>740 && y<800)
+        { onMuteButton = true; }
+        else
+        { onMuteButton = false; }
     }
     
     static private void singleHandler(int x, int y, Main frame) {
-        int boardWidth = 1371;
-        int boardHeight = 912;
-        
-        if(boardActive){
-            Window.addWindow(boardWidth, boardHeight, "Risk - Singleplayer");
-            mainActive = false;
-            boardActive = false;
+        if(!drawnBoard){
+            Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
             frame.dispose();
+            mainActive = false;
+            drawnBoard = true;
         }
-        
-        g.drawImage(BoardImage,0,0,boardWidth,boardHeight,frame);
-        
+        g.drawImage(BoardImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
     }
     
         
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        if(!mute)
-            g.drawImage(speakerOn,760,760,20,20,frame);
+        if(!drawMute)
+            g.drawImage(muteOnImage,760,760,20,20,frame);
         else
-            g.drawImage(speakerOff,760,760,20,20,frame);
+            g.drawImage(muteOffImage,760,760,20,20,frame);
         try {
             g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Allan.ttf"))).deriveFont(Font.PLAIN,45));
             g.setColor(Color.white);
@@ -198,35 +175,67 @@ public class Titlescreen {
         
         // Mute button detection
         if(x>740 && x<800 && y>740 && y<800) 
-        {onMuteButton = true;} 
+        { onMuteButton = true;} 
         else 
-        {onMuteButton = false;}
+        { onMuteButton = false;}
     }
     
     static public void pressedButton() {
-        if (onSingleButton) { onSingleButton = false; activateFirstButton(); }
-        else if (onMultiButton) { onMultiButton = false; activateSecondButton(); }
-        else if (onExitButton) { onExitButton = false; activateThirdButton(); }
-        else if (onHomeButton) { onHomeButton = false; mainActive=true; multiActive=false; Connect.deleteAllCharsFromHost(); }
-        else if (onHostButton) { onHostButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.hostGame();} // todo: implement Connect.hostGame();
-        else if (onJoinButton) { onJoinButton = false; menuSounds.play("multiButtonCheer.wav"); Connect.connectToGame();} // todo: implement Connect.connectToGame();
-        else if (onMuteButton) { SoundManager.toggleMute(); if(mute==false)mute=true; else mute=false;}
+        if (onSingleButton) { activateSingleButton(); }
+        else if (onMultiButton) { activateMultiButton(); }
+        else if (onExitButton) { activateExitButton(); }
+        else if (onHomeButton) { activateHomeButton(); }
+        else if (onHostButton) { activateHostButton(); }
+        else if (onJoinButton) { activateJoinButton(); }
+        else if (onMuteButton) { activateMuteButton(); }
     }
     
-    static private void activateFirstButton() {
-        singleActive = true;
+    static private void activateSingleButton() {
         mainActive = false;
+        singleActive = true;
         multiActive = false;
+        onSingleButton = false;
     }
     
-    static private void activateSecondButton() {
-        multiActive = true;
+    static private void activateMultiButton() {
         mainActive = false;
         singleActive = false;
+        multiActive = true;
+        onMultiButton = false;
     }
     
-    static private void activateThirdButton()
-    { System.exit(0); }
+    static private void activateExitButton() {
+        System.exit(0);
+    }
+    
+    static private void activateHomeButton() {
+        mainActive = true;
+        singleActive = false;
+        multiActive = false;
+        if (singleActive) {
+            
+        }
+        else if (multiActive)
+            Connect.deleteAllCharsFromHost();
+        onHomeButton = false;
+    }
+    
+    static private void activateHostButton() {
+        menuSounds.play("multiButtonCheer.wav");
+        Connect.hostGame();
+        onHostButton = false;
+    }
+    
+    static private void activateJoinButton() {
+        menuSounds.play("multiButtonCheer.wav");
+        Connect.connectToGame();
+        onJoinButton = false;
+    }
+    
+    static private void activateMuteButton() {
+        SoundManager.toggleMute();
+        drawMute = !drawMute;
+    }
     
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }

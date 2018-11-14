@@ -15,32 +15,24 @@ public class Sound {
     Sound(String name) {
         soundFile = new File(name);
     }
-
-
+    
     public void play(String fileName, boolean loop) {
         try {
             mute = false;
-
             soundFile = new File(fileName);
-            stream = AudioSystem.getAudioInputStream(soundFile);
-
+            stream = AudioSystem.getAudioInputStream(soundFile);    
             format = stream.getFormat();
-            info = new DataLine.Info(Clip.class, format);
-
+            info = new DataLine.Info(Clip.class, format);   
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
-            clip.start();
-
-
+            clip.start();   
             if (loop)
-              clip.loop(Clip.LOOP_CONTINUOUSLY);
-
+              clip.loop(Clip.LOOP_CONTINUOUSLY);    
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
+    
     public void toggleMute() {
         if (clip != null) {
             if (mute) {
