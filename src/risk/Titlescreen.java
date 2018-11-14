@@ -28,6 +28,7 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteImage;
     static private Image BoardImage;
+    static private Image Wall;
     static private SoundManager menuSounds = null;
     static private SoundManager buttonSound = null;
     static private Image e;
@@ -44,7 +45,6 @@ public class Titlescreen {
     static private Image DiceImageSix;
     
     static void reset(){
-        System.out.println(Dice);
         boardActive = true;
         mainActive=true;
         fontSize=20;
@@ -60,6 +60,7 @@ public class Titlescreen {
         emberImage=Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteImage=Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+        Wall =  Toolkit.getDefaultToolkit().getImage("./WoodBack.jpg");
         menuSounds=new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -67,34 +68,43 @@ public class Titlescreen {
         menuSounds.loop("titlemusic.wav");
         
         //Dice Pictures
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./Dice 1.jpg");
-        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./Dice 2.jpg");
-        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./Dice 3.jpg");
-        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./Dice 4.jpg");
-        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./Dice 5.jpg");
-        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./Dice 6.jpg");
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceOne.png");
+        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
+        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
+        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
+        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
+        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
         
-        
+       Dice = (int)(Math.random()*6+1);
         
         timeCount=0;
     }
     
-    static void drawDice(FrameManager frame){
+    static void drawDice(FrameManager f,int x,int y){
         
-        if(Dice == 1)
-             g.drawImage(DiceImageOne,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        if(Dice == 2)
-             g.drawImage(DiceImageTwo,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        if(Dice == 3)
-             g.drawImage(DiceImageThree,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        if(Dice == 4)
-             g.drawImage(DiceImageFour,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        if(Dice == 5)
-             g.drawImage(DiceImageFive,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-        if(Dice == 6)
-             g.drawImage(DiceImageSix,0,0,Window.MENU_WINDOW_WIDTH,Window.MAIN_WINDOW_HEIGHT,frame);
-
-        
+        if(!boardActive){
+            if(Dice == 1)
+                  g.drawImage(DiceImageOne,1186,65,150,150,f);
+            else if(Dice == 2)
+                 g.drawImage(DiceImageTwo,1186,65,150,150,f);
+            else if(Dice == 3)
+                 g.drawImage(DiceImageThree,1186,65,150,150,f);
+            else if(Dice == 4)
+                 g.drawImage(DiceImageFour,1186,65,150,150,f);
+            else if(Dice == 5)
+                 g.drawImage(DiceImageFive,1186,65,150,150,f);
+            else if(Dice == 6)
+                 g.drawImage(DiceImageSix,1186,65,150,150,f);
+            
+        }
+    }
+    static void ChangeDice(int x,int y){
+        if(x > 1195 && x < 1326 && y > 74 && y < 204){
+            int _dice = Dice;
+                while(Dice == _dice){
+                    Dice =(int)(Math.random()*6+1); 
+                }
+        }
     }
     
     static void drawMenu(int mousePos [],FrameManager m){
@@ -178,9 +188,9 @@ public class Titlescreen {
             boardActive = false;
             frame.dispose();
         }
-        
+        g.drawImage(Wall,0,0,boardWidth,boardHeight,frame);
         g.drawImage(BoardImage,0,0,boardWidth-200,boardHeight,frame);
-        
+        drawDice(frame,x,y);
     }
     
     static private void multiHandler(int x, int y, FrameManager frame) {
