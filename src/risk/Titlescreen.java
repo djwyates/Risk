@@ -73,14 +73,14 @@ public class Titlescreen {
         { multiHandler(x, y, frame); }
     }
     
-    static private void mainHandler(int x, int y, Main frame) {
+    static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
         // Draw
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         if(!drawMute)
             g.drawImage(muteOnImage,760,760,20,20,frame);
         else
             g.drawImage(muteOffImage,760,760,20,20,frame);
-        g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
         
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
@@ -92,7 +92,7 @@ public class Titlescreen {
             onSingleButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Singleplayer", 326, 455);
+        g.drawString("Singleplayer", 320, 455);
         
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
@@ -104,7 +104,7 @@ public class Titlescreen {
             onMultiButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Multiplayer", 332, 563);
+        g.drawString("Multiplayer", 320, 563);
         
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
@@ -116,7 +116,7 @@ public class Titlescreen {
             onExitButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Exit", 363, 668);
+        g.drawString("Exit", 360, 668);
         
         // Mute button detection
         if(x>740 && x<800 && y>740 && y<800)
@@ -146,7 +146,7 @@ public class Titlescreen {
         else
             g.drawImage(muteOffImage,760,760,20,20,frame);
         try {
-            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Allan.ttf"))).deriveFont(Font.PLAIN,45));
+            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
             g.setColor(Color.white);
             g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
             g.drawString(Connect.getHost(), 261, 580);
