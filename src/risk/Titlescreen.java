@@ -33,7 +33,7 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
-    static private Image BoardImage;
+    static private Image mapImage;
     static private SoundManager menuSounds;
     static private int fontSize;
     
@@ -53,7 +53,7 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-        BoardImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+        mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -135,7 +135,8 @@ public class Titlescreen {
             mainActive = false;
             drawnBoard = true;
         }
-        g.drawImage(BoardImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        RiskMap.draw(frame);
+        System.out.println(RiskMap.contains(x, y));
     }
     
         
