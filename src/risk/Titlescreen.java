@@ -177,9 +177,8 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
-            Window.addWindow(Window.MAP_WINDOW_WIDTH+200, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH,Window.MAP_WINDOW_HEIGHT);
             RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
-            frame.dispose();
             mainActive = false;
             drawnBoard = true;
         }
