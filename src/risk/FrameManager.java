@@ -255,10 +255,7 @@ public class FrameManager extends JFrame implements Runnable
 //            {
 //                e.printStackTrace();
 //            }
-<<<<<<< HEAD
 
-=======
->>>>>>> 060e31968f752698c061d49f61aa04b363ff90d4
             
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));    
              

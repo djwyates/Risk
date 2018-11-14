@@ -101,9 +101,9 @@ public class Titlescreen {
     static void ChangeDice(int x,int y){
         if(x > 1195 && x < 1326 && y > 74 && y < 204){
             int _dice = Dice;
-                while(Dice == _dice){
+               // while(Dice == _dice){
                     Dice =(int)(Math.random()*6+1); 
-                }
+               // }
         }
     }
     
@@ -119,7 +119,7 @@ public class Titlescreen {
         { singleHandler(x, y, m); }
         else if (multiActive)
         { multiHandler(x, y, m); }
-        drawDice(m)
+        drawDice(m,x,y);
     }
     
     static private void mainHandler(int x, int y, FrameManager m) {
