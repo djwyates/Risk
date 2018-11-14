@@ -68,7 +68,7 @@ public class Titlescreen {
         menuSounds.loop("titlemusic.wav");
         
         //Dice Pictures
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceOne.png");
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
         DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
         DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
         DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
