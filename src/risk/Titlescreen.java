@@ -38,6 +38,7 @@ public class Titlescreen {
     static private int fontSize;
     
     static void reset(){
+        Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
         mainActive = true;
         onSingleButton = false;
         onMultiButton = false;
@@ -54,6 +55,7 @@ public class Titlescreen {
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
         mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+        menuSounds = null;
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -123,6 +125,7 @@ public class Titlescreen {
         { onMuteButton = true; }
         else
         { onMuteButton = false; }
+        
     }
     
     static private void singleHandler(int x, int y, Main frame) {
@@ -139,44 +142,58 @@ public class Titlescreen {
     
         
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
-        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        if(!drawMute)
-            g.drawImage(muteOnImage,760,760,20,20,frame);
-        else
-            g.drawImage(muteOffImage,760,760,20,20,frame);
-        try {
-            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
-            g.setColor(Color.white);
-            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
-            g.drawString(Connect.getHost(), 261, 580);
+        if(Connect.gameStarted()==false){
+            g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            if(!drawMute)
+                g.drawImage(muteOnImage,760,760,20,20,frame);
+            else
+                g.drawImage(muteOffImage,760,760,20,20,frame);
+            try {
+                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
+                g.setColor(Color.white);
+                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
+                g.drawString(Connect.getHost(), 261, 580);
+            }
+            catch (UnknownHostException e)
+            { e.printStackTrace(); }
+
+            // Home button detection
+            if(x>13 && x<111 && y>730 && y<783)
+            { onHomeButton = true; }
+            else
+            { onHomeButton = false; }
+
+            // Host button detection
+            if(x>256 && x<430 && y>666 && y<760)
+            { onHostButton = true; }
+            else
+            { onHostButton = false; }
+
+            // Join button detection
+            if(x>477 && x<649 && y>666 && y<760)
+            { onJoinButton = true; }
+            else
+            { onJoinButton = false; }
+
+            // Mute button detection
+            if(x>740 && x<800 && y>740 && y<800)
+            { onMuteButton = true;}
+            else 
+            { onMuteButton = false;}
         }
-        catch (UnknownHostException e)
-        { e.printStackTrace(); }
-        
-        // Home button detection
-        if(x>13 && x<111 && y>730 && y<783)
-        { onHomeButton = true; }
-        else
-        { onHomeButton = false; }
-        
-        // Host button detection
-        if(x>256 && x<430 && y>666 && y<760)
-        { onHostButton = true; }
-        else
-        { onHostButton = false; }
-        
-        // Join button detection
-        if(x>477 && x<649 && y>666 && y<760)
-        { onJoinButton = true; }
-        else
-        { onJoinButton = false; }
-        
-        // Mute button detection
-        if(x>740 && x<800 && y>740 && y<800)
-        { onMuteButton = true;}
-        else 
-        { onMuteButton = false;}
+        else //If connected 
+        {
+            if(!drawnBoard) {
+                Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Multiplayer");
+                RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
+                frame.dispose();
+                mainActive = false;
+                drawnBoard = true;
+            }
+            RiskMap.draw(frame);
+            System.out.println(RiskMap.contains(x, y));
+        }
     }
     
     static public void pressedButton() {

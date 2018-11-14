@@ -266,6 +266,7 @@ public class Main extends JFrame implements Runnable
 
     public static void reset() {
         Titlescreen.reset();
+        
     }
 
 
