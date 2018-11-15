@@ -27,10 +27,6 @@ public class Main extends JFrame implements Runnable
                 e.getX();
                 e.getY();
                 Titlescreen.ChangeDice(e.getX(),e.getY());
-                System.out.println(e.getX());
-                System.out.println(e.getY());
-                
-                
                 System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
