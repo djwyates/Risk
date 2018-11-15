@@ -180,5 +180,13 @@ public class RiskMap {
         countryName = "Australia";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
+        
+        // Sweden
+        { int x[] = {712,749,761,725,719,725,729,718,703,704,710,693,673,654,649,711,739};
+          int y[] = {119,130,180,200,183,164,155,151,180,193,197,234,207,213,182,116,121};
+        countryBoundry = new Polygon(x, y, x.length); }
+        countryName = "Sweden";
+        country = new Country(countryBoundry, countryName);
+        countries.add(country);
     }
 }
