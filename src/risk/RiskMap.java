@@ -33,6 +33,7 @@ public class RiskMap {
         Country country;
         
         // Initializing countries
+        // Initializing countries 
         // Alaska
         { int x[] = { 31,30,86,125,125,89,31 };
         int y[] = { 180,81,69,93,170,168,180 };
