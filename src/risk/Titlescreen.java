@@ -184,8 +184,8 @@ public class Titlescreen {
         }
        // g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
-        System.out.println(Dice);
-       // System.out.println(RiskMap.contains(x, y));
+        //System.out.println(Dice);
+        //System.out.println(RiskMap.contains(x, y));
         drawDice(frame,x,y);
     }
     
@@ -259,6 +259,7 @@ public class Titlescreen {
         singleActive = true;
         multiActive = false;
         onSingleButton = false;
+        Connect.setGameStarted(true);
     }
     
     static private void activateMultiButton() {
