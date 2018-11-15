@@ -34,7 +34,7 @@ public class Sound {
     }
     
     public void toggleMute() {
-        System.out.println("In mute class");
+        //System.out.println("In mute class");
         if (clip != null) {
             if (mute) {
                 clip.start();
@@ -44,7 +44,8 @@ public class Sound {
                 mute = true;
             }
         }
-        else
-            System.out.println("In nukll class");
+        else {
+            //System.out.println("In nukll class");
+        }
     }
 }

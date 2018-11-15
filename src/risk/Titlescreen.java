@@ -33,13 +33,6 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
-    static private Image Wall;
-    static private Image DiceImageOne;
-    static private Image DiceImageTwo;
-    static private Image DiceImageThree;
-    static private Image DiceImageFour;
-    static private Image DiceImageFive;
-    static private Image DiceImageSix;
     static private SoundManager menuSounds = null;
     static private int Dice;
     static private int fontSize;
@@ -62,17 +55,6 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-
-        menuSounds = null;
-
-        Wall =  Toolkit.getDefaultToolkit().getImage("./WoodBack.jpg");
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceOne.png");
-        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
-        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
-        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
-        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
-        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
-
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -82,24 +64,6 @@ public class Titlescreen {
         fontSize = 20;
     }
     
-    static void drawDice(Main frame,int x,int y){
-        
-        if(!drawnBoard){
-            if(Dice == 1)
-                  g.drawImage(DiceImageOne,1399,83,150,150,frame);
-            else if(Dice == 2)
-                 g.drawImage(DiceImageTwo,1399,83,150,150,frame);
-            else if(Dice == 3)
-                 g.drawImage(DiceImageThree,1399,83,150,150,frame);
-            else if(Dice == 4)
-                 g.drawImage(DiceImageFour,1399,83,150,150,frame);
-            else if(Dice == 5)
-                 g.drawImage(DiceImageFive,1399,83,150,150,frame);
-            else if(Dice == 6)
-                 g.drawImage(DiceImageSix,1399,83,150,150,frame);
-            
-        }
-    }
     static void ChangeDice(int x,int y){
         if(x > 1195 && x < 1326 && y > 74 && y < 204){
             int _dice = Dice;
@@ -119,7 +83,6 @@ public class Titlescreen {
         { singleHandler(x, y, frame); }
         else if (multiActive)
         { multiHandler(x, y, frame); }
-        drawDice(frame,x,y);
     }
     
     static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
@@ -182,11 +145,11 @@ public class Titlescreen {
             mainActive = false;
             drawnBoard = true;
         }
-       // g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
         //System.out.println(Dice);
         //System.out.println(RiskMap.contains(x, y));
-        drawDice(frame,x,y);
+        RiskMap.fillBorders();
+        //System.out.println(RiskMap.contains(x, y));
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {

@@ -48,6 +48,7 @@ public class Main extends JFrame implements Runnable
                 }
                 i++;
                 //System.out.println(e.getX() + "        " + e.getY());
+                System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
         });

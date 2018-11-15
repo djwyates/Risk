@@ -16,6 +16,9 @@ public class Country {
         name = _name;
     }
     
+    public Polygon getBoundry()
+    { return(boundry); }
+    
     public String toString()
     { return(name); }
 }
