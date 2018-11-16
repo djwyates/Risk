@@ -1,11 +1,10 @@
-// Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David yates
+// Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David Yates
 package risk;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
