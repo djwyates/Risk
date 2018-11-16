@@ -144,6 +144,13 @@ public class Titlescreen {
         RiskMap.draw(frame);
         RiskMap.fillBorders();
         g.drawImage(backButton, 0, Window.YTITLE, frame);
+        if(RiskMap.contains(x,y)!=null)
+        System.out.println(RiskMap.contains(x, y).name);
+        RiskMap.draw(frame);
+        //System.out.println(Dice);
+        //System.out.println(RiskMap.contains(x, y));
+        RiskMap.fillBorders();
+
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
