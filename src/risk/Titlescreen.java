@@ -198,7 +198,7 @@ public class Titlescreen {
 
             // Host button detection
             if(x>256 && x<430 && y>666 && y<760)
-            { onHostButton = true; }
+            { onHostButton = true; System.out.println("On Host Button");}
             else
             { onHostButton = false; }
 
