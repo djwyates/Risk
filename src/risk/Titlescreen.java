@@ -163,11 +163,13 @@ public class Titlescreen {
             drawnBoard = true;
         }
         RiskMap.draw(frame);
+        if(RiskMap.contains(x,y)!=null)
         System.out.println(RiskMap.contains(x, y).name);
         RiskMap.draw(frame);
         //System.out.println(Dice);
         //System.out.println(RiskMap.contains(x, y));
         RiskMap.fillBorders();
+        
         
     }
     
