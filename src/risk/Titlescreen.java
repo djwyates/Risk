@@ -36,8 +36,8 @@ public class Titlescreen {
     static private Image backButton;
     static private SoundManager menuSounds = null;
     static private int fontSize;
-    static int timeCount = 0;
-
+    static int timeCount;
+    
     
     static void reset(){
         Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
