@@ -59,6 +59,7 @@ public class Titlescreen {
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
         menuSounds.addSound("multiButtonCheer.wav");
+        menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
         Dice = (int)(Math.random()*6+1);
         fontSize = 20;
@@ -149,6 +150,7 @@ public class Titlescreen {
         //System.out.println(Dice);
         //System.out.println(RiskMap.contains(x, y));
         RiskMap.fillBorders();
+        
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
@@ -265,4 +267,8 @@ public class Titlescreen {
     
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }
+    
+    static SoundManager getMenuSounds(){
+        return menuSounds;
+    }
 }

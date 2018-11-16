@@ -11,7 +11,7 @@ public class RiskMap {
     
     static private Image image;
     static private ArrayList<Country> countries = new ArrayList<Country>();
-    
+    static Country currentCountry;
     static public void draw(Main frame) {
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
     }
@@ -22,6 +22,10 @@ public class RiskMap {
         for (Country country : countries) {
             if (country != null && country.boundry.contains(point)){
                 country.isSelected = true;
+                if(currentCountry!=country){
+                    Titlescreen.getMenuSounds().play("terr_noise.wav");
+                    currentCountry = country;
+                }
                 return(country);
             }
             else if(country!=null){
