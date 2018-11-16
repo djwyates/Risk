@@ -540,11 +540,11 @@ public class RiskMap {
         countryName = "Quebec";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        // Maragret
+        // Nunavut
         { int x[] = {251,301,309,324,359,363,332,345,210,181,212,246,249,301};
           int y[] = {161,160,144,144,118,97,89,40,34,64,89,126,162,161};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Maragret";
+        countryName = "Nunavut";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         // Madagascar
