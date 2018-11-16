@@ -144,11 +144,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
-        // England
+        // British Isles
         { int x[] = {579,597,584,541,518,561};
         int y[] = {213,282,305,305,268,210};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "England";
+        countryName = "British Isles";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -549,18 +549,18 @@ public class RiskMap {
         countryName = "Alberta";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        // Quafix
+        // Quebec
         { int x[] = {354,352,376,394,406,437,475,460,425,396,370,363,369,354};
           int y[] = {199,253,264,250,275,256,243,204,164,150,147,162,189,196};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Quafix";
+        countryName = "Quebec";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        // Maragret
+        // Nunavut
         { int x[] = {251,301,309,324,359,363,332,345,210,181,212,246,249,301};
           int y[] = {161,160,144,144,118,97,89,40,34,64,89,126,162,161};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Maragret";
+        countryName = "Nunavut";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         // Madagascar
