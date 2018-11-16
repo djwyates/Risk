@@ -65,15 +65,6 @@ public class Titlescreen {
         fontSize = 20;
     }
     
-    static void ChangeDice(int x,int y){
-        if(x > 1195 && x < 1326 && y > 74 && y < 204){
-            int _dice = Dice;
-                while(Dice == _dice){
-                    Dice =(int)(Math.random()*6+1); 
-                }
-        }
-    }
-    
     static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
         //Array of mouse position separated
         int x = mousePos[0];
@@ -147,10 +138,7 @@ public class Titlescreen {
             drawnBoard = true;
         }
         RiskMap.draw(frame);
-        //System.out.println(Dice);
-        //System.out.println(RiskMap.contains(x, y));
         RiskMap.fillBorders();
-        
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {

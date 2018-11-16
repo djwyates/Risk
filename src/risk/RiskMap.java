@@ -18,7 +18,6 @@ public class RiskMap {
     
     static public Country contains(int x, int y) {
         Point point = new Point(x, y);
-        int i=0;
         for (Country country : countries) {
             if (country != null && country.boundry.contains(point)){
                 country.isSelected = true;
@@ -74,10 +73,18 @@ public class RiskMap {
         countries.add(country);
         
         // Mexico
-        { int x[] = { 161,185,206,213,224,243,283,281,271,287,278,184,159 };
-        int y[] = { 336,346,342,355,351,391,388,404,409,452,465,401,338 };
+        { int x[] = { 159,243,283,281,240,176,154,158,203 };
+        int y[] = { 338,372,387,402,422,410,353,339,342 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Mexico";
+        country = new Country(countryBoundry, countryName);
+        countries.add(country);
+        
+        // Guatamala
+        { int x[] = { 238,282,285,280,243,238,281 };
+        int y[] = { 422,399,452,468,467,422,400 };
+        countryBoundry = new Polygon(x, y, x.length); }
+        countryName = "Guatamala";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -193,11 +200,27 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
-        // Australia
-        { int x[] = {1153,1202,1253,1258,1240,1226,1199,1180,1155,1123,1084,1057,1083,1119,1137,1159,1177};
-          int y[] = {649,645,721,762,796,824,804,789,771,775,788,715,698,662,661,646,653};
+        // Western Australia
+        { int x[] = { 1138,1137,1078,1031,1103,1135};
+          int y[] = {663,771,790,714,656,658};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Australia";
+        countryName = "Western Australia";
+        country = new Country(countryBoundry, countryName);
+        countries.add(country);
+        
+        // Queensland
+        { int x[] = {1137,1137,1195,1198,1262,1231,1203,1135};
+          int y[] = { 662,731,731,748,745,662,642,648};
+        countryBoundry = new Polygon(x, y, x.length); }
+        countryName = "Queensland";
+        country = new Country(countryBoundry, countryName);
+        countries.add(country);
+        
+        // Victoria
+        { int x[] = {1139,1197,1197,1261,1246,1227,1138,1139};
+          int y[] = {732,731,747,744,803,829,771,731};
+        countryBoundry = new Polygon(x, y, x.length); }
+        countryName = "Victoria";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -386,16 +409,9 @@ public class RiskMap {
         countryName = "Kamchakta";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        // Northern Japan
-        { int x[] = {1247,1265,1290,1292,1265,1250,1246,1243};
-          int y[] = {229,239,239,247,271,266,248,227};
-        countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Northern Japan";
-        country = new Country(countryBoundry, countryName);
-        countries.add(country);
         // Japan
-        { int x[] = {1259,1269,1284,1292,1269,1249,1235,1218,1209,1236,1244,1257,1279};
-          int y[] = {278,274,285,330,346,360,377,375,355,324,291,271,273};
+        { int x[] = {1222,1291,1297,1241,1251,1237,1210,1221,1240};
+          int y[] = {388,328,237,226,278,318,349,384,379};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Japan";
         country = new Country(countryBoundry, countryName);
