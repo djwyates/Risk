@@ -533,11 +533,11 @@ public class RiskMap {
         countryName = "Alberta";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        // Quafix
+        // Quebec
         { int x[] = {354,352,376,394,406,437,475,460,425,396,370,363,369,354};
           int y[] = {199,253,264,250,275,256,243,204,164,150,147,162,189,196};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Quafix";
+        countryName = "Quebec";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         // Maragret
