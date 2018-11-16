@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,9 @@ public class Main extends JFrame implements Runnable
 
     Thread relaxer;
     int mousePos []= new int[2];
+    static int listOfXPresses[] = new int [30];
+    static int listOfYPresses[] = new int [30];
+    int i=-1;
     
     
     public static void main(String[] args) {
@@ -27,10 +31,23 @@ public class Main extends JFrame implements Runnable
                 e.getX();
                 e.getY();
                 Titlescreen.ChangeDice(e.getX(),e.getY());
-                System.out.println(e.getX());
-                System.out.println(e.getY());
-                
-                
+                if(i>=0){
+                    listOfXPresses[i] = e.getX();
+                    listOfYPresses[i] = e.getY();
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(i);
+                System.out.println("List of x    " + listOfXPresses[0]+","+listOfXPresses[1]+","+listOfXPresses[2]+","+listOfXPresses[3]+","+listOfXPresses[4]+","+listOfXPresses[5]+","+listOfXPresses[6]+","+listOfXPresses[7]+","+listOfXPresses[8]+","+listOfXPresses[9]+","+listOfXPresses[10]+","+listOfXPresses[11]+","+listOfXPresses[12]+","+listOfXPresses[13]+","+listOfXPresses[14]+","+listOfXPresses[15]+","+listOfXPresses[16]+","+listOfXPresses[17]+","+listOfXPresses[18]+","+listOfXPresses[19]+","+listOfXPresses[20]+","+listOfXPresses[21]);
+                System.out.println("List of y    " + listOfYPresses[0]+","+listOfYPresses[1]+","+listOfYPresses[2]+","+listOfYPresses[3]+","+listOfYPresses[4]+","+listOfYPresses[5]+","+listOfYPresses[6]+","+listOfYPresses[7]+","+listOfYPresses[8]+","+listOfYPresses[9]+","+listOfYPresses[10]+","+listOfYPresses[11]+","+listOfYPresses[12]+","+listOfYPresses[13]+","+listOfYPresses[14]+","+listOfYPresses[15]+","+listOfYPresses[16]+","+listOfYPresses[17]+","+listOfYPresses[18]+","+listOfYPresses[19]+","+listOfYPresses[20]+","+listOfYPresses[21]);
+                }
+                i++;
+                //System.out.println(e.getX() + "        " + e.getY());
                 System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
@@ -134,6 +151,16 @@ public class Main extends JFrame implements Runnable
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
+                        for(int i=0;i<listOfYPresses.length;i++){
+                            listOfYPresses[i]=0;
+                            listOfXPresses[i]=0;
+                        }
+                        System.out.println("RESET ARRAYS");
+                        System.out.println("RESET ARRAYS");
+                        System.out.println("RESET ARRAYS");
+                        System.out.println("RESET ARRAYS");
+                        System.out.println("RESET ARRAYS");
+                        i=0;
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_S){
                     }
@@ -240,7 +267,12 @@ public class Main extends JFrame implements Runnable
 //            }
 
             
-        g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));    
+        g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));  
+        String mousePosString = new String(mousePos[0] + "   " + mousePos[1]);
+        g.drawString(mousePosString, mousePos[0], mousePos[1]);
+        if(RiskMap.contains(mousePos[0], mousePos[1])!=null)
+            g.drawString(RiskMap.contains(mousePos[0], mousePos[1]).name, mousePos[0], mousePos[1]-20);
+        
              
 
         gOld.drawImage(image, 0, 0, null);
@@ -273,6 +305,7 @@ public class Main extends JFrame implements Runnable
 
     public static void reset() {
         Titlescreen.reset();
+        
     }
 
 

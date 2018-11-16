@@ -12,7 +12,7 @@ public class Window {
     static final int MENU_WINDOW_HEIGHT = 800;
     static final int MAP_WINDOW_WIDTH = 1371;
     static final int MAP_WINDOW_HEIGHT = 912;
-
+    static Main currentFrame;
     static int MIN_X;
     static int MAX_X;
     static int MIN_Y;
@@ -27,12 +27,13 @@ public class Window {
 /////////////////////////////////////////////////////////////////////////
     public static void addWindow(int width, int height, String title) {
         Main frame = new Main();
+        currentFrame=frame;
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle(title);
-        frame.setResizable(true);
+        frame.setResizable(false);
     }
     
     public static int getX(int x) {

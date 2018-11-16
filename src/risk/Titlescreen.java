@@ -33,19 +33,13 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
-    static private Image Wall;
-    static private Image DiceImageOne;
-    static private Image DiceImageTwo;
-    static private Image DiceImageThree;
-    static private Image DiceImageFour;
-    static private Image DiceImageFive;
-    static private Image DiceImageSix;
     static private SoundManager menuSounds = null;
     static private int Dice;
     static private int fontSize;
     static int timeCount = 0;
     
     static void reset(){
+        Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
         mainActive = true;
         singleActive = false;
         multiActive = false;
@@ -63,86 +57,14 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-        Wall =  Toolkit.getDefaultToolkit().getImage("./WoodBack.jpg");
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceOne.png");
-        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
-        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
-        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
-        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
-        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
         menuSounds.addSound("multiButtonCheer.wav");
+        menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
         Dice = (int)(Math.random()*6+1);
         fontSize = 20;
-    }
-    /*
- static private void singleHandler(int x, int y, FrameManager frame) {
-        int boardWidth = 1571;
-        int boardHeight = 912;
-        
-        if(boardActive){
-            FrameManager.addWindow(boardWidth, boardHeight);
-            mainActive = false;
-            boardActive = false;
-            frame.dispose();
-        }
-        g.drawImage(Wall,0,0,boardWidth+200,boardHeight,frame);
-        g.drawImage(BoardImage,0,0,boardWidth-200,boardHeight,frame);
-        drawDice(frame,x,y);
-    }
-    
-<<<<<<< HEAD
-    static void drawDice(Main frame,int x,int y) {
-        if(!drawnBoard){
-=======
-    
-    static void drawDice(FrameManager f,int x,int y){
-        
-        if(!boardActive){
->>>>>>> 2738e65fc17434b32a2d6f4e08dcdd92eae5b3e7
-            if(Dice == 1)
-                  g.drawImage(DiceImageOne,1386,65,150,150,f);
-            else if(Dice == 2)
-                 g.drawImage(DiceImageTwo,1386,65,150,150,f);
-            else if(Dice == 3)
-                 g.drawImage(DiceImageThree,1386,65,150,150,f);
-            else if(Dice == 4)
-                 g.drawImage(DiceImageFour,1386,65,150,150,f);
-            else if(Dice == 5)
-                 g.drawImage(DiceImageFive,1386,65,150,150,f);
-            else if(Dice == 6)
-                 g.drawImage(DiceImageSix,1386,65,150,150,f);
-            
-        }
-    }
-    static void ChangeDice(int x,int y){
-        if(x > 1395 && x < 1526 && y > 74 && y < 204){
-            int _dice = Dice;
-                while(Dice == _dice){
-                    Dice =(int)(Math.random()*6+1); 
-                }
-        }
-    }   
-*/
-    static void drawDice(Main frame,int x,int y){
-        
-        if(drawnBoard){
-             if(Dice == 1)
-                  g.drawImage(DiceImageOne,1386,65,150,150,frame);
-            else if(Dice == 2)
-                 g.drawImage(DiceImageTwo,1386,65,150,150,frame);
-            else if(Dice == 3)
-                 g.drawImage(DiceImageThree,1386,65,150,150,frame);
-            else if(Dice == 4)
-                 g.drawImage(DiceImageFour,1386,65,150,150,frame);
-            else if(Dice == 5)
-                 g.drawImage(DiceImageFive,1386,65,150,150,frame);
-            else if(Dice == 6)
-                 g.drawImage(DiceImageSix,1386,65,150,150,frame);
-        }
     }
     
     static void ChangeDice(int x,int y){
@@ -164,17 +86,16 @@ public class Titlescreen {
         { singleHandler(x, y, frame); }
         else if (multiActive)
         { multiHandler(x, y, frame); }
-        drawDice(frame,x,y);
     }
     
-    static private void mainHandler(int x, int y, Main frame) {
+    static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
         // Draw
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         if(!drawMute)
             g.drawImage(muteOnImage,760,760,20,20,frame);
         else
             g.drawImage(muteOffImage,760,760,20,20,frame);
-        g.setFont(new Font("Viner Hand ITC", Font.ROMAN_BASELINE, fontSize));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
         
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
@@ -186,7 +107,7 @@ public class Titlescreen {
             onSingleButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Singleplayer", 326, 455);
+        g.drawString("Singleplayer", 320, 455);
         
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
@@ -198,7 +119,7 @@ public class Titlescreen {
             onMultiButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Multiplayer", 332, 563);
+        g.drawString("Multiplayer", 320, 563);
         
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
@@ -210,68 +131,85 @@ public class Titlescreen {
             onExitButton = false;
             g.setColor(Color.red);
         }
-        g.drawString("Exit", 363, 668);
+        g.drawString("Exit", 360, 668);
         
         // Mute button detection
         if(x>740 && x<800 && y>740 && y<800)
         { onMuteButton = true; }
         else
         { onMuteButton = false; }
+        
     }
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
             frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
+            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH,Window.MAP_WINDOW_HEIGHT);
             RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
             mainActive = false;
             drawnBoard = true;
         }
-        g.drawImage(Wall,0,0,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,frame);
         RiskMap.draw(frame);
-        g.drawImage(DiceImageOne,Window.MAP_WINDOW_WIDTH+200,Window.MAP_WINDOW_HEIGHT,30,30,frame);
         System.out.println(RiskMap.contains(x, y));
-        drawDice(frame,x,y);
+        RiskMap.draw(frame);
+        //System.out.println(Dice);
+        //System.out.println(RiskMap.contains(x, y));
+        RiskMap.fillBorders();
+        
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
-        g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        if(!drawMute)
-            g.drawImage(muteOnImage,760,760,20,20,frame);
-        else
-            g.drawImage(muteOffImage,760,760,20,20,frame);
-        try {
-            g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Allan.ttf"))).deriveFont(Font.PLAIN,45));
-            g.setColor(Color.white);
-            g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
-            g.drawString(Connect.getHost(), 261, 580);
+        if(Connect.gameStarted()==false){
+            g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            if(!drawMute)
+                g.drawImage(muteOnImage,760,760,20,20,frame);
+            else
+                g.drawImage(muteOffImage,760,760,20,20,frame);
+            try {
+                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
+                g.setColor(Color.white);
+                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
+                g.drawString(Connect.getHost(), 261, 580);
+            }
+            catch (UnknownHostException e)
+            { e.printStackTrace(); }
+
+            // Home button detection
+            if(x>13 && x<111 && y>730 && y<783)
+            { onHomeButton = true; }
+            else
+            { onHomeButton = false; }
+
+            // Host button detection
+            if(x>256 && x<430 && y>666 && y<760)
+            { onHostButton = true; }
+            else
+            { onHostButton = false; }
+
+            // Join button detection
+            if(x>477 && x<649 && y>666 && y<760)
+            { onJoinButton = true; }
+            else
+            { onJoinButton = false; }
+
+            // Mute button detection
+            if(x>740 && x<800 && y>740 && y<800)
+            { onMuteButton = true;}
+            else 
+            { onMuteButton = false;}
         }
-        catch (UnknownHostException e)
-        { e.printStackTrace(); }
-        
-        // Home button detection
-        if(x>13 && x<111 && y>730 && y<783)
-        { onHomeButton = true; }
-        else
-        { onHomeButton = false; }
-        
-        // Host button detection
-        if(x>256 && x<430 && y>666 && y<760)
-        { onHostButton = true; }
-        else
-        { onHostButton = false; }
-        
-        // Join button detection
-        if(x>477 && x<649 && y>666 && y<760)
-        { onJoinButton = true; }
-        else
-        { onJoinButton = false; }
-        
-        // Mute button detection
-        if(x>740 && x<800 && y>740 && y<800)
-        { onMuteButton = true;}
-        else 
-        { onMuteButton = false;}
+        else //If connected 
+        {
+            if(!drawnBoard) {
+                Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Multiplayer");
+                RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
+                frame.dispose();
+                mainActive = false;
+                drawnBoard = true;
+            }
+            RiskMap.draw(frame);
+        }
     }
     
     static public void pressedButton() {
@@ -289,6 +227,7 @@ public class Titlescreen {
         singleActive = true;
         multiActive = false;
         onSingleButton = false;
+        Connect.setGameStarted(true);
     }
     
     static private void activateMultiButton() {
@@ -333,4 +272,8 @@ public class Titlescreen {
     
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }
+    
+    static SoundManager getMenuSounds(){
+        return menuSounds;
+    }
 }
