@@ -183,7 +183,10 @@ public class Titlescreen {
                 g.drawImage(muteOffImage,760,760,20,20,frame);
             try {
                 g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
-                g.setColor(Color.white);
+                g.setColor(Color.black);
+                g.drawString(InetAddress.getLocalHost().getHostAddress(), 266, 495);
+                g.drawString(Connect.getHost(), 266, 585);
+                g.setColor(Color.red);
                 g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
                 g.drawString(Connect.getHost(), 261, 580);
             }
@@ -198,7 +201,7 @@ public class Titlescreen {
 
             // Host button detection
             if(x>256 && x<430 && y>666 && y<760)
-            { onHostButton = true; System.out.println("On Host Button");}
+            { onHostButton = true;}
             else
             { onHostButton = false; }
 
