@@ -33,6 +33,7 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
+    static private Image backButton;
     static private SoundManager menuSounds = null;
     static private int fontSize;
     static int timeCount = 0;
@@ -57,6 +58,7 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
+        backButton = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -140,10 +142,8 @@ public class Titlescreen {
             drawnBoard = true;
         }
         RiskMap.draw(frame);
-        RiskMap.draw(frame);
-        //System.out.println(Dice);
-        //System.out.println(RiskMap.contains(x, y));
         RiskMap.fillBorders();
+        g.drawImage(backButton, 0, Window.YTITLE, frame);
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
