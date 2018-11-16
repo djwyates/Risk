@@ -15,7 +15,7 @@ public class Country {
     Country(Polygon _boundry, String _name) {
         boundry = _boundry;
         name = _name;
-        isSelected=false;
+        isSelected = false;
     }
     
     public Polygon getBoundry()
