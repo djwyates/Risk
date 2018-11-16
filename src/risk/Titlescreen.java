@@ -35,8 +35,18 @@ public class Titlescreen {
     static private Image muteOffImage;
     static private SoundManager menuSounds = null;
     static private int Dice;
+
     static private int fontSize;
     static int timeCount = 0;
+
+    static private Image DiceImageOne;
+    static private Image DiceImageTwo;
+    static private Image DiceImageThree;
+    static private Image DiceImageFour;
+    static private Image DiceImageFive;
+    static private Image DiceImageSix;
+    static private Image InGameBackButton;
+
     
     static void reset(){
         Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
@@ -63,17 +73,18 @@ public class Titlescreen {
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
-        Dice = (int)(Math.random()*6+1);
         fontSize = 20;
-    }
-    
-    static void ChangeDice(int x,int y){
-        if(x > 1395 && x < 1526 && y > 74 && y < 204){
-            int _dice = Dice;
-                while(Dice == _dice){
-                    Dice =(int)(Math.random()*6+1); 
-                }
-        }
+        //Dice Pictures
+        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
+        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
+        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
+        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
+        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
+        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
+        InGameBackButton = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
+        
+        timeCount=0;
+
     }
     static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
         //Array of mouse position separated
@@ -84,7 +95,9 @@ public class Titlescreen {
         else if (singleActive)
         { singleHandler(x, y, frame); }
         else if (multiActive)
+
         { multiHandler(x, y, frame); }
+
     }
     
     static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
