@@ -137,11 +137,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
-        // England
+        // British Isles
         { int x[] = {579,597,584,541,518,561};
         int y[] = {213,282,305,305,268,210};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "England";
+        countryName = "British Isles";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
