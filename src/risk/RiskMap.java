@@ -10,16 +10,15 @@ import static risk.Main.g;
 public class RiskMap {
     
     static private Image image;
-    static private Image[] diceImages = new Image[6];
     static private ArrayList<Country> countries = new ArrayList<Country>();
     static Country currentCountry;
+    
     static public void draw(Main frame) {
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
     }
     
     static public Country contains(int x, int y) {
         Point point = new Point(x, y);
-        int i=0;
         for (Country country : countries) {
             if (country != null && country.boundry.contains(point)){
                 country.isSelected = true;
@@ -45,7 +44,6 @@ public class RiskMap {
                 if(i>1)
                     country.isSelected=false;
             }
-            
             if(country.isSelected)
                 g.drawPolygon(country.getBoundry());
         }
