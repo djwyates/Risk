@@ -597,4 +597,7 @@ public class RiskMap {
         
         
     }
+    
+    static public ArrayList<Country> getCountryList()
+    { return(countries); }
 }
