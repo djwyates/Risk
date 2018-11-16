@@ -30,7 +30,6 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
-                Titlescreen.ChangeDice(e.getX(),e.getY());
                 if(i>=0){
                     listOfXPresses[i] = e.getX();
                     listOfYPresses[i] = e.getY();
