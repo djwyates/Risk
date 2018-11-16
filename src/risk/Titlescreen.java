@@ -34,18 +34,8 @@ public class Titlescreen {
     static private Image muteOnImage;
     static private Image muteOffImage;
     static private SoundManager menuSounds = null;
-    static private int Dice;
-
     static private int fontSize;
     static int timeCount = 0;
-
-    static private Image DiceImageOne;
-    static private Image DiceImageTwo;
-    static private Image DiceImageThree;
-    static private Image DiceImageFour;
-    static private Image DiceImageFive;
-    static private Image DiceImageSix;
-    static private Image InGameBackButton;
 
     
     static void reset(){
@@ -74,20 +64,10 @@ public class Titlescreen {
         menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
         fontSize = 20;
-        //Dice Pictures
-        DiceImageOne = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
-        DiceImageTwo = Toolkit.getDefaultToolkit().getImage("./DiceTwo.png");
-        DiceImageThree = Toolkit.getDefaultToolkit().getImage("./DiceThree.png");
-        DiceImageFour = Toolkit.getDefaultToolkit().getImage("./DiceFour.png");
-        DiceImageFive = Toolkit.getDefaultToolkit().getImage("./DiceFive.png");
-        DiceImageSix = Toolkit.getDefaultToolkit().getImage("./DiceSix.png");
-        InGameBackButton = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
-        
         timeCount=0;
-
     }
     static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
-        //Array of mouse position separated
+        // Array of mouse position separated
         int x = mousePos[0];
         int y = mousePos[1];
         if (mainActive)
@@ -95,9 +75,7 @@ public class Titlescreen {
         else if (singleActive)
         { singleHandler(x, y, frame); }
         else if (multiActive)
-
         { multiHandler(x, y, frame); }
-
     }
     
     static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
@@ -155,9 +133,9 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
-            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
-            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH,Window.MAP_WINDOW_HEIGHT);
             RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
+            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
+            frame.setTitle("Risk - Singleplayer");
             mainActive = false;
             drawnBoard = true;
         }
