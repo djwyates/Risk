@@ -6,6 +6,7 @@ import java.awt.Polygon;
 public class Country {
     Polygon boundry;
     String name;
+    boolean isSelected;
     
     Country() {
         
@@ -14,11 +15,10 @@ public class Country {
     Country(Polygon _boundry, String _name) {
         boundry = _boundry;
         name = _name;
+        isSelected=false;
     }
     
     public Polygon getBoundry()
     { return(boundry); }
     
-    public String toString()
-    { return(name); }
 }

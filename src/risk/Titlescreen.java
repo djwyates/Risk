@@ -149,7 +149,6 @@ public class Titlescreen {
         //System.out.println(Dice);
         //System.out.println(RiskMap.contains(x, y));
         RiskMap.fillBorders();
-        //System.out.println(RiskMap.contains(x, y));
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
@@ -203,7 +202,6 @@ public class Titlescreen {
                 drawnBoard = true;
             }
             RiskMap.draw(frame);
-            System.out.println(RiskMap.contains(x, y));
         }
     }
     
