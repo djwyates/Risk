@@ -33,7 +33,6 @@ public class Titlescreen {
     static private Image emberImage;
     static private Image muteOnImage;
     static private Image muteOffImage;
-    static private Image backButton;
     static private SoundManager menuSounds = null;
     static private int fontSize;
     static int timeCount = 0;
@@ -58,7 +57,6 @@ public class Titlescreen {
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         muteOnImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         muteOffImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
-        backButton = Toolkit.getDefaultToolkit().getImage("./BackButton.png");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -135,7 +133,7 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
-            RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
+            RiskMap riskMap = new RiskMap();
             frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
             frame.setTitle("Risk - Singleplayer");
             mainActive = false;
@@ -143,14 +141,6 @@ public class Titlescreen {
         }
         RiskMap.draw(frame);
         RiskMap.fillBorders();
-        g.drawImage(backButton, 0, Window.YTITLE, frame);
-        if(RiskMap.contains(x,y)!=null)
-        System.out.println(RiskMap.contains(x, y).name);
-        RiskMap.draw(frame);
-        //System.out.println(Dice);
-        //System.out.println(RiskMap.contains(x, y));
-        RiskMap.fillBorders();
-
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
@@ -201,7 +191,7 @@ public class Titlescreen {
         {
             if(!drawnBoard) {
                 Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Multiplayer");
-                RiskMap riskMap = new RiskMap(Toolkit.getDefaultToolkit().getImage("./riskMap.jpg"));
+                RiskMap riskMap = new RiskMap();
                 frame.dispose();
                 mainActive = false;
                 drawnBoard = true;
