@@ -36,6 +36,7 @@ public class Titlescreen {
     static private SoundManager menuSounds = null;
     static private int fontSize;
     static int timeCount = 0;
+
     
     static void reset(){
         Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
@@ -63,8 +64,8 @@ public class Titlescreen {
         menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
         fontSize = 20;
+        timeCount=0;
     }
-    
     static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
         // Array of mouse position separated
         int x = mousePos[0];
