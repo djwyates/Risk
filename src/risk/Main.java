@@ -15,7 +15,7 @@ public class Main extends JFrame implements Runnable
 
     Thread relaxer;
     int mousePos []= new int[2];
-    
+    int i = 0;
     public static void main(String[] args) {
         Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
     }
@@ -25,7 +25,6 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
-                System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
         });
@@ -35,13 +34,6 @@ public class Main extends JFrame implements Runnable
             public void mouseReleased(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton())
                     Button.releasedLeftClick(Window.currentFrame);
-                repaint();
-            }
-        });
-        
-       
-        addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
                 repaint();
             }
         });
@@ -234,9 +226,7 @@ public class Main extends JFrame implements Runnable
 //            }
 
             
-        g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));  
-        String mousePosString = new String(mousePos[0] + "   " + mousePos[1]);
-        g.drawString(mousePosString, mousePos[0], mousePos[1]);
+        g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
         
         gOld.drawImage(image, 0, 0, null);
     }
@@ -284,7 +274,21 @@ public class Main extends JFrame implements Runnable
             }
 
             reset();
+            
+            
         }
+            for(Continent tempCont : Continent.continents){
+                if(tempCont!=null && tempCont.name == "Oceania"){
+                    System.out.println(tempCont.name);
+                    System.out.println("=============");
+                    for(Country tempCountry : tempCont.contCountries){
+                        System.out.println(tempCountry.name);
+                    }
+                    System.out.println("=============");
+                }
+                else
+                    System.out.println("null");
+            }
     }
 
     // //////////////////////////////////////////////////////////////////////////

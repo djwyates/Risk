@@ -210,11 +210,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
-        // Alergia
+        // Algeria
         { int x[] = {583,605,641,674,679,676,687,653,596,574,586};
           int y[] = {440,437,423,423,441,465,496,516,480,475,440};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Alergia";
+        countryName = "Algeria";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -600,6 +600,8 @@ public class RiskMap {
         countryName = "Novashelkye";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
+        
+        Continent.create();
     }
     
     static public ArrayList<Country> getCountryList()
