@@ -1,17 +1,18 @@
 
 package risk;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Player {
-    static private Player[] players;
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private int totalTroops;
     private int numContinents;
+    Color color;
     
     Player() {
-        totalTroops=50;
-        numContinents=0;
+        totalTroops = 50;
+        color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
     }
     
     public void addTerritory(Country country) {ownedCountries.add(country);}

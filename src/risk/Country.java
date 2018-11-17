@@ -6,13 +6,11 @@ import static risk.Main.g;
 
 public class Country {
     static private Country currentCountry;
+    Player owner;
     Polygon boundary;
     String name;
     boolean isSelected;
     int numTroops;
-    
-    Country() {
-    }
     
     Country(Polygon _boundry, String _name) {
         numTroops=0;
@@ -52,6 +50,10 @@ public class Country {
         if(isSelected)
             g.drawPolygon(boundary);
         Titlescreen.getMenuSounds().play("terr_noise.wav");
+    }
+    
+    public void setOwner(Player player) {
+        owner = player;
     }
     
     public Polygon getBoundry()

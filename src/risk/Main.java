@@ -184,7 +184,7 @@ public class Main extends JFrame implements Runnable
         
         if(Titlescreen.isActive()){
             try  {
-                Titlescreen.titlescreenHandler(mousePos, this);
+                Titlescreen.titlescreenHandler(mousePos[0], mousePos[1], this);
             } catch (FontFormatException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
