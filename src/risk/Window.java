@@ -36,6 +36,11 @@ public class Window {
         frame.setResizable(false);
     }
     
+    public static void changeWindow(Main frame, int x, int y, int width, int height, String title) {
+        frame.setBounds(x, y, width, height);
+        frame.setTitle(title);
+    }
+    
     public static int getX(int x) {
         return (x + XBORDER + WINDOW_BORDER);
     }

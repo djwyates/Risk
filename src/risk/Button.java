@@ -3,11 +3,13 @@ package risk;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Polygon;
 import java.awt.Toolkit;
 import static risk.Main.g;
 
 public class Button {
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+    static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
     static private boolean muteOn = false;
     static private boolean onSingle = false;
     static private boolean onMulti = false;
@@ -18,7 +20,7 @@ public class Button {
     static private boolean onMute = false;
     static private boolean onBack = false;
     
-    static public void releasedLeftClick() {
+    static public void releasedLeftClick(Main frame) {
         if (onSingle) { activateSingleButton(); }
         else if (onMulti) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
@@ -26,6 +28,7 @@ public class Button {
         else if (onHost) { activateHostButton(); }
         else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
+        else if (onBack) { activateBackButton(frame); }
     }
     
     static public void mainHandler(int x, int y) {
@@ -140,11 +143,35 @@ public class Button {
         muteOn = !muteOn;
     }
     
-    static public void drawMute(int x, int y, Main frame) {
+    static private void activateBackButton(Main frame) {
+        Window.changeWindow(frame, 550, 120, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
+        Titlescreen.activateMain();
+    }
+    
+    static public void drawMute(Main frame, int x, int y) {
         if(muteOn)
             muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
         else
             muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
         g.drawImage(muteImage, x, y, 20, 20, frame);
+    }
+    
+    static public void drawBack(Main frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
+        if (detectBack(xMousePos, yMousePos)) {
+            backImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
+            onBack = true;
+        }
+        else {
+            backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
+            onBack = false;
+        }
+        g.drawImage(backImage, xDrawPos, yDrawPos, frame);
+    }
+    
+    static private boolean detectBack(int x, int y) {
+        int xBoundaryPos[] = { 43,4,42,43,117,116,42 };
+        int yBoundaryPos[] = { 91,62,33,49,50,71,71 };
+        Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 7);
+        return(boundary.contains(x, y));
     }
 }

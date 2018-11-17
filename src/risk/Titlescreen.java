@@ -59,7 +59,7 @@ public class Titlescreen {
     static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
         // Draw
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        Button.drawMute(760,760,frame);
+        Button.drawMute(frame, 760,760);
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
         
         Button.mainHandler(x, y);
@@ -68,11 +68,12 @@ public class Titlescreen {
     static private void singleHandler(int x, int y, Main frame) {
         if(!drawnBoard) {
             RiskMap riskMap = new RiskMap();
-            frame.setBounds(280,60,Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
-            frame.setTitle("Risk - Singleplayer");
+            Window.changeWindow(frame, 280, 60, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
             mainActive = false;
             drawnBoard = true;
         }
+        if(RiskMap.contains(x,y )!=null)
+            g.drawString(RiskMap.contains(x, y).name, x, y-20);
         RiskMap.draw(x, y, frame);
         RiskMap.fillBorders();
     }
@@ -81,7 +82,7 @@ public class Titlescreen {
         if(Connect.gameStarted()==false) {
             g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-            Button.drawMute(760, 760, frame);
+            Button.drawMute(frame, 760, 760);
             try {
                 g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
                 g.setColor(Color.black);
@@ -112,6 +113,7 @@ public class Titlescreen {
         mainActive = true;
         singleActive = false;
         multiActive = false;
+        drawnBoard = false;
     }
     
     static public void activateSingle() {

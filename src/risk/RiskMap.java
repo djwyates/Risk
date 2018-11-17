@@ -10,37 +10,34 @@ import static risk.Main.g;
 
 public class RiskMap {
     static private Image image = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-    static private Image backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
-    static private Polygon backButtonBoundry;
     static private ArrayList<Country> countries = new ArrayList<Country>();
-    static Country currentCountry;
+    static private Country currentCountry;
     
     static public void draw(int x, int y, Main frame) {
-        // draw map
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
-        // draw back button
-        if (backButtonBoundry.contains(x, y))
-            backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
-        else
-            backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
-        g.drawImage(backButtonImage, 0, Window.YTITLE, frame);
+        Button.drawBack(frame, 0, Window.YTITLE, x, y);
     }
     
     static public Country contains(int x, int y) {
         for (Country country : countries) {
-            if (country != null && country.boundry.contains(x, y)){
-                country.isSelected = true;
-                if(currentCountry!=country){
-                    Titlescreen.getMenuSounds().play("terr_noise.wav");
-                    currentCountry = country;
+            if (country != null) {
+                if (country.boundry.contains(x, y)) {
+                    country.isSelected = true;
+                    if(currentCountry!=country) {
+                        Titlescreen.getMenuSounds().play("terr_noise.wav");
+                        currentCountry = country;
+                    }
+                    return(country);
                 }
-                return(country);
-            }
-            else if(country!=null){
-                country.isSelected=false;
+                else
+                    country.isSelected=false;
             }
         }
         return(null);
+    }
+    
+    static public void mouseInCountry(int x, int y) {
+        
     }
     
     static public void fillBorders() {
@@ -62,23 +59,18 @@ public class RiskMap {
         String countryName;
         Country country;
         
-        // Set backButton Polygon Borders
-        { int x[] = { 43,4,42,43,117,116,42 };
-        int y[] = { 91,62,33,49,50,71,71 };
-        backButtonBoundry = new Polygon(x, y, x.length); }
-        
         // Initializing countries 
         // Alaska
-        { int x[] = { 31,30,86,125,125,89,31 };
-        int y[] = { 180,81,69,93,170,168,180 };
+        { int x[] = { 31,30,86,125,125,89 };
+        int y[] = { 180,81,69,93,170,168 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Alaska";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
         // Greenland
-        { int x[] = { 412,451,463,487,495,563,574,566,579,457,412 };
-        int y[] = { 62,122,185,196,152,114,77,61,0,0,62 };
+        { int x[] = { 412,451,463,487,495,563,574,566,579,480 };
+        int y[] = { 62,122,185,196,152,114,77,61,30,30 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Greenland";
         country = new Country(countryBoundry, countryName);
@@ -128,7 +120,7 @@ public class RiskMap {
         { int x[] = {297,333,377,405,424,376,346,338,304};
         int y[] = {395,391,414,418,427,431,427,404,398};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Carribean Islands";
+        countryName = "Caribbean Islands";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -137,14 +129,6 @@ public class RiskMap {
         int y[] = {162,164,128,85,93,161};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "North West Canada";
-        country = new Country(countryBoundry, countryName);
-        countries.add(country);
-        
-        // Iceland
-        { int x[] = {574,619,621,576,560,564};
-        int y[] = {144,156,179,185,168,145};
-        countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Iceland";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
         
@@ -634,10 +618,6 @@ public class RiskMap {
         countryName = "Novashelkye";
         country = new Country(countryBoundry, countryName);
         countries.add(country);
-        
-        
-        
-        
     }
     
     static public ArrayList<Country> getCountryList()
