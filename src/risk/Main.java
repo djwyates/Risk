@@ -238,8 +238,6 @@ public class Main extends JFrame implements Runnable
         String mousePosString = new String(mousePos[0] + "   " + mousePos[1]);
         g.drawString(mousePosString, mousePos[0], mousePos[1]);
         
-        
-        
         gOld.drawImage(image, 0, 0, null);
     }
 
