@@ -25,7 +25,6 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
-                System.out.println(e.getX() + "        " + e.getY());
                 repaint();
             }
         });
@@ -35,13 +34,6 @@ public class Main extends JFrame implements Runnable
             public void mouseReleased(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton())
                     Button.releasedLeftClick(Window.currentFrame);
-                repaint();
-            }
-        });
-        
-       
-        addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
                 repaint();
             }
         });
@@ -237,6 +229,8 @@ public class Main extends JFrame implements Runnable
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));  
         String mousePosString = new String(mousePos[0] + "   " + mousePos[1]);
         g.drawString(mousePosString, mousePos[0], mousePos[1]);
+        if(RiskMap.contains(mousePos[0], mousePos[1])!=null)
+            g.drawString(RiskMap.contains(mousePos[0], mousePos[1]).name, mousePos[0], mousePos[1]-15);
         
         
         
