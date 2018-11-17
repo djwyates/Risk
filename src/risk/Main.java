@@ -232,8 +232,6 @@ public class Main extends JFrame implements Runnable
         if(RiskMap.contains(mousePos[0], mousePos[1])!=null)
             g.drawString(RiskMap.contains(mousePos[0], mousePos[1]).name, mousePos[0], mousePos[1]-15);
         
-        
-        
         gOld.drawImage(image, 0, 0, null);
     }
 

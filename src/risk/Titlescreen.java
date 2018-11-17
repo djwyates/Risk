@@ -72,10 +72,8 @@ public class Titlescreen {
             mainActive = false;
             drawnBoard = true;
         }
-        if(RiskMap.contains(x,y )!=null)
-            g.drawString(RiskMap.contains(x, y).name, x, y-20);
         RiskMap.draw(x, y, frame);
-        RiskMap.fillBorders();
+        RiskMap.mouseInCountryFunction(x, y);
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
@@ -105,6 +103,10 @@ public class Titlescreen {
                 mainActive = false;
                 drawnBoard = true;
             }
+            
+            if(RiskMap.contains(x, y)!=null)
+                g.drawString(RiskMap.contains(x, y).name, x, y-15);
+            
             RiskMap.draw(x, y, frame);
         }
     }
