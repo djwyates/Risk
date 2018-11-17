@@ -9,16 +9,25 @@ public class Country {
     Polygon boundary;
     String name;
     boolean isSelected;
+    int numTroops;
     
     Country() {
-        
     }
     
     Country(Polygon _boundry, String _name) {
+        numTroops=0;
+        isSelected=false;
         boundary = _boundry;
         name = _name;
     }
-    
+    static Country getCountry (String name){
+        for(Country tempCountry : RiskMap.getCountryList()){
+            if(tempCountry.name==name)
+                return tempCountry;
+        }
+        System.out.println("Returning null");
+        return null;
+    }
     public void mouseInCountry() {
         drawBorders();
         if (currentCountry != this)
