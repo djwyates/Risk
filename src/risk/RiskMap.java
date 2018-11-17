@@ -11,7 +11,6 @@ import static risk.Main.g;
 public class RiskMap {
     static private Image image = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private ArrayList<Country> countries = new ArrayList<Country>();
-    static private Country currentCountry;
     
     static public void draw(int x, int y, Main frame) {
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
@@ -20,38 +19,15 @@ public class RiskMap {
     
     static public Country contains(int x, int y) {
         for (Country country : countries) {
-            if (country != null) {
-                if (country.boundry.contains(x, y)) {
-                    country.isSelected = true;
-                    if(currentCountry!=country) {
-                        Titlescreen.getMenuSounds().play("terr_noise.wav");
-                        currentCountry = country;
-                    }
-                    return(country);
-                }
-                else
-                    country.isSelected=false;
-            }
+            if (country != null && country.boundary.contains(x, y))
+                return(country);
         }
         return(null);
     }
     
-    static public void mouseInCountry(int x, int y) {
-        
-    }
-    
-    static public void fillBorders() {
-        int i =0;
-        for (Country country : countries){
-            //Fixes two countries being highlighted, removes old countries isSelected boolean
-            if(country.isSelected){
-                i++;
-                if(i>1)
-                    country.isSelected=false;
-            }
-            if(country.isSelected)
-                g.drawPolygon(country.getBoundry());
-        }
+    static public void mouseInCountryFunction(int x, int y) {
+        Country country = contains(x, y);
+        country.mouseInCountry();
     }
          
     RiskMap() {

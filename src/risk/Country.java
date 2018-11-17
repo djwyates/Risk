@@ -2,23 +2,38 @@
 package risk;
 
 import java.awt.Polygon;
+import static risk.Main.g;
 
 public class Country {
-    Polygon boundry;
+    Polygon boundary;
     String name;
-    boolean isSelected;
+    Country selectedCountry;
     
     Country() {
         
     }
     
     Country(Polygon _boundry, String _name) {
-        boundry = _boundry;
+        boundary = _boundry;
         name = _name;
-        isSelected = false;
+    }
+    
+    public void mouseInCountry() {
+        drawBorders();
+        if (selectedCountry != this)
+            playSoundEffect();
+        selectedCountry = this;
+    }
+    
+    private void drawBorders() {
+        g.drawPolygon(boundary);
+    }
+    
+    private void playSoundEffect() {
+        Titlescreen.getMenuSounds().play("terr_noise.wav");
     }
     
     public Polygon getBoundry()
-    { return(boundry); }
+    { return(boundary); }
     
 }

@@ -75,7 +75,7 @@ public class Titlescreen {
         if(RiskMap.contains(x,y )!=null)
             g.drawString(RiskMap.contains(x, y).name, x, y-20);
         RiskMap.draw(x, y, frame);
-        RiskMap.fillBorders();
+        RiskMap.mouseInCountryFunction(x, y);
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
