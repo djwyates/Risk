@@ -5,10 +5,11 @@ import java.awt.Polygon;
 import static risk.Main.g;
 
 public class Country {
-    static private Country currentCountry;
-    Polygon boundary;
-    String name;
-    boolean isSelected;
+    static private Country currentCountry = null;
+    boolean isSelected = false;
+    Polygon boundary = null;
+    String name = null;
+    Player owner = null;
     
     Country() {
         
@@ -43,6 +44,10 @@ public class Country {
         if(isSelected)
             g.drawPolygon(boundary);
         Titlescreen.getMenuSounds().play("terr_noise.wav");
+    }
+    
+    public void setOwner(Player player) {
+        owner = player;
     }
     
     public Polygon getBoundry()

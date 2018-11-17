@@ -24,8 +24,9 @@ public class RiskMap {
     
     static public Country contains(int x, int y) {
         for (Country country : countries) {
-            if (country != null && country.boundary.contains(x, y))
+            if (country != null && country.boundary.contains(x, y)) {
                 return(country);
+            }
         }
         return(null);
     }
