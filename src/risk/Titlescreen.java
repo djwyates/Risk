@@ -14,10 +14,11 @@ import static risk.Main.g;
 import java.net.*;
 
 public class Titlescreen {
+    static private Gameplay game;
     static private boolean mainActive;
     static private boolean singleActive;
     static private boolean multiActive;
-    static private boolean drawnBoard;
+    static private boolean startedGame;
     static private Image mainImage;
     static private Image multiImage;
     static private Image emberImage;
@@ -31,7 +32,7 @@ public class Titlescreen {
         mainActive = true;
         singleActive = false;
         multiActive = false;
-        drawnBoard = false;
+        startedGame = false;
         mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
@@ -44,10 +45,7 @@ public class Titlescreen {
         fontSize = 20;
         timeCount=0;
     }
-    static void titlescreenHandler(int mousePos [],Main frame) throws FontFormatException, IOException {
-        // Array of mouse position separated
-        int x = mousePos[0];
-        int y = mousePos[1];
+    static void titlescreenHandler(int x, int y, Main frame) throws FontFormatException, IOException {
         if (mainActive)
         { mainHandler(x, y, frame); }
         else if (singleActive)
@@ -57,7 +55,6 @@ public class Titlescreen {
     }
     
     static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
-        // Draw
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         Button.drawMute(frame, 760,760);
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
@@ -66,17 +63,14 @@ public class Titlescreen {
     }
     
     static private void singleHandler(int x, int y, Main frame) {
-        if(!drawnBoard) {
-            RiskMap riskMap = new RiskMap();
-            Window.changeWindow(frame, 280, 60, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
-            mainActive = false;
-            drawnBoard = true;
-        }
-        RiskMap.draw(x, y, frame);
-        RiskMap.mouseInCountryFunction(x, y);
+        if(!startedGame)
+            game = new Gameplay(frame, 2);
+        
+        game.play(frame, x, y);
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
+        System.out.println(Connect.gameStarted());
         if(Connect.gameStarted()==false) {
             g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
@@ -96,12 +90,12 @@ public class Titlescreen {
             Button.multiHandler(x, y);
         }
         else { // If connected
-            if(!drawnBoard) {
+            if(!startedGame) {
                 Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Multiplayer");
                 RiskMap riskMap = new RiskMap();
                 frame.dispose();
                 mainActive = false;
-                drawnBoard = true;
+                startedGame = true;
             }
             
             if(RiskMap.contains(x, y)!=null)
@@ -115,7 +109,7 @@ public class Titlescreen {
         mainActive = true;
         singleActive = false;
         multiActive = false;
-        drawnBoard = false;
+        startedGame = false;
     }
     
     static public void activateSingle() {
@@ -128,6 +122,11 @@ public class Titlescreen {
         mainActive = false;
         singleActive = false;
         multiActive = true;
+    }
+    
+    static public void startedGame() {
+        mainActive = false;
+        startedGame = true;
     }
     
     static public boolean isActive()
