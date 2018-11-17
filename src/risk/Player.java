@@ -7,10 +7,12 @@ public class Player {
     static private Player[] players;
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private int totalTroops;
+    private int troopsPerTurn;
     private int numContinents;
     
     Player() {
         totalTroops=50;
+        troopsPerTurn=3;
         numContinents=0;
     }
     
@@ -23,5 +25,9 @@ public class Player {
                 loser.ownedCountries.remove(country);
             }
         }
+    }
+    
+    static void addTroopsPerTurn(Player player,int numExtra){
+        player.troopsPerTurn+=numExtra;
     }
 }
