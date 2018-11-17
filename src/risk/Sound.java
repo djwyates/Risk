@@ -5,8 +5,8 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 public class Sound {
-    private File soundFile = null;
     private boolean mute = false;
+    private File soundFile = null;
     AudioInputStream stream = null;
     AudioFormat format = null;
     DataLine.Info info = null;

@@ -34,7 +34,7 @@ public class Main extends JFrame implements Runnable
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton())
-                    Titlescreen.pressedButton();
+                    Button.releasedLeftClick();
                 repaint();
             }
         });

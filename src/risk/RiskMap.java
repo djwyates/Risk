@@ -11,20 +11,24 @@ import static risk.Main.g;
 public class RiskMap {
     static private Image image = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private Image backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
-    static private Image backButtonHighlightImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
     static private Polygon backButtonBoundry;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     static Country currentCountry;
     
-    static public void draw(Main frame) {
+    static public void draw(int x, int y, Main frame) {
+        // draw map
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // draw back button
+        if (backButtonBoundry.contains(x, y))
+            backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
+        else
+            backButtonImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
         g.drawImage(backButtonImage, 0, Window.YTITLE, frame);
     }
     
     static public Country contains(int x, int y) {
-        Point point = new Point(x, y);
         for (Country country : countries) {
-            if (country != null && country.boundry.contains(point)){
+            if (country != null && country.boundry.contains(x, y)){
                 country.isSelected = true;
                 if(currentCountry!=country){
                     Titlescreen.getMenuSounds().play("terr_noise.wav");
@@ -62,9 +66,6 @@ public class RiskMap {
         { int x[] = { 43,4,42,43,117,116,42 };
         int y[] = { 91,62,33,49,50,71,71 };
         backButtonBoundry = new Polygon(x, y, x.length); }
-        countryName = "BackButton";
-        country = new Country(backButtonBoundry, countryName);
-        countries.add(country);
         
         // Initializing countries 
         // Alaska

@@ -1,18 +1,20 @@
 
 package risk;
 
+import java.util.ArrayList;
+
 public class Player {
     static private Player[] players;
-    Country[] ownedTerritories = null;
-    int numTroops = 0;
-    int numTerritories = 0;
-    int numContinents = 0;
+    private ArrayList<Country> ownedCountries = new ArrayList<Country>();
+    private int numTroops = 0;
+    private int numCountries = 0;
+    private int numContinents = 0;
     
     Player() {
         
     }
     
-    static public void addTerritory(Country territory) {
-        
+    public void addTerritory(Country territory) {
+        ownedCountries.add(territory);
     }
 }
