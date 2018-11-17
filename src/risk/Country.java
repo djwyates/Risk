@@ -5,9 +5,10 @@ import java.awt.Polygon;
 import static risk.Main.g;
 
 public class Country {
+    static private Country currentCountry;
     Polygon boundary;
     String name;
-    Country selectedCountry;
+    boolean isSelected;
     
     Country() {
         
@@ -20,9 +21,12 @@ public class Country {
     
     public void mouseInCountry() {
         drawBorders();
-        if (selectedCountry != this)
+        if (currentCountry != this)
+            isSelected = false;
+        if (!isSelected)
             playSoundEffect();
-        selectedCountry = this;
+        isSelected = true;
+        currentCountry = this;
     }
     
     private void drawBorders() {
@@ -30,6 +34,14 @@ public class Country {
     }
     
     private void playSoundEffect() {
+        int i = 0;
+        if(isSelected) {
+            i++;
+            if(i>1)
+                isSelected=false;
+        }
+        if(isSelected)
+            g.drawPolygon(boundary);
         Titlescreen.getMenuSounds().play("terr_noise.wav");
     }
     

@@ -72,8 +72,6 @@ public class Titlescreen {
             mainActive = false;
             drawnBoard = true;
         }
-        if(RiskMap.contains(x,y )!=null)
-            g.drawString(RiskMap.contains(x, y).name, x, y-20);
         RiskMap.draw(x, y, frame);
         RiskMap.mouseInCountryFunction(x, y);
     }
@@ -105,6 +103,10 @@ public class Titlescreen {
                 mainActive = false;
                 drawnBoard = true;
             }
+            
+            if(RiskMap.contains(x, y)!=null)
+                g.drawString(RiskMap.contains(x, y).name, x, y-15);
+            
             RiskMap.draw(x, y, frame);
         }
     }

@@ -13,8 +13,13 @@ public class RiskMap {
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(int x, int y, Main frame) {
+        // Draws map
         g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
+        // Draws current country name by mouse pointer
+        if(RiskMap.contains(x,y) != null)
+            g.drawString(RiskMap.contains(x, y).name, x, y-20);
     }
     
     static public Country contains(int x, int y) {
@@ -27,7 +32,8 @@ public class RiskMap {
     
     static public void mouseInCountryFunction(int x, int y) {
         Country country = contains(x, y);
-        country.mouseInCountry();
+        if (country != null)
+            country.mouseInCountry();
     }
          
     RiskMap() {
