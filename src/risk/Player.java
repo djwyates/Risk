@@ -8,12 +8,10 @@ public class Player {
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private int totalTroops;
     private int troopsPerTurn;
-    private int numContinents;
     
     Player() {
         totalTroops=50;
         troopsPerTurn=3;
-        numContinents=0;
     }
     
     public void addTerritory(Country country) {ownedCountries.add(country);}
