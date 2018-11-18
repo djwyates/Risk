@@ -3,6 +3,7 @@ package risk;
 
 public class Gameplay {
     
+    static private enum phase { DEPLOY, ATTACK, FORTIFY }
     RiskMap riskMap = null;
     private Player players[];
     private Player currentPlayer;

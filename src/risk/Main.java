@@ -281,7 +281,7 @@ public class Main extends JFrame implements Runnable
                 if(tempCont!=null && tempCont.name == "Oceania"){
                     System.out.println(tempCont.name);
                     System.out.println("=============");
-                    for(Country tempCountry : tempCont.contCountries){
+                    for(Country tempCountry : tempCont.countries){
                         System.out.println(tempCountry.name);
                     }
                     System.out.println("=============");

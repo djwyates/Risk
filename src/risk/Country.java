@@ -2,10 +2,12 @@
 package risk;
 
 import java.awt.Polygon;
+import java.util.ArrayList;
 import static risk.Main.g;
 
 public class Country {
     static private Country currentCountry;
+    ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     Player owner;
     Polygon boundary;
     String name;
