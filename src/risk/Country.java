@@ -9,7 +9,7 @@ import static risk.Main.g;
 
 
 public class Country {
-    static private Image troopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II.png");
+    static private Image troopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
     static private Country currentCountry;
     ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     Player owner;
