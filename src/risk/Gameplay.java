@@ -62,6 +62,14 @@ public class Gameplay {
         
     }
     
+    
+    // 0
+    // 1
+    // 2
+    // 3
+    // 4
+    
+    
     private void assignCountries() {
         int randomVal = 0;
         int assignedCountries[] = new int[2];
@@ -74,6 +82,9 @@ public class Gameplay {
             else if (assignedCountries[1] < 35) {
                 country.setOwner(players[1]);
                 assignedCountries[1]++;
+            }
+            else {
+                country.setOwner(players[0]);
             }
         }
     }

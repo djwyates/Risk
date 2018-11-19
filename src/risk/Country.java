@@ -53,13 +53,19 @@ public class Country {
         }
     }
     
-    public void drawSoldierCount(int soldiers, int Xval, int Yval) {
+    public void drawSoldierCount(int soldiers, int x, int y) {
         g.setColor(Color.magenta);
-        if(owner!=null)
+        if(owner != null)
             g.setColor(owner.getColor());
         
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
-        g.drawString(""+soldiers, Xval+19, Yval+33);
+        g.drawString(""+soldiers, x+19, y+33);
+    }
+    
+    public void drawNameOnMouse(int x, int y) {
+        g.setColor(owner.getColor());
+        g.setFont (new Font("AMARILLO",Font.BOLD,15));
+        g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
     }
     
     private void playSoundEffect() {

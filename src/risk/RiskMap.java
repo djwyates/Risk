@@ -1,6 +1,8 @@
 
 package risk;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
@@ -19,8 +21,9 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
-        if(Country.getCountryOnMouse() != null)
-            g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
+        System.out.println(Country.getCountryOnMouse());
+        if (Country.getCountryOnMouse() != null)
+            Country.getCountryOnMouse().drawNameOnMouse(x, y);
     }
     
     static public Country contains(int x, int y) {
