@@ -76,7 +76,10 @@ public class Country {
     }
     
     public void drawSoldierCount(int soldiers, int Xval, int Yval){
-        g.setColor(Color.white);
+        g.setColor(Color.magenta);
+        if(owner!=null)
+            g.setColor(owner.getColor());
+        
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
         g.drawString(""+soldiers, Xval+19, Yval+33);
     }
