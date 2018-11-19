@@ -11,33 +11,30 @@ public class RiskMap {
     static private Image map = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(int x, int y, Main frame) {
+    static public void draw(Main frame, int x, int y) {
         // Draws map
         g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
-        // Draws troop counter
-        Country.drawAllTroopCounter();
+        // Draws troop counters
+        Country.drawAllTroopCounters();
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
-        if(RiskMap.contains(x,y) != null)
-            g.drawString(RiskMap.contains(x, y).name, x, y-5);
-        
-        
+        if(Country.getCountryOnMouse() != null)
+            g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
     }
     
     static public Country contains(int x, int y) {
         for (Country country : countries) {
-            if (country != null && country.boundary.contains(x, y)) {
-                return(country);
+            if (country != null && country.getBoundary().contains(x, y)) {
+                return country;
             }
         }
-        return(null);
+        return null;
     }
     
-    static public void mouseInCountryFunction(int x, int y) { // draws border & plays sound effect for each country
-        Country country = contains(x, y);
-        if (country != null)
-            country.mouseInCountry();
+    static public void mouseInCountryHandler(int x, int y) {
+        if (Country.getCountryOnMouse() != null)
+            Country.getCountryOnMouse().mouseInCountry();
     }
          
     RiskMap() {
@@ -608,6 +605,7 @@ public class RiskMap {
         Continent.create();
     }
     
-    static public ArrayList<Country> getCountryList()
-    { return countries; }
+    static public ArrayList<Country> getCountryList() {
+        return countries;
+    }
 }

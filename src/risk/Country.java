@@ -11,15 +11,16 @@ import static risk.Main.g;
 
 
 public class Country {
-    static private Image troopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-    static private Country currentCountry;
-    ArrayList<Country> neighboringCountries = new ArrayList<Country>();
-    Player owner;
-    Polygon boundary;
-    String name;
-    boolean isSelected;
-    int numTroops;
+    static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");    
+    static private Country onMouse;
+    static private Country selected;
+    private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
+    private Player owner;
+    private Polygon boundary;
+    private String name;
+    private int numTroops;
     private int centerX, centerY;
+    private boolean isSelected = false;
     
     Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
         numTroops=0;
@@ -30,33 +31,32 @@ public class Country {
         centerY = _centerY;
     }
     
-    static Country getCountry (String name){
-        for(Country tempCountry : RiskMap.getCountryList()){
-            if(tempCountry.name==name)
-                return tempCountry;
-        }
-        System.out.println("Returning null");
-        return null;
-    }
-    
     public void mouseInCountry() {
-        drawBorders();
-        if (currentCountry != this)
+        drawBoundary();
+        if (selected != this) {
             isSelected = false;
+        }
         if (!isSelected)
             playSoundEffect();
         isSelected = true;
-        currentCountry = this;
+        selected = this;
     }
     
-    private void drawBorders() {
+    public void drawBoundary() {
         g.drawPolygon(boundary);
     }
-    static public void drawAllTroopCounter() {
+    
+    static public void drawAllTroopCounters() {
         for (Country country : RiskMap.getCountryList()) {
-            g.drawImage(troopCounter, country.centerX, country.centerY, 51, 51, Window.currentFrame);
+            g.drawImage(troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
             country.drawSoldierCount(0,country.centerX,country.centerY); // 0 is hardcoded; add actual troop amount
         }
+    }
+    
+    public void drawSoldierCount(int soldiers, int Xval, int Yval) {
+        g.setColor(Color.white);
+        g.setFont (new Font("AMARILLO",Font.BOLD,20));
+        g.drawString(""+soldiers, Xval+19, Yval+33);
     }
     
     private void playSoundEffect() {
@@ -71,18 +71,35 @@ public class Country {
         Titlescreen.getMenuSounds().play("terr_noise.wav");
     }
     
+    static Country getCountry (String name) {
+        for(Country country : RiskMap.getCountryList()) {
+            if(country.name.equalsIgnoreCase(name))
+                return country;
+        }
+        return null;
+    }
+        
+    static public void setCountryOnMouse(int x, int y) {
+        onMouse = RiskMap.contains(x, y);
+    }
+    
+    static public Country getCountryOnMouse() {
+        return onMouse;
+    }
+    
     public void setOwner(Player player) {
         owner = player;
     }
     
-    public void drawSoldierCount(int soldiers, int Xval, int Yval){
-        g.setColor(Color.white);
-        g.setFont (new Font("AMARILLO",Font.BOLD,20));
-        g.drawString(""+soldiers, Xval+19, Yval+33);
+    public Player getOwner() {
+        return owner;
     }
     
-    public Polygon getBoundry()
-    { return(boundary); }
+    public Polygon getBoundary() {
+        return(boundary);
+    }
     
-    
+    public String getName() {
+        return name;
+    }
 }

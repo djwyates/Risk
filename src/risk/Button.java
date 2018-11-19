@@ -20,7 +20,7 @@ public class Button {
     static private boolean onMute = false;
     static private boolean onBack = false;
     
-    static public void releasedLeftClick(Main frame) {
+    static public void mouseClickHandler(Main frame) {
         if (onSingle) { activateSingleButton(); }
         else if (onMulti) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
