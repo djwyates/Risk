@@ -64,7 +64,6 @@ public class Titlescreen {
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
-        System.out.println(Connect.gameStarted());
         if(Connect.gameStarted()==false) {
             g.drawImage(multiBackgroundImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);

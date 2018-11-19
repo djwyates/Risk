@@ -28,9 +28,6 @@ public class Main extends JFrame implements Runnable
                 if(Titlescreen.gameIsStarted()){
                     BorderCreator.startBorder(x, y);
                 }
-                if(RiskMap.contains(e.getX(),e.getY()) != null){
-                    System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).getName());
-                }
                 repaint();
             }
         });
@@ -203,6 +200,7 @@ public class Main extends JFrame implements Runnable
         }
         
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
+        BorderCreator.drawLines(mouseX, mouseY, g);
         
         gOld.drawImage(image, 0, 0, null);
     }
@@ -246,7 +244,6 @@ public class Main extends JFrame implements Runnable
             }
             reset();
         }
-        BorderCreator.tick(mouseX, mouseY,g);
     }
 
     // //////////////////////////////////////////////////////////////////////////

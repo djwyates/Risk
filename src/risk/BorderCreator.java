@@ -3,6 +3,7 @@ package risk;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import javafx.scene.shape.Polyline;
 
 public class BorderCreator{
     private static ArrayList<BorderCreator> lines = new ArrayList<BorderCreator>();
@@ -37,7 +38,7 @@ public class BorderCreator{
     static void startBorder(int x,int y){
         BorderCreator lastLine;
         BorderCreator currentLine;
-        if(lines.isEmpty()){
+        if(lines.size()==0){
             BorderCreator firstLine = new BorderCreator();
             lines.add(firstLine);
             firstLine.beginPoint=true;
@@ -75,7 +76,7 @@ public class BorderCreator{
             xvals.add(currentLine.x1);
             yvals.add(currentLine.y1);
         }
-        else if(currentLine.secondPoint){
+        else if(lastLine.secondPoint){
             xvals.add(lastLine.x2);
             yvals.add(lastLine.y2);
         }
@@ -83,46 +84,47 @@ public class BorderCreator{
         
         System.out.println("");
         System.out.println("");
-        System.out.println("");
+        System.out.print("int x[] = {");
         for(int i=0;i<xvals.size();i++){
-            System.out.print(xvals.get(i)+",");
+            if(i==xvals.size()-1)
+                System.out.print(xvals.get(i));
+            else
+                System.out.print(xvals.get(i)+",");
         }
+        System.out.print("};");
         System.out.println("");
+        System.out.print("          int y[] = {");
         for(int i=0;i<yvals.size();i++){
-            System.out.print(yvals.get(i)+",");
+            if(i==yvals.size()-1)
+                System.out.print(yvals.get(i));
+            else
+                System.out.print(yvals.get(i)+",");
         }
+        System.out.print("};");
+        System.out.println("");
         
     }
     
     static void drawLines(int x, int y, Graphics2D g){
         Color oldColor = g.getColor();
-        if(color==null)
-            System.out.println("Null.");
-        g.setColor(color);
+        g.setColor(Color.BLUE);
         
-        for(BorderCreator l : lines){
-            if(l.secondPoint){
-                g.drawString(l.x1 + " " + l.y1, l.x1, l.y1);
-                g.drawString(l.x2 + " " + l.y2, l.x2, l.y2);
-                g.drawLine(l.x1, l.y1, l.x2, l.y2);
-            }
-            else if(!l.secondPoint && l.firstPoint){
-                g.drawString(l.x1 + " " + l.y1, l.x1, l.y1);
-                g.drawString(x + " " + y, x, y);
-                g.drawLine(l.x1, l.y1, x, y);
-            }
+        int xValNormArray [] = new int[xvals.size()+1];
+        int yValNormArray [] = new int[yvals.size()+1];
+        int lasti=0;
+        for(int i=0;i<xvals.size();i++){
+            xValNormArray[i] = xvals.get(i);
+            yValNormArray[i] = yvals.get(i);
+            lasti++;
         }
+        if(yvals.size()!=0 && xvals.size()!=0){
+            xValNormArray[lasti] = x;
+            yValNormArray[lasti] = y;
+        }
+        g.drawPolygon(xValNormArray, yValNormArray, xValNormArray.length);
         
         
         
         g.setColor(oldColor);
-    }
-    
-    static void tick(int x,int y,Graphics2D G){
-        int r = (int) (Math.random()*255);
-        int g = (int) (Math.random()*255);
-        int b = (int) (Math.random()*255);
-        color = new Color(r,g,b);
-        drawLines(x,y,G);
     }
 }
