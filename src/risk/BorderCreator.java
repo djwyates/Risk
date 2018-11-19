@@ -7,15 +7,16 @@ import javafx.scene.shape.Polyline;
 
 public class BorderCreator{
     private static ArrayList<BorderCreator> lines = new ArrayList<BorderCreator>();
+    private static ArrayList<Integer> xvals = new ArrayList<Integer>();
+    private static ArrayList<Integer> yvals = new ArrayList<Integer>();
+    private static Color color;
+    
     private int x1;
     private int x2;
     private int y1;
     private int y2;
     private boolean firstPoint;
     private boolean secondPoint;
-    private static ArrayList<Integer> xvals = new ArrayList<Integer>();
-    private static ArrayList<Integer> yvals = new ArrayList<Integer>();
-    private static Color color;
     private boolean beginPoint;
     
     
