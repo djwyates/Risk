@@ -21,13 +21,6 @@ public class BorderCreator{
     
     
     BorderCreator(){
-        firstPoint = false;
-        secondPoint = false;
-        beginPoint = false;
-        x1=-1;
-        x2=-1;
-        y1=-1;
-        y2=-1;
     }
     
     static void Reset(){
@@ -39,7 +32,8 @@ public class BorderCreator{
     static void startBorder(int x,int y){
         BorderCreator lastLine;
         BorderCreator currentLine;
-        if(lines.size()==0){
+        //Checks to see if array is empty, creates firstline that is also lastline, if not then lastline is determined by arraysize-1
+        if(lines.isEmpty()){
             BorderCreator firstLine = new BorderCreator();
             lines.add(firstLine);
             firstLine.beginPoint=true;
@@ -48,7 +42,7 @@ public class BorderCreator{
         else
             lastLine = lines.get(lines.size() - 1);
         
-        
+        //Point detection
         if(lastLine.firstPoint==false){
             lastLine.x1 = x;
             lastLine.y1 = y;
@@ -59,7 +53,6 @@ public class BorderCreator{
             lastLine.y2 = y;
             lastLine.secondPoint = true;
         }
-        
         if(lastLine.secondPoint){
             BorderCreator newLine = new BorderCreator();
             currentLine = newLine;
@@ -72,7 +65,7 @@ public class BorderCreator{
             currentLine = lastLine;
         }
         
-        /////////////////////////////////////////////////
+        //adding point values to arraylists
         if(currentLine.beginPoint){
             xvals.add(currentLine.x1);
             yvals.add(currentLine.y1);
@@ -82,7 +75,7 @@ public class BorderCreator{
             yvals.add(lastLine.y2);
         }
         
-        
+        //printing point information to be pasted
         System.out.println("");
         System.out.println("");
         System.out.print("int x[] = {");
@@ -109,7 +102,7 @@ public class BorderCreator{
     static void drawLines(int x, int y, Graphics2D g){
         Color oldColor = g.getColor();
         g.setColor(Color.BLUE);
-        
+        //Converting arraylists to arrays for drawPolygon
         int xValNormArray [] = new int[xvals.size()+1];
         int yValNormArray [] = new int[yvals.size()+1];
         int lasti=0;
@@ -118,10 +111,10 @@ public class BorderCreator{
             yValNormArray[i] = yvals.get(i);
             lasti++;
         }
-        if(yvals.size()!=0 && xvals.size()!=0){
-            xValNormArray[lasti] = x;
-            yValNormArray[lasti] = y;
-        }
+        //Setting lastpoint to mouse position
+        xValNormArray[lasti] = x;
+        yValNormArray[lasti] = y;
+        
         g.drawPolygon(xValNormArray, yValNormArray, xValNormArray.length);
         
         
