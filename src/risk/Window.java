@@ -1,12 +1,16 @@
 
 package risk;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class Window {
     static final int XBORDER = 0;
     static final int YBORDER = 0;
     static final int YTITLE = 31;
+    static final int USER_SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    static final int USER_SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     static final int WINDOW_BORDER = 8;
     static final int MENU_WINDOW_WIDTH = 800;
     static final int MENU_WINDOW_HEIGHT = 800;

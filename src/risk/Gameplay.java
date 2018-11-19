@@ -12,7 +12,7 @@ public class Gameplay {
     Gameplay(Risk frame, int numPlayers) {
         // Handles drawing & window
         riskMap = new RiskMap();
-        Window.changeWindow(frame, 280, 60, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+        Window.changeWindow(frame, Window.USER_SCREEN_WIDTH/6, Window.USER_SCREEN_HEIGHT/20, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
         // Handles players
         players = new Player[numPlayers];
         for (int i=0;i<numPlayers;i++)
