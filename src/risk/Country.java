@@ -20,11 +20,12 @@ public class Country {
     private String name;
     private int numTroops;
     private int centerX, centerY;
+    private boolean isHovered = false;
     private boolean isSelected = false;
     
     Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
         numTroops=0;
-        isSelected=false;
+        isHovered=false;
         boundary = _boundry;
         name = _name;
         centerX = _centerX;
@@ -35,16 +36,28 @@ public class Country {
         drawBoundary();
         // Plays the sound effect only once
         if (selected != this)
-            isSelected = false;
-        if (!isSelected)
+            isHovered = false;
+        if (!isHovered)
             playSoundEffect();
-        isSelected = true;
+        isHovered = true;
         selected = this;
+    }
+    public static void clickedInCountry(){
+        if(!onMouse.isSelected)
+            onMouse.isSelected=true;
+        else
+            onMouse.isSelected=false;
     }
     
     public void drawBoundary() {
         g.setColor(Color.white);
         g.drawPolygon(boundary);
+    }
+    public static void drawSelected(){
+        for(Country c : RiskMap.getCountryList()){
+            if(c.isSelected)
+                c.drawBoundary();
+        }
     }
     
     static public void drawAllTroopCounters() {
@@ -71,12 +84,12 @@ public class Country {
     
     private void playSoundEffect() {
         int i = 0;
-        if(isSelected) {
+        if(isHovered) {
             i++;
             if(i>1)
-                isSelected=false;
+                isHovered=false;
         }
-        if(isSelected)
+        if(isHovered)
             g.drawPolygon(boundary);
         Titlescreen.getMenuSounds().play("terr_noise.wav");
     }

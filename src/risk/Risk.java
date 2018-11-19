@@ -15,6 +15,7 @@ public class Risk extends JFrame implements Runnable
 
     Thread relaxer;
     int mouseX, mouseY;
+    boolean bcActive=false;
     
     public static void main(String[] args) {
         Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
@@ -25,9 +26,12 @@ public class Risk extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                if(Titlescreen.gameIsStarted()){
+                if(Titlescreen.gameIsStarted()&&bcActive){
                     BorderCreator.startBorder(x, y);
                 }
+                else if(Titlescreen.gameIsStarted())
+                    Country.clickedInCountry();
+                
                 repaint();
             }
         });
@@ -201,6 +205,7 @@ public class Risk extends JFrame implements Runnable
         
         //g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
         BorderCreator.drawLines(mouseX, mouseY, g);
+        Country.drawSelected();
         
         gOld.drawImage(image, 0, 0, null);
     }
