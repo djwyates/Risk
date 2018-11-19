@@ -9,7 +9,7 @@ public class Gameplay {
     private Player players[];
     private Player currentPlayer;
     
-    Gameplay(Main frame, int numPlayers) {
+    Gameplay(Risk frame, int numPlayers) {
         // Handles drawing & window
         riskMap = new RiskMap();
         Window.changeWindow(frame, 280, 60, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
@@ -26,7 +26,7 @@ public class Gameplay {
         Titlescreen.startedGame();
     }
     
-    public void drawAndSoundHandler(Main frame, int x, int y) {
+    public void drawAndSoundHandler(Risk frame, int x, int y) {
         Country.setCountryOnMouse(x, y);
         RiskMap.draw(frame, x, y);
         RiskMap.mouseInCountryHandler(x, y);
@@ -61,14 +61,6 @@ public class Gameplay {
     private void fortifyPhaseHandler() {
         
     }
-    
-    
-    // 0
-    // 1
-    // 2
-    // 3
-    // 4
-    
     
     private void assignCountries() {
         int randomVal = 0;

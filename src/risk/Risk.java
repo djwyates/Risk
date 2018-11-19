@@ -8,19 +8,19 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Main extends JFrame implements Runnable
+public class Risk extends JFrame implements Runnable
 {
     public static Image image;
     public static Graphics2D g;
 
     Thread relaxer;
     int mouseX, mouseY;
-    int i = 0;
+    
     public static void main(String[] args) {
         Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
     }
     
-    public Main() {
+    public Risk() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 e.getX();
@@ -180,9 +180,9 @@ public class Main extends JFrame implements Runnable
             try  {
                 Titlescreen.titlescreenHandler(mouseX, mouseY, this);
             } catch (FontFormatException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         

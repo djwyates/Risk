@@ -7,7 +7,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import static risk.Main.g;
+import static risk.Risk.g;
 
 
 public class Country {
@@ -33,9 +33,9 @@ public class Country {
     
     public void mouseInCountry() {
         drawBoundary();
-        if (selected != this) {
+        // Plays the sound effect only once
+        if (selected != this)
             isSelected = false;
-        }
         if (!isSelected)
             playSoundEffect();
         isSelected = true;
@@ -43,6 +43,7 @@ public class Country {
     }
     
     public void drawBoundary() {
+        g.setColor(Color.white);
         g.drawPolygon(boundary);
     }
     

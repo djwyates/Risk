@@ -12,7 +12,7 @@ public class Window {
     static final int MENU_WINDOW_HEIGHT = 800;
     static final int MAP_WINDOW_WIDTH = 1371;
     static final int MAP_WINDOW_HEIGHT = 912;
-    static Main currentFrame;
+    static Risk currentFrame;
     static int MIN_X;
     static int MAX_X;
     static int MIN_Y;
@@ -26,7 +26,7 @@ public class Window {
 
 /////////////////////////////////////////////////////////////////////////
     public static void addWindow(int width, int height, String title) {
-        Main frame = new Main();
+        Risk frame = new Risk();
         currentFrame=frame;
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +36,7 @@ public class Window {
         frame.setResizable(false);
     }
     
-    public static void changeWindow(Main frame, int x, int y, int width, int height, String title) {
+    public static void changeWindow(Risk frame, int x, int y, int width, int height, String title) {
         frame.setBounds(x, y, width, height);
         frame.setTitle(title);
     }

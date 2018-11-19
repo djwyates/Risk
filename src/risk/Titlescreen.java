@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static risk.Main.g;
+import static risk.Risk.g;
 import java.net.*;
 
 public class Titlescreen {
@@ -40,7 +40,7 @@ public class Titlescreen {
         fontSize = 20;
         timeCount = 0;
     }
-    static void titlescreenHandler(int x, int y, Main frame) throws FontFormatException, IOException {
+    static void titlescreenHandler(int x, int y, Risk frame) throws FontFormatException, IOException {
         if (mainActive)
         { mainHandler(x, y, frame); }
         else if (singleActive)
@@ -49,7 +49,7 @@ public class Titlescreen {
         { multiHandler(x, y, frame); }
     }
     
-    static private void mainHandler(int x, int y, Main frame) throws FileNotFoundException, FontFormatException, IOException {
+    static private void mainHandler(int x, int y, Risk frame) throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         Button.drawMute(frame, 760,760);
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
@@ -57,13 +57,13 @@ public class Titlescreen {
         Button.mainHandler(x, y);
     }
     
-    static private void singleHandler(int x, int y, Main frame) {
+    static private void singleHandler(int x, int y, Risk frame) {
         if(!startedGame)
             game = new Gameplay(frame, 2);
         game.drawAndSoundHandler(frame, x, y);
     }
     
-    static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
+    static private void multiHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
         System.out.println(Connect.gameStarted());
         if(Connect.gameStarted()==false) {
             g.drawImage(multiBackgroundImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
@@ -88,7 +88,7 @@ public class Titlescreen {
         }
     }
     
-    static public void mouseClickHandler(Main frame, int x, int y) {
+    static public void mouseClickHandler(Risk frame, int x, int y) {
         Button.mouseClickHandler(Window.currentFrame);
         if (game != null)
             game.mouseClickHandler(x, y);
