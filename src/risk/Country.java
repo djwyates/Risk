@@ -1,12 +1,15 @@
 
 package risk;
 
-import java.awt.Point;
+import java.awt.Image;
 import java.awt.Polygon;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import static risk.Main.g;
 
+
 public class Country {
+    static private Image troopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II.png");
     static private Country currentCountry;
     ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     Player owner;
@@ -14,13 +17,15 @@ public class Country {
     String name;
     boolean isSelected;
     int numTroops;
-    int centerX, centerY;
+    private int centerX, centerY;
     
-    Country(Polygon _boundry, String _name) {
+    Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
         numTroops=0;
         isSelected=false;
         boundary = _boundry;
         name = _name;
+        centerX = _centerX;
+        centerY = _centerY;
     }
     
     static Country getCountry (String name){
@@ -45,6 +50,11 @@ public class Country {
     private void drawBorders() {
         g.drawPolygon(boundary);
     }
+    static public void drawAllTroopCounter() {
+        for (Country country : RiskMap.getCountryList()) {
+            g.drawImage(troopCounter, country.centerX, country.centerY, 51, 51, Window.currentFrame);
+        }
+    }
     
     private void playSoundEffect() {
         int i = 0;
@@ -64,7 +74,7 @@ public class Country {
     
     public void drawSoldierCount(int soldiers){
         g.setColor(owner.getColor());
-//        g.drawString(centerX, centerY);
+        g.drawString(""+soldiers,centerX, centerY);
     }
     
     public Polygon getBoundry()

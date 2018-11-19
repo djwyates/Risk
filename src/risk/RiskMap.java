@@ -2,7 +2,6 @@
 package risk;
 
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -10,19 +9,20 @@ import static risk.Main.g;
 
 public class RiskMap {
     static private Image map = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-    static private Image TroopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II.png");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(int x, int y, Main frame) {
         // Draws map
         g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
-        // Draws troop counters
-        g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // Draws troop counter
+        Country.drawAllTroopCounter();
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
         if(RiskMap.contains(x,y) != null)
             g.drawString(RiskMap.contains(x, y).name, x, y-5);
+        
+        
     }
     
     static public Country contains(int x, int y) {
@@ -34,7 +34,7 @@ public class RiskMap {
         return(null);
     }
     
-    static public void mouseInCountryFunction(int x, int y) {
+    static public void mouseInCountryFunction(int x, int y) { // draws border & plays sound effect for each country
         Country country = contains(x, y);
         if (country != null)
             country.mouseInCountry();
@@ -51,7 +51,7 @@ public class RiskMap {
         int y[] = { 180,81,69,93,170,168 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Alaska";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 64,100);
         countries.add(country);
         
         // Greenland
@@ -59,7 +59,7 @@ public class RiskMap {
         int y[] = { 62,122,185,196,152,114,77,61,30,30 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Greenland";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 470,97);
         countries.add(country);
         
         // Mexico
@@ -67,7 +67,7 @@ public class RiskMap {
         int y[] = { 338,372,387,402,422,410,353,339,342 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Mexico";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 157,349);
         countries.add(country);
         
         // Guatamala
@@ -75,7 +75,7 @@ public class RiskMap {
         int y[] = { 422,399,452,468,467,422,400 };
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Guatamala";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 241,424);
         countries.add(country);
         
         // Western United States
@@ -83,7 +83,7 @@ public class RiskMap {
         int y[] = {339,338,238,236,279,333};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Western United States";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 163,260);
         countries.add(country); 
         
         // Brazil
@@ -91,7 +91,7 @@ public class RiskMap {
         int y[] = {473,495,511,549,609,685,690,666,646,624,585,546,553,533,519,502,494,480,496,477};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Brazil";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 417,562);
         countries.add(country);
         
         // Peru
@@ -99,15 +99,15 @@ public class RiskMap {
         int y[] = {494,512,520,524,541,546,598,607,586,556,522,484,494};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Peru";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 271,545);
         countries.add(country);
         
-        // Southern South America
+        // Caribbean Islands
         { int x[] = {297,333,377,405,424,376,346,338,304};
         int y[] = {395,391,414,418,427,431,427,404,398};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Caribbean Islands";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 333,394);
         countries.add(country);
         
         // North West Canada
@@ -115,7 +115,7 @@ public class RiskMap {
         int y[] = {162,164,128,85,93,161};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "North West Canada";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 164,101);
         countries.add(country);
         
         // Iceland
@@ -123,7 +123,7 @@ public class RiskMap {
         int y[] = {144,156,179,185,168,145};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Iceland";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 570,146);
         countries.add(country);
         
         // British Isles
@@ -131,7 +131,7 @@ public class RiskMap {
         int y[] = {213,282,305,305,268,210};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "British Isles";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 534,252);
         countries.add(country);
         
         // Svalbard
@@ -139,7 +139,7 @@ public class RiskMap {
         int y[] = {42,109,91,28,27};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Svalbard";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 632,33);
         countries.add(country);
         
         // Northern Europe
@@ -147,7 +147,7 @@ public class RiskMap {
         int y[] = {218,243,240,288,310,328,312,293,252,222};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Northern Europe";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 661,251);
         countries.add(country);
         
         // Western Europe
@@ -155,7 +155,7 @@ public class RiskMap {
           int y[] = {369,410,436,403,387,361,328,313,295,316,320,345,368};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Western Europe";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 585,318);
         countries.add(country);
         
         // Southern Europe
@@ -163,7 +163,7 @@ public class RiskMap {
           int y[] = {423,410,356,329,308,344,395,420,419};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Southern Europe";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 654,344);
         countries.add(country);
         
         // Ukraine 
@@ -171,7 +171,7 @@ public class RiskMap {
           int y[] = {203,257,250,263,280,289,315,348,341,310,289,218,199};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Ukraine";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 757,280);
         countries.add(country);
         
         // Ontario
@@ -179,7 +179,7 @@ public class RiskMap {
           int y[] = {159,162,192,196,251,263,280,253,235,245,233,161,160};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Ontario";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 253,165);
         countries.add(country);
         
         // Western Australia
@@ -187,7 +187,7 @@ public class RiskMap {
           int y[] = {663,771,790,714,656,658};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Western Australia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1066,690);
         countries.add(country);
         
         // Queensland
@@ -195,7 +195,7 @@ public class RiskMap {
           int y[] = { 662,731,731,748,745,662,642,648};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Queensland";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1147,649);
         countries.add(country);
         
         // Victoria
@@ -203,7 +203,7 @@ public class RiskMap {
           int y[] = {732,731,747,744,803,829,771,731};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Victoria";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1143,736);
         countries.add(country);
         
         // Sweden
@@ -211,7 +211,7 @@ public class RiskMap {
           int y[] = {119,130,180,200,183,164,155,151,180,193,197,234,207,213,182,116,121};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Sweden";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 698,131);
         countries.add(country);
         
         // Algeria
@@ -219,7 +219,7 @@ public class RiskMap {
           int y[] = {440,437,423,423,441,465,496,516,480,475,440};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Algeria";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 613,436);
         countries.add(country);
         
         // Libya
@@ -227,7 +227,7 @@ public class RiskMap {
           int y[] = {447,461,446,457,518,500,500,468,444};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Libya";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 693,454);
         countries.add(country);
         
         // North Africa
@@ -235,7 +235,7 @@ public class RiskMap {
           int y[] = {476,507,548,578,597,585,608,609,587,572,543,522,501,499,521,475,510};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "North Africa";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 560,507);
         countries.add(country);
         
         // Congo
@@ -243,7 +243,7 @@ public class RiskMap {
           int y[] = {589,574,602,618,640,664,697,684,665,659,637,613,614,588,575};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Congo";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 718,595);
         countries.add(country);
         
         // South Africa
@@ -251,7 +251,7 @@ public class RiskMap {
           int y[] = {661,665,682,695,669,675,687,681,702,758,813,820,719,685,661,667};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "South Africa";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 722,703);
         countries.add(country);
         
         // Eastern Africa
@@ -259,7 +259,7 @@ public class RiskMap {
           int y[] = {607,600,581,534,572,564,600,626,652,677,683,690,668,637,606};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Eastern Africa";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 813,615);
         countries.add(country);
         
         // Sudan
@@ -267,7 +267,7 @@ public class RiskMap {
           int y[] = {607,602,582,533,512,508,544,561,575,595,600,608};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Sudan";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 760,519);
         countries.add(country);
         
         // Egypt
@@ -275,7 +275,7 @@ public class RiskMap {
           int y[] = {507,512,469,475,457,456,507,510};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Egypt";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 613,436);
         countries.add(country);
         
         // Saudi Arabia
@@ -283,7 +283,7 @@ public class RiskMap {
           int y[] = {471,565,538,493,463,473,460,447,441,452,456,465,479,505};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Saudi Arabia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 894,479);
         countries.add(country);
         
         // Iraq
@@ -291,7 +291,7 @@ public class RiskMap {
           int y[] = {466,455,451,441,443,425,412,407,414,421,421,453,467,457,450};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Iraq";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 820,414);
         countries.add(country);
         
         // Iran
@@ -299,7 +299,7 @@ public class RiskMap {
           int y[] = {356,401,417,424,439,461,463,445,429,409,391,393,382,371,368,363,355};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Iran";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 870,367);
         countries.add(country);
         
         // Afghanistan
@@ -307,7 +307,7 @@ public class RiskMap {
           int y[] = {395,406,431,446,456,464,474,470,450,443,392,375,362,365,358,369,371};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Afghanistan";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 947,384);
         countries.add(country);
         
         // Kazakhstan
@@ -315,7 +315,7 @@ public class RiskMap {
           int y[] = {281,318,327,392,393,371,357,358,334,281,252,252,270,267,277,297};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Kazakhstan";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 937,257);
         countries.add(country);
         
         // Turkey
@@ -323,7 +323,7 @@ public class RiskMap {
           int y[] = {367,371,399,413,412,421,422,415,389,366,374,368};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Turkey";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 765,374);
         countries.add(country);
         
         // Volga
@@ -331,7 +331,7 @@ public class RiskMap {
           int y[] = {341,360,312,299,275,268,181,205,205,218,232,248,259,279,290,313,337};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Volga";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 811,207);
         countries.add(country);
         
         // Northern Russia
@@ -339,7 +339,7 @@ public class RiskMap {
           int y[] = {227,205,201,190,201,179,138,124,130,124,157,177,195,227,205,203,201};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Northern Russia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 789,132);
         countries.add(country);
         
         // Novada Zendya
@@ -347,7 +347,7 @@ public class RiskMap {
           int y[] = {121,102,46,42,55,72,87,105,119,124};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Novada Zendya";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 847,67);
         countries.add(country);
         
         // Urd
@@ -355,7 +355,7 @@ public class RiskMap {
           int y[] = {102,136,172,203,218,263,250,243,249,247,241,229,226,171,156,121,104};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Urd";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 914,117);
         countries.add(country);
         
         // Siberia
@@ -363,14 +363,14 @@ public class RiskMap {
           int y[] = {105,154,173,226,248,279,264,270,245,232,180,141,125,87,70,80};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Siberia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 986,84);
         countries.add(country);
         // Yakutta
         { int x[] = {1067,1076,1082,1090,1107,1134,1168,1192,1244,1226,1157,1078,1063,1083,1068,1077};
           int y[] = {144,180,200,201,186,208,206,162,103,90,82,79,90,123,140,180};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Yakutta";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1096,84);
         countries.add(country);
         
         // Irkatsk
@@ -378,7 +378,7 @@ public class RiskMap {
           int y[] = {180,199,200,188,203,224,228,246,264,264,251,235,216,210,214,183};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Irkatsk";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1075,197);
         countries.add(country);
         
         // Amer
@@ -386,7 +386,7 @@ public class RiskMap {
           int y[] = {162,179,189,204,215,214,221,254,275,278,261,239,243,239,222,224,207};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Amer";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1175,194);
         countries.add(country);
         
         // Kamchakta 
@@ -394,7 +394,7 @@ public class RiskMap {
           int y[] = {161,186,177,181,211,225,229,170,144,150,121,98,93,94,109,129,140};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Kamchakta";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1254,97);
         countries.add(country);
         
         // Japan
@@ -402,7 +402,7 @@ public class RiskMap {
           int y[] = {388,328,237,226,278,318,349,384,379};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Japan";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1250,245);
         countries.add(country);
         
         // China
@@ -410,7 +410,7 @@ public class RiskMap {
           int y[] = {446,448,466,394,346,327,302,280,243,238,221,225,243,285,313,316,371,382,383,419,445};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "China";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1127,373);
         countries.add(country);
         
         // Mongolia
@@ -418,7 +418,7 @@ public class RiskMap {
           int y[] = {255,264,250,263,263,289,315,313,280,264,272,271,253,261};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Mongolia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1071,259);
         countries.add(country);
         
         // Xiajano
@@ -426,7 +426,7 @@ public class RiskMap {
           int y[] = {280,302,311,310,319,367,362,350,330,316,295,280};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Xiajano";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1013,309);
         countries.add(country);
         
         // Xijang
@@ -434,7 +434,7 @@ public class RiskMap {
           int y[] = {362,367,382,382,423,426,412,420,390,364,367};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Xijang";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1023,365);
         countries.add(country);
         
         // India
@@ -442,7 +442,7 @@ public class RiskMap {
           int y[] = {361,392,420,415,413,430,476,465,486,519,579,573,494,472,470,451,392,375,364,378,393};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "India";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 997,432);
         countries.add(country);
         
         // Thailand
@@ -450,7 +450,7 @@ public class RiskMap {
           int y[] = {425,421,447,449,468,477,503,514,518,543,556,537,508,497,473,437,420,428,442,452,446};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Thailand";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1097,452);
         countries.add(country);
         
         // Philippines
@@ -458,7 +458,7 @@ public class RiskMap {
           int y[] = {446,446,489,516,532,533,528,504,482,460,445,441};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Philippines";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1214, 465);
         countries.add(country);
         
         // Indonesia
@@ -466,7 +466,7 @@ public class RiskMap {
           int y[] = {536,539,564,539,561,588,620,638,627,562,543};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Indonesia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1126, 561);
         countries.add(country);
         
         // New Guinea
@@ -474,7 +474,7 @@ public class RiskMap {
           int y[] = {584,607,635,645,645,598,591,571,567,569,586,600};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "New Guinea";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1254,571);
         countries.add(country);
         
         // Hawaii
@@ -482,7 +482,7 @@ public class RiskMap {
           int y[] = {303,335,364,343,330,306,300};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Hawaii";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 73,335);
         countries.add(country);
         
         // New Zealand
@@ -490,7 +490,7 @@ public class RiskMap {
           int y[] = {688,731,771,790,807,790,747,707,681,679};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "New Zealand";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1314, 696);
         countries.add(country);
         
         // Venezuela
@@ -498,7 +498,7 @@ public class RiskMap {
           int y[] = {494,517,499,492,481,496,477,453,431,429,454,468,480,492,494,514};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Venezuela";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 308,441);
         countries.add(country);
         
         // Bolivia
@@ -506,7 +506,7 @@ public class RiskMap {
           int y[] = {554,593,627,622,607,606,613,600,582,582,567,562,545,554};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Bolivia";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 333,561);
         countries.add(country);
         
         // Argentina
@@ -514,7 +514,7 @@ public class RiskMap {
           int y[] = { 601,621,622,607,606,645,667,687,718,745,783,816,831,806,745,664,613,594,622};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Argentina";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 328,683);
         countries.add(country);
         
         // Falkland Islands
@@ -522,7 +522,7 @@ public class RiskMap {
           int y[] = {743,742,765,790,801,786,765,742,739};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Falkland Islands";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 416,744);
         countries.add(country);
         
         // Southern United States
@@ -530,7 +530,7 @@ public class RiskMap {
           int y[] = {309,339,340,357,350,371,360,360,365,387,345,323,300,294,294,311,306};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Southern United States";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 322,305);
         countries.add(country);
         
         // Midwestern United States
@@ -538,7 +538,7 @@ public class RiskMap {
           int y[] = {305,240,237,244,270,281,291,309,307,238};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Midwestern United States";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 238,243);
         countries.add(country);
         
         // Northern United States
@@ -546,7 +546,7 @@ public class RiskMap {
           int y[] = {285,294,298,267,247,262,266,281};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Northern United States";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 381,286);
         countries.add(country);
         
         // Alberta
@@ -554,7 +554,7 @@ public class RiskMap {
           int y[] = {233,235,163,162,236};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Alberta";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 159,175);
         countries.add(country);
         
         // Quebec
@@ -562,7 +562,7 @@ public class RiskMap {
           int y[] = {199,253,264,250,275,256,243,204,164,150,147,162,189,196};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Quebec";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 357,200);
         countries.add(country);
         
         // Nunavut
@@ -570,7 +570,7 @@ public class RiskMap {
           int y[] = {161,160,144,144,118,97,89,40,34,64,89,126,162,161};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Nunavut";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 252,70);
         countries.add(country);
         
         // Madagascar
@@ -578,7 +578,7 @@ public class RiskMap {
           int y[] = {683,720,767,788,770,714,697,682};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Madagascar";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 851,715);
         countries.add(country);
         
         // Buffalo Islands
@@ -586,7 +586,7 @@ public class RiskMap {
           int y[] = {135,148,113,48,50,86,99,132,148};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Buffalo Islands";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 377,76);
         countries.add(country);
         
         // Soverya
@@ -594,7 +594,7 @@ public class RiskMap {
           int y[] = {31,58,66,52,29,28};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Soverya";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 963, 29);
         countries.add(country);
         
         // Novashelkye
@@ -602,7 +602,7 @@ public class RiskMap {
           int y[] = {32,63,80,69,28,28};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Novashelkye";
-        country = new Country(countryBoundry, countryName);
+        country = new Country(countryBoundry, countryName, 1147, 29);
         countries.add(country);
         
         Continent.create();
