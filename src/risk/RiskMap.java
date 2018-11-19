@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import static risk.Main.g;
 
 public class RiskMap {
-    static private Image image = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+    static private Image map = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+    static private Image TroopCounter = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II.png");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(int x, int y, Main frame) {
         // Draws map
-        g.drawImage(image, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // Draws troop counters
+        g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer

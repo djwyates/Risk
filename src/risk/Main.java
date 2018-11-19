@@ -25,6 +25,9 @@ public class Main extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 e.getX();
                 e.getY();
+                if(RiskMap.contains(e.getX(),e.getY()) != null){
+                System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).name);
+                }
                 repaint();
             }
         });
@@ -277,18 +280,6 @@ public class Main extends JFrame implements Runnable
             
             
         }
-            for(Continent tempCont : Continent.continents){
-                if(tempCont!=null && tempCont.name == "Oceania"){
-                    System.out.println(tempCont.name);
-                    System.out.println("=============");
-                    for(Country tempCountry : tempCont.contCountries){
-                        System.out.println(tempCountry.name);
-                    }
-                    System.out.println("=============");
-                }
-                else
-                    System.out.println("null");
-            }
     }
 
     // //////////////////////////////////////////////////////////////////////////
