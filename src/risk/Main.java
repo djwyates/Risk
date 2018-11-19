@@ -26,7 +26,7 @@ public class Main extends JFrame implements Runnable
                 e.getX();
                 e.getY();
                 if(RiskMap.contains(e.getX(),e.getY()) != null){
-                System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).name);
+                    System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).getName());
                 }
                 repaint();
             }
@@ -35,8 +35,9 @@ public class Main extends JFrame implements Runnable
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (e.BUTTON1 == e.getButton())
-                    Button.releasedLeftClick(Window.currentFrame);
+                if (e.BUTTON1 == e.getButton()) {
+                    Titlescreen.mouseClickHandler(Window.currentFrame, e.getX(), e.getY());
+                }
                 repaint();
             }
         });

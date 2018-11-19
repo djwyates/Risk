@@ -7,14 +7,15 @@ import java.util.ArrayList;
 import static risk.Main.g;
 
 public class Country {
-    static private Country currentCountry;
-    ArrayList<Country> neighboringCountries = new ArrayList<Country>();
-    Player owner;
-    Polygon boundary;
-    String name;
-    boolean isSelected;
-    int numTroops;
-    int centerX, centerY;
+    static private Country onMouse;
+    static private Country selected;
+    private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
+    private Player owner;
+    private Polygon boundary;
+    private String name;
+    private int numTroops;
+    private int centerX, centerY;
+    private boolean isSelected = false;
     
     Country(Polygon _boundry, String _name) {
         numTroops=0;
@@ -23,27 +24,28 @@ public class Country {
         name = _name;
     }
     
-    static Country getCountry (String name){
-        for(Country tempCountry : RiskMap.getCountryList()){
-            if(tempCountry.name==name)
-                return tempCountry;
-        }
-        System.out.println("Returning null");
-        return null;
+    public void setOwner(Player player) {
+        owner = player;
     }
     
     public void mouseInCountry() {
-        drawBorders();
-        if (currentCountry != this)
+        drawBoundary();
+        if (selected != this) {
             isSelected = false;
+        }
         if (!isSelected)
             playSoundEffect();
         isSelected = true;
-        currentCountry = this;
+        selected = this;
     }
     
-    private void drawBorders() {
+    public void drawBoundary() {
         g.drawPolygon(boundary);
+    }
+    
+    public void drawSoldierCount(int soldierCount) {
+        g.setColor(owner.getColor());
+        g.drawString("" + soldierCount, centerX, centerY);
     }
     
     private void playSoundEffect() {
@@ -58,17 +60,31 @@ public class Country {
         Titlescreen.getMenuSounds().play("terr_noise.wav");
     }
     
-    public void setOwner(Player player) {
-        owner = player;
+    static Country getCountry (String name) {
+        for(Country country : RiskMap.getCountryList()) {
+            if(country.name.equalsIgnoreCase(name))
+                return country;
+        }
+        return null;
     }
     
-    public void drawSoldierCount(int soldiers){
-        g.setColor(owner.getColor());
-//        g.drawString(centerX, centerY);
+    static public void setCountryOnMouse(int x, int y) {
+        onMouse = RiskMap.contains(x, y);
     }
     
-    public Polygon getBoundry()
-    { return(boundary); }
+    static public Country getCountryOnMouse() {
+        return onMouse;
+    }
     
+    public Player getOwner() {
+        return owner;
+    }
     
+    public Polygon getBoundary() {
+        return(boundary);
+    }
+    
+    public String getName() {
+        return name;
+    }
 }

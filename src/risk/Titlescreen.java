@@ -15,13 +15,8 @@ import java.net.*;
 
 public class Titlescreen {
     static private Gameplay game;
-    static private boolean mainActive;
-    static private boolean singleActive;
-    static private boolean multiActive;
-    static private boolean startedGame;
-    static private Image mainImage;
-    static private Image multiImage;
-    static private Image emberImage;
+    static private boolean mainActive, singleActive, multiActive, startedGame;
+    static private Image mainImage, multiImage, multiBackgroundImage;
     static private SoundManager menuSounds = null;
     static private int fontSize;
     static int timeCount;
@@ -35,7 +30,7 @@ public class Titlescreen {
         startedGame = false;
         mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
-        emberImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+        multiBackgroundImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -43,7 +38,7 @@ public class Titlescreen {
         menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
         fontSize = 20;
-        timeCount=0;
+        timeCount = 0;
     }
     static void titlescreenHandler(int x, int y, Main frame) throws FontFormatException, IOException {
         if (mainActive)
@@ -65,14 +60,13 @@ public class Titlescreen {
     static private void singleHandler(int x, int y, Main frame) {
         if(!startedGame)
             game = new Gameplay(frame, 2);
-        
-        game.play(frame, x, y);
+        game.drawAndSoundHandler(frame, x, y);
     }
     
     static private void multiHandler(int x, int y, Main frame)throws FileNotFoundException, FontFormatException, IOException {
         System.out.println(Connect.gameStarted());
         if(Connect.gameStarted()==false) {
-            g.drawImage(emberImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            g.drawImage(multiBackgroundImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             Button.drawMute(frame, 760, 760);
             try {
@@ -90,19 +84,14 @@ public class Titlescreen {
             Button.multiHandler(x, y);
         }
         else { // If connected
-            if(!startedGame) {
-                Window.addWindow(Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Multiplayer");
-                RiskMap riskMap = new RiskMap();
-                frame.dispose();
-                mainActive = false;
-                startedGame = true;
-            }
-            
-            if(RiskMap.contains(x, y)!=null)
-                g.drawString(RiskMap.contains(x, y).name, x, y-15);
-            
-            RiskMap.draw(x, y, frame);
+            // implement map drawing and gameplay
         }
+    }
+    
+    static public void mouseClickHandler(Main frame, int x, int y) {
+        Button.mouseClickHandler(Window.currentFrame);
+        if (game != null)
+            game.mouseClickHandler(x, y);
     }
     
     static public void activateMain() {
@@ -143,4 +132,7 @@ public class Titlescreen {
     
     static SoundManager getMenuSounds()
     { return menuSounds; }
+    
+    static Gameplay getGame()
+    { return(game); }
 }
