@@ -1,6 +1,8 @@
 
 package risk;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
@@ -53,6 +55,7 @@ public class Country {
     static public void drawAllTroopCounter() {
         for (Country country : RiskMap.getCountryList()) {
             g.drawImage(troopCounter, country.centerX, country.centerY, 51, 51, Window.currentFrame);
+            country.drawSoldierCount(0,country.centerX,country.centerY); // 0 is hardcoded; add actual troop amount
         }
     }
     
@@ -72,9 +75,10 @@ public class Country {
         owner = player;
     }
     
-    public void drawSoldierCount(int soldiers){
-        g.setColor(owner.getColor());
-        g.drawString(""+soldiers,centerX, centerY);
+    public void drawSoldierCount(int soldiers, int Xval, int Yval){
+        g.setColor(Color.white);
+        g.setFont (new Font("AMARILLO",Font.BOLD,20));
+        g.drawString(""+soldiers, Xval+19, Yval+33);
     }
     
     public Polygon getBoundry()
