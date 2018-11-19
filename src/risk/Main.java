@@ -14,7 +14,7 @@ public class Main extends JFrame implements Runnable
     public static Graphics2D g;
 
     Thread relaxer;
-    int mousePos []= new int[2];
+    int mouseX, mouseY;
     int i = 0;
     public static void main(String[] args) {
         Window.addWindow(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
@@ -38,32 +38,22 @@ public class Main extends JFrame implements Runnable
             }
         });
 
-        addMouseMotionListener(new MouseMotionAdapter()
-        {
-            public void mouseMoved(MouseEvent e)
-            {
-                mousePos[0]=e.getX();
-                mousePos[1]=e.getY();
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseMoved(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
                 repaint();
             }
         });
 
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                if (e.getKeyCode() == KeyEvent.VK_Q)
-                {
-                    
+        addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_Q) {
                 }
-                else if (e.getKeyCode() == KeyEvent.VK_C)
-                {
-                    
+                else if (e.getKeyCode() == KeyEvent.VK_C) {
                 }
-                else
-                {
-                    if (!Connect.gameStarted())
-                    {
+                else {
+                    if (!Connect.gameStarted()) {
                         if (e.getKeyCode() == KeyEvent.VK_0)
                             Connect.addToHost("0");
                         else if (e.getKeyCode() == KeyEvent.VK_1)
@@ -184,7 +174,7 @@ public class Main extends JFrame implements Runnable
         
         if(Titlescreen.isActive()){
             try  {
-                Titlescreen.titlescreenHandler(mousePos[0], mousePos[1], this);
+                Titlescreen.titlescreenHandler(mouseX, mouseY, this);
             } catch (FontFormatException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -192,40 +182,18 @@ public class Main extends JFrame implements Runnable
             }
         }
         
-        
-//        if (!gameStarted)
-//        {
-//            g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
-//            g.setColor(Color.black);
-//            g.drawString("Not Connected",100,150);
-//            
-//        }
-        else if (Connect.isClient())
-        {
+        else if (Connect.isClient()) {
             g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
             g.setColor(Color.black);
             g.drawString("The Client",100,150);
         }
-        else
-        {
+        
+        else {
             g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
             g.setColor(Color.black);
             g.drawString("The Server",100,150);
         }
         
-//            try
-//            {
-//                g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
-//                g.setColor(Color.black);
-//                g.drawString("Your IP address: " + InetAddress.getLocalHost().getHostAddress(), Window.getX(10), Window.getY(20));
-//                g.drawString("Enter IP address: " + host, Window.getX(10), Window.getY(60));
-//            }
-//            catch (UnknownHostException e)
-//            {
-//                e.printStackTrace();
-//            }
-
-            
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
         
         gOld.drawImage(image, 0, 0, null);
@@ -262,50 +230,28 @@ public class Main extends JFrame implements Runnable
     }
 
 
-    public void animate()
-    {
-        if (Window.animateFirstTime)
-        {
+    public void animate() {
+        if (Window.animateFirstTime) {
             Window.animateFirstTime = false;
-            if (Window.xsize != getSize().width || Window.ysize != getSize().height)
-            {
+            if (Window.xsize != getSize().width || Window.ysize != getSize().height) {
                 Window.xsize = getSize().width;
                 Window.ysize = getSize().height;
             }
-
             reset();
-            
-            
         }
-            for(Continent tempCont : Continent.continents){
-                if(tempCont!=null && tempCont.name == "Oceania"){
-                    System.out.println(tempCont.name);
-                    System.out.println("=============");
-                    for(Country tempCountry : tempCont.countries){
-                        System.out.println(tempCountry.name);
-                    }
-                    System.out.println("=============");
-                }
-                else
-                    System.out.println("null");
-            }
     }
 
     // //////////////////////////////////////////////////////////////////////////
-    public void start()
-    {
-        if (relaxer == null)
-        {
+    public void start() {
+        if (relaxer == null) {
             relaxer = new Thread(this);
             relaxer.start();
         }
     }
 
     // //////////////////////////////////////////////////////////////////////////
-    public void stop()
-    {
-        if (relaxer.isAlive())
-        {
+    public void stop() {
+        if (relaxer.isAlive()) {
             relaxer.stop();
         }
         relaxer = null;

@@ -19,7 +19,7 @@ public class RiskMap {
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
         if(RiskMap.contains(x,y) != null)
-            g.drawString(RiskMap.contains(x, y).name, x, y-20);
+            g.drawString(RiskMap.contains(x, y).name, x, y-5);
     }
     
     static public Country contains(int x, int y) {
@@ -606,5 +606,5 @@ public class RiskMap {
     }
     
     static public ArrayList<Country> getCountryList()
-    { return(countries); }
+    { return countries; }
 }

@@ -41,7 +41,6 @@ public class Continent {
         continents[3].countries.add(Country.getCountry("Peru"));
         continents[3].countries.add(Country.getCountry("Bolivia"));
         continents[3].countries.add(Country.getCountry("Brazil"));
-        continents[3].countries.add(Country.getCountry("Alaska"));
         continents[3].countries.add(Country.getCountry("Argentina"));
         continents[3].countries.add(Country.getCountry("Falkland Islands"));
         

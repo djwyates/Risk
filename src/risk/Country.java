@@ -20,6 +20,7 @@ public class Country {
         boundary = _boundry;
         name = _name;
     }
+    
     static Country getCountry (String name){
         for(Country tempCountry : RiskMap.getCountryList()){
             if(tempCountry.name==name)
@@ -28,6 +29,7 @@ public class Country {
         System.out.println("Returning null");
         return null;
     }
+    
     public void mouseInCountry() {
         drawBorders();
         if (currentCountry != this)
