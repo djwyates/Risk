@@ -199,7 +199,7 @@ public class Risk extends JFrame implements Runnable
             g.drawString("The Server",100,150);
         }
         
-        g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
+        //g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
         BorderCreator.drawLines(mouseX, mouseY, g);
         
         gOld.drawImage(image, 0, 0, null);
