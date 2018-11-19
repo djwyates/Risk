@@ -1,6 +1,7 @@
 
 package risk;
 
+import java.awt.Point;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import static risk.Main.g;
@@ -13,6 +14,7 @@ public class Country {
     String name;
     boolean isSelected;
     int numTroops;
+    int centerX, centerY;
     
     Country(Polygon _boundry, String _name) {
         numTroops=0;
@@ -60,7 +62,13 @@ public class Country {
         owner = player;
     }
     
+    public void drawSoldierCount(int soldiers){
+        g.setColor(owner.getColor());
+//        g.drawString(centerX, centerY);
+    }
+    
     public Polygon getBoundry()
     { return(boundary); }
+    
     
 }
