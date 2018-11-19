@@ -117,6 +117,7 @@ public class Main extends JFrame implements Runnable
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
+                        BorderCreator.Reset();
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_S){
                     }
@@ -233,7 +234,6 @@ public class Main extends JFrame implements Runnable
 
     public static void reset() {
         Titlescreen.reset();
-        
     }
 
 
@@ -246,7 +246,7 @@ public class Main extends JFrame implements Runnable
             }
             reset();
         }
-        BorderCreator.tick(mouseX, mouseY);
+        BorderCreator.tick(mouseX, mouseY,g);
     }
 
     // //////////////////////////////////////////////////////////////////////////
