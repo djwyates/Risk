@@ -275,7 +275,7 @@ public class RiskMap {
           int y[] = {507,512,469,475,457,456,507,510};
         countryBoundry = new Polygon(x, y, x.length); }
         countryName = "Egypt";
-        country = new Country(countryBoundry, countryName, 613,436);
+        country = new Country(countryBoundry, countryName, 782, 464);
         countries.add(country);
         
         // Saudi Arabia
