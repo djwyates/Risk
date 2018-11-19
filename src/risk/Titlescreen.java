@@ -58,7 +58,7 @@ public class Titlescreen {
     }
     
     static private void singleHandler(int x, int y, Main frame) {
-        if(!startedGame)
+       if(!startedGame)
             game = new Gameplay(frame, 2);
         game.drawAndSoundHandler(frame, x, y);
     }
@@ -117,7 +117,9 @@ public class Titlescreen {
         mainActive = false;
         startedGame = true;
     }
-    
+    static public boolean gameIsStarted(){
+        return startedGame;
+    }
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }
     

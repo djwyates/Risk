@@ -23,8 +23,11 @@ public class Main extends JFrame implements Runnable
     public Main() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                e.getX();
-                e.getY();
+                int x = e.getX();
+                int y = e.getY();
+                if(Titlescreen.gameIsStarted()){
+                    BorderCreator.startBorder(x, y);
+                }
                 if(RiskMap.contains(e.getX(),e.getY()) != null){
                     System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).getName());
                 }
@@ -243,6 +246,7 @@ public class Main extends JFrame implements Runnable
             }
             reset();
         }
+        BorderCreator.tick(mouseX, mouseY);
     }
 
     // //////////////////////////////////////////////////////////////////////////

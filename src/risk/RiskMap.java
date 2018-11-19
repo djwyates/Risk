@@ -21,7 +21,8 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
-        System.out.println(Country.getCountryOnMouse());
+        if(Country.getCountryOnMouse()!=null)
+        System.out.println(Country.getCountryOnMouse().getName());
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
     }
