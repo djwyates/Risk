@@ -11,7 +11,7 @@ public class Player {
     private Color color = null;
     
     Player() {
-        totalTroops=50;
+        totalTroops = 50;
         color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
     }
     

@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
-import static risk.Main.g;
+import static risk.Risk.g;
 
 public class Button {
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
@@ -20,7 +20,7 @@ public class Button {
     static private boolean onMute = false;
     static private boolean onBack = false;
     
-    static public void mouseClickHandler(Main frame) {
+    static public void mouseClickHandler(Risk frame) {
         if (onSingle) { activateSingleButton(); }
         else if (onMulti) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
@@ -143,12 +143,12 @@ public class Button {
         muteOn = !muteOn;
     }
     
-    static private void activateBackButton(Main frame) {
+    static private void activateBackButton(Risk frame) {
         Window.changeWindow(frame, 550, 120, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
         Titlescreen.activateMain();
     }
     
-    static public void drawMute(Main frame, int x, int y) {
+    static public void drawMute(Risk frame, int x, int y) {
         if(muteOn)
             muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
         else
@@ -156,7 +156,7 @@ public class Button {
         g.drawImage(muteImage, x, y, 20, 20, frame);
     }
     
-    static public void drawBack(Main frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
+    static public void drawBack(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
         if (detectBack(xMousePos, yMousePos)) {
             backImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
             onBack = true;

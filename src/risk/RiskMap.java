@@ -7,13 +7,13 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import static risk.Main.g;
+import static risk.Risk.g;
 
 public class RiskMap {
     static private Image map = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(Main frame, int x, int y) {
+    static public void draw(Risk frame, int x, int y) {
         // Draws map
         g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws troop counters
@@ -21,7 +21,6 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws current country name by mouse pointer
-        System.out.println(Country.getCountryOnMouse());
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
     }

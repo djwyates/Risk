@@ -60,7 +60,7 @@ public class ClientHandler
 		connected = false;
 		Connect.setGameStarted(false);
                 
-		Main.reset();
+		Risk.reset();
 	}
     public static void sendInfo()
     {
