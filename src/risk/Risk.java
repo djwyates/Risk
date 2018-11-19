@@ -23,10 +23,10 @@ public class Risk extends JFrame implements Runnable
     public Risk() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                e.getX();
-                e.getY();
-                if(RiskMap.contains(e.getX(),e.getY()) != null){
-                    System.out.println(e.getX()+"|"+e.getY()+"/"+RiskMap.contains(e.getX(), e.getY()).getName());
+                int x = e.getX();
+                int y = e.getY();
+                if(Titlescreen.gameIsStarted()){
+                    BorderCreator.startBorder(x, y);
                 }
                 repaint();
             }
@@ -114,6 +114,7 @@ public class Risk extends JFrame implements Runnable
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
+                        BorderCreator.Reset();
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_S){
                     }
@@ -199,6 +200,7 @@ public class Risk extends JFrame implements Runnable
         }
         
         g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
+        BorderCreator.drawLines(mouseX, mouseY, g);
         
         gOld.drawImage(image, 0, 0, null);
     }
@@ -230,7 +232,6 @@ public class Risk extends JFrame implements Runnable
 
     public static void reset() {
         Titlescreen.reset();
-        
     }
 
 

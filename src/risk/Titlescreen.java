@@ -117,7 +117,9 @@ public class Titlescreen {
         mainActive = false;
         startedGame = true;
     }
-    
+    static public boolean gameIsStarted(){
+        return startedGame;
+    }
     static public boolean isActive()
     { return mainActive || singleActive || multiActive; }
     
