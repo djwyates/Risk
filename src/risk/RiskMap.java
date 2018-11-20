@@ -17,7 +17,7 @@ public class RiskMap {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws troop counters
-        Country.drawAllSoldierCounters();
+        Country.drawAllTroopCounters();
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws boundary on selected country

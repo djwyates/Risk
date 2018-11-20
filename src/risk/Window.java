@@ -40,8 +40,9 @@ public class Window {
         frame.setResizable(false);
     }
     
-    public static void changeWindow(Risk frame, int x, int y, int width, int height, String title) {
-        frame.setBounds(x, y, width, height);
+    public static void changeWindow(Risk frame, int width, int height, String title) {
+        frame.setSize(width, height);
+        frame.setLocationRelativeTo(null);
         frame.setTitle(title);
     }
     

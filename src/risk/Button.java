@@ -144,7 +144,7 @@ public class Button {
     }
     
     static private void activateBackButton(Risk frame) {
-        Window.changeWindow(frame, Window.USER_SCREEN_WIDTH/4+Window.USER_SCREEN_WIDTH/25, Window.USER_SCREEN_HEIGHT/12+Window.USER_SCREEN_HEIGHT/45, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
+        Window.changeWindow(frame, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
         Titlescreen.activateMain();
     }
     

@@ -31,23 +31,24 @@ public class Country {
         centerY = _centerY;
     }
     
+    // Draw methods
     static public void drawBoundaryOnSelected() {
         for (Country country : selected)
             country.drawBoundary();
     }
     
-    static public void drawAllSoldierCounters() {
+    static public void drawAllTroopCounters() {
         for (Country country : RiskMap.getCountryList()) {
             g.drawImage(troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
-            country.drawSoldierNumber(0,country.centerX,country.centerY); // 0 is hardcoded; add actual troop amount
+            country.drawTroopAmount(country.centerX,country.centerY);
         }
     }
     
-    public void drawSoldierNumber(int soldiers, int x, int y) {
+    public void drawTroopAmount(int x, int y) {
         if(owner != null)
             g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
-        g.drawString(""+soldiers, x+19, y+33);
+        g.drawString(""+numTroops, x+19, y+33);
     }
     
     public void drawNameOnMouse(int x, int y) {
@@ -59,6 +60,14 @@ public class Country {
     private void drawBoundary() {
         g.setColor(Color.white);
         g.drawPolygon(boundary);
+    }
+    
+    // Handler methods
+    public void mouseInCountryHandler() {
+        drawBoundary();
+        if (hovered != this)
+            Titlescreen.getMenuSounds().play("terr_noise.wav");
+        hovered = this;
     }
     
     public void selectedHandler(Gameplay.Phase phase){
@@ -78,17 +87,22 @@ public class Country {
         }
     }
     
-    public void mouseInCountryHandler() {
-        drawBoundary();
-        if (hovered != this)
-            Titlescreen.getMenuSounds().play("terr_noise.wav");
-        hovered = this;
-    }
     
+    
+    // Mutator methods
     static public void setCountryOnMouse(int x, int y) {
         onMouse = RiskMap.contains(x, y);
     }
     
+    public void setOwner(Player _owner) {
+        owner = _owner;
+    }
+    
+    public void addNumTroops(int inc) {
+        numTroops += inc;
+    }
+    
+    // Accessor methods
     static Country getCountry (String name) {
         for(Country country : RiskMap.getCountryList()) {
             if(country.name.equalsIgnoreCase(name))
@@ -103,10 +117,6 @@ public class Country {
     
     static public ArrayList<Country> getSelectedList() {
         return selected;
-    }
-    
-    public void setOwner(Player player) {
-        owner = player;
     }
     
     public Player getOwner() {

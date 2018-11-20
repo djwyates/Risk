@@ -11,21 +11,35 @@ public class Player {
     private Color color = null;
     
     Player() {
-        totalTroops = 50;
         color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
     }
     
+    // Mutator methods
     static public void transferCountryOwnership(Player previousOwner, Player newOwner, Country country) {
         previousOwner.ownedCountries.remove(country);
         newOwner.ownedCountries.add(country);
+        country.setOwner(newOwner);
     }
     
     public void addTerritory(Country country) {
         ownedCountries.add(country);
     }
     
+    public void addTotalTroops(int inc) {
+        totalTroops += inc;
+    }
+    
     public void setDeployableTroops() {
-        deployableTroops = ownedCountries.size()/3;
+        deployableTroops = ownedCountries.size()/3; //todo: add continent bonuses to this integer
+    }
+    
+    // Accessor methods
+    public ArrayList<Country> getOwnedCountries() {
+        return ownedCountries;
+    }
+    
+    public int getTotalTroops() {
+        return totalTroops;
     }
     
     public Color getColor() {
