@@ -27,7 +27,7 @@ public class Risk extends JFrame implements Runnable
                 int x = e.getX();
                 int y = e.getY();
                 if(Titlescreen.gameIsStarted()&&bcActive){
-                    //BorderCreator.startBorder(x, y);
+                    BorderCreator.startBorder(x, y);
                 }
                 else if(Titlescreen.gameIsStarted())
                 
@@ -135,6 +135,7 @@ public class Risk extends JFrame implements Runnable
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
+                        BorderCreator.Reset();
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_S){
                     }
@@ -197,8 +198,8 @@ public class Risk extends JFrame implements Runnable
             g.setColor(Color.black);
             g.drawString("The Server",100,150);
         }
-        
-        //BorderCreator.drawLines(mouseX, mouseY, g);
+        if(bcActive)
+            BorderCreator.drawLines(mouseX, mouseY, g);
         
         
         gOld.drawImage(image, 0, 0, null);

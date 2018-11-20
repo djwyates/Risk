@@ -114,8 +114,7 @@ public class BorderCreator{
         //Setting lastpoint to mouse position
         xValNormArray[lasti] = x;
         yValNormArray[lasti] = y;
-        if(Titlescreen.gameIsStarted())
-            g.drawPolygon(xValNormArray, yValNormArray, xValNormArray.length);
+        g.drawPolygon(xValNormArray, yValNormArray, xValNormArray.length);
         
         
         
