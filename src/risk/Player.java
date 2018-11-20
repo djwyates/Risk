@@ -68,6 +68,10 @@ public class Player {
         return totalTroops;
     }
     
+    public int getDeployableTroops() {
+        return deployableTroops;
+    }
+    
     public Color getColor() {
         return color;
     }

@@ -56,62 +56,58 @@ public class Risk extends JFrame implements Runnable
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_C) {
-                }
-                else {
-                    if (!Connect.gameStarted()) {
-                        if (e.getKeyCode() == KeyEvent.VK_0)
-                            Connect.addToHost("0");
-                        else if (e.getKeyCode() == KeyEvent.VK_1)
-                            Connect.addToHost("1");
-                        else if (e.getKeyCode() == KeyEvent.VK_2)
-                            Connect.addToHost("2");
-                        else if (e.getKeyCode() == KeyEvent.VK_3)
-                            Connect.addToHost("3");
-                        else if (e.getKeyCode() == KeyEvent.VK_4)
-                            Connect.addToHost("4");
-                        else if (e.getKeyCode() == KeyEvent.VK_5)
-                            Connect.addToHost("5");
-                        else if (e.getKeyCode() == KeyEvent.VK_6)
-                            Connect.addToHost("6");
-                        else if (e.getKeyCode() == KeyEvent.VK_7)
-                            Connect.addToHost("7");
-                        else if (e.getKeyCode() == KeyEvent.VK_8)
-                            Connect.addToHost("8");
-                        else if (e.getKeyCode() == KeyEvent.VK_9)
-                            Connect.addToHost("9");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD0)
-                            Connect.addToHost("0");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1)
-                            Connect.addToHost("1");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD2)
-                            Connect.addToHost("2");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3)
-                            Connect.addToHost("3");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4)
-                            Connect.addToHost("4");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5)
-                            Connect.addToHost("5");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6)
-                            Connect.addToHost("6");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7)
-                            Connect.addToHost("7");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD8)
-                            Connect.addToHost("8");
-                        else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9)
-                            Connect.addToHost("9");
-                        else if (e.getKeyCode() == KeyEvent.VK_PERIOD)
-                            Connect.addToHost(".");
-                        else if (e.getKeyCode() == KeyEvent.VK_DECIMAL)
-                            Connect.addToHost(".");
-                        else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                            if(Connect.getHost().length() > 0)
-                                Connect.deleteCharFromHost();
-                        }
-                        if(Connect.getHost().length()>19)
+                } else if (e.getKeyCode() == KeyEvent.VK_C) {
+                } else {
+                    if (e.getKeyCode() == KeyEvent.VK_0) {
+                        Connect.addToHost("0");
+                    } else if (e.getKeyCode() == KeyEvent.VK_1) {
+                        Connect.addToHost("1");
+                    } else if (e.getKeyCode() == KeyEvent.VK_2) {
+                        Connect.addToHost("2");
+                    } else if (e.getKeyCode() == KeyEvent.VK_3) {
+                        Connect.addToHost("3");
+                    } else if (e.getKeyCode() == KeyEvent.VK_4) {
+                        Connect.addToHost("4");
+                    } else if (e.getKeyCode() == KeyEvent.VK_5) {
+                        Connect.addToHost("5");
+                    } else if (e.getKeyCode() == KeyEvent.VK_6) {
+                        Connect.addToHost("6");
+                    } else if (e.getKeyCode() == KeyEvent.VK_7) {
+                        Connect.addToHost("7");
+                    } else if (e.getKeyCode() == KeyEvent.VK_8) {
+                        Connect.addToHost("8");
+                    } else if (e.getKeyCode() == KeyEvent.VK_9) {
+                        Connect.addToHost("9");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD0) {
+                        Connect.addToHost("0");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+                        Connect.addToHost("1");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+                        Connect.addToHost("2");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+                        Connect.addToHost("3");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+                        Connect.addToHost("4");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+                        Connect.addToHost("5");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+                        Connect.addToHost("6");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+                        Connect.addToHost("7");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+                        Connect.addToHost("8");
+                    } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+                        Connect.addToHost("9");
+                    } else if (e.getKeyCode() == KeyEvent.VK_PERIOD) {
+                        Connect.addToHost(".");
+                    } else if (e.getKeyCode() == KeyEvent.VK_DECIMAL) {
+                        Connect.addToHost(".");
+                    } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                        if(Connect.getHost().length() > 0)
                             Connect.deleteCharFromHost();
                     }
+                    if(Connect.getHost().length()>19)
+                        Connect.deleteCharFromHost();
                 }
                 
                 if (Connect.gameStarted())
@@ -131,7 +127,7 @@ public class Risk extends JFrame implements Runnable
             }
             
             public void keyReleased(KeyEvent e)
-            {  
+            {
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
@@ -142,7 +138,7 @@ public class Risk extends JFrame implements Runnable
                     else if(e.getKeyCode() == KeyEvent.VK_A){
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_D){
-                    }                    
+                    }
                 }
             }
         });

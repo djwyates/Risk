@@ -1,11 +1,13 @@
 
 package risk;
 
+import java.awt.Image;
+
 public class Gameplay {
     
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
-    Phase phase;
-    RiskMap riskMap = null;
+    private Phase phase;
+    private RiskMap riskMap = null;
     private Player players[];
     private Player currentPlayer;
     
@@ -32,7 +34,7 @@ public class Gameplay {
     public void drawAndSoundHandler(Risk frame, int x, int y) {
         Country.setCountryOnMouse(x, y);
         RiskMap.draw(frame, x, y);
-        RiskMap.mouseInCountryHandler(x, y);
+        RiskMap.mouseInCountryHandler(x, y, phase);
     }
     
     public void mouseClickHandler(int x, int y) {
@@ -50,10 +52,26 @@ public class Gameplay {
         }
     }
     
+    public void keyPressedHandler(String key) {
+        switch (phase) {
+            case DEPLOY:
+                deployPhaseHandler();
+                break;
+            case ATTACK:
+                attackPhaseHandler();
+                break;
+            case FORTIFY:
+                fortifyPhaseHandler();
+                break;
+        }
+    }
+    
     private void deployPhaseHandler() {
         Country country = Country.getCountryOnMouse();
         if (country != null && country.getOwner() == currentPlayer) {
-            country.selectedHandler(phase);
+            country.selectedByClickHandler(phase);
+            System.out.println("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n"
+                    + "How many would you like to deploy here?");
         }
     }
     
@@ -92,12 +110,13 @@ public class Gameplay {
     }
     
     private void assignTroops() {
+        int troopLimit = 80;
         int randomVal = 0;
         int countryNum = 1;
         // randomly adds an amount to troops to each player's territories
         for (Country country : players[0].getOwnedCountries()) {
             randomVal = (int) (Math.random()*3+1);
-                if (players[0].getTotalTroops()+randomVal <= 71-countryNum) {
+                if (players[0].getTotalTroops()+randomVal <= troopLimit+1-countryNum) {
                     country.addNumTroops(randomVal);
                     players[0].addTotalTroops(randomVal);
                 } else {
@@ -109,7 +128,7 @@ public class Gameplay {
         countryNum = 1;
         for (Country country : players[1].getOwnedCountries()) {
             randomVal = (int) (Math.random()*3+1);
-                if (players[1].getTotalTroops()+randomVal <= 71-countryNum) {
+                if (players[1].getTotalTroops()+randomVal <= troopLimit+1-countryNum) {
                     country.addNumTroops(randomVal);
                     players[1].addTotalTroops(randomVal);
                 } else {
@@ -118,21 +137,29 @@ public class Gameplay {
                 }
                 countryNum++;
         }
-        // distributes more troops to each player until they reach 70 total troops
+        // distributes more troops to each player until they reach their limit of troops
         for (Country country : players[0].getOwnedCountries()) {
-            if (players[0].getTotalTroops() < 70) {
+            if (players[0].getTotalTroops() < troopLimit) {
                 country.addNumTroops(1);
                 players[0].addTotalTroops(1);
             } else
                 break;
         }
         for (Country country : players[1].getOwnedCountries()) {
-            if (players[1].getTotalTroops() < 70) {
+            if (players[1].getTotalTroops() < troopLimit) {
                 country.addNumTroops(1);
                 players[1].addTotalTroops(1);
             } else
                 break;
         }
         System.out.println("Player 1 Troop Count: " + players[0].getTotalTroops() + "   Player 2 Troop Count: " + players[1].getTotalTroops());
+    }
+    
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+    
+    public Phase getPhase() {
+        return phase;
     }
 }

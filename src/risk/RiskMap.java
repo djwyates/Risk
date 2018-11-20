@@ -11,11 +11,15 @@ import static risk.Risk.g;
 
 public class RiskMap {
     static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+    static private Image phaseImage = null;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int x, int y) {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // Draws current phase name
+        //drawPhase();
+        g.drawImage(phaseImage, 0, 0, 0, 0, frame); //todo: draw phase image
         // Draws troop counters
         Country.drawAllTroopCounters();
         // Draws back button
@@ -27,6 +31,26 @@ public class RiskMap {
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
     }
     
+    static public void drawPhase(int x, int y, int width, int height, Risk frame) {
+        switch (Titlescreen.getGame().getPhase()) {
+            case DEPLOY:
+                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                break;
+            case ATTACK:
+                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                break;
+            case FORTIFY:
+                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                break;
+        }
+        g.drawImage(phaseImage, x, y, width, height, frame);
+    }
+    
+    static public void mouseInCountryHandler(int x, int y, Gameplay.Phase phase) {
+        if (Country.getCountryOnMouse() != null)
+            Country.getCountryOnMouse().mouseInCountryHandler(phase);
+    }
+    
     static public Country contains(int x, int y) {
         for (Country country : countries) {
             if (country != null && country.getBoundary().contains(x, y)) {
@@ -34,11 +58,6 @@ public class RiskMap {
             }
         }
         return null;
-    }
-    
-    static public void mouseInCountryHandler(int x, int y) {
-        if (Country.getCountryOnMouse() != null)
-            Country.getCountryOnMouse().mouseInCountryHandler();
     }
     
     static public ArrayList<Country> getCountryList() {

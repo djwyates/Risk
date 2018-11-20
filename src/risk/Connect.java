@@ -51,10 +51,10 @@ public class Connect {
     }
     
     static public void addToHost (String character)
-    { host += character; }
+    { if (!gameStarted) host += character; }
     
     static public void deleteCharFromHost()
-    {  host = host.substring(0, host.length()-1); }
+    { if (!gameStarted) host = host.substring(0, host.length()-1); }
     
     static public void deleteAllCharsFromHost()
     { host = ""; }
