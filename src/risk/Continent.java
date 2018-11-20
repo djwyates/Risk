@@ -4,17 +4,30 @@ package risk;
 import java.util.ArrayList;
 
 public class Continent {
-    static Continent continents[]= new Continent[11];
-    ArrayList<Country> countries = new ArrayList<Country>();
-    String name;
-    int bonus;
+    private static Continent continents[]= new Continent[11];
+    // instance variables
+    private ArrayList<Country> countries = new ArrayList<Country>();
+    private String name;
+    private int bonus;
     
     Continent(String _name, int _bonus){
         name = _name;
         bonus = _bonus;
     }
     
-    static void create() {
+    static public Continent[] getContinents() {
+        return continents;
+    }
+    
+    public ArrayList<Country> getCountries() {
+        return countries;
+    }
+    
+    public int getBonus() {
+        return bonus;
+    }
+    
+    static public void create() {
         continents[0] = new Continent("Canada", 4);
         continents[0].countries.add(Country.getCountry("North West Canada"));
         continents[0].countries.add(Country.getCountry("Ontario"));
@@ -114,6 +127,5 @@ public class Continent {
                     System.out.println(x.name + " has a null in arraylist");
                 }
         }
-        
     }
 }

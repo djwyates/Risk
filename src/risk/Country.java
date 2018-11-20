@@ -11,24 +11,25 @@ import static risk.Risk.g;
 
 
 public class Country {
-    static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");    
+    static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
+    static private ArrayList<Country> selected = new ArrayList<Country>();
     static private Country onMouse;
     static private Country hovered;
-    static private ArrayList<Country> selected = new ArrayList<Country>();
+    // instance variables
+    private String name;
+    private Polygon boundary;
+    private int centerX, centerY;
     private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     private Player owner;
-    private Polygon boundary;
-    private String name;
-    private int numTroops;
-    private int centerX, centerY;
+    private int numTroops = 0;
     private boolean isSelected = false;
     
-    Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
-        numTroops = 0;
+    Country(Polygon _boundry, String _name, int _centerX, int _centerY/*, ArrayList<Country> _neighboringCountries*/) { //todo: add arraylist of neighboring countries to constructor
         boundary = _boundry;
         name = _name;
         centerX = _centerX;
         centerY = _centerY;
+        //neighboringCountries.addAll(_neighboringCountries);
     }
     
     // Draw methods

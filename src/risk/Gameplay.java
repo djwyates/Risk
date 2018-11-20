@@ -24,6 +24,7 @@ public class Gameplay {
         assignTroops();
         // Handles game phases
         phase = Phase.DEPLOY;
+        deployPhaseInit();
         // Handles other classes
         Titlescreen.startedGame();
     }
@@ -62,6 +63,10 @@ public class Gameplay {
     
     private void fortifyPhaseHandler() {
         
+    }
+    
+    private void deployPhaseInit() {
+        currentPlayer.setDeployableTroops();
     }
     
     private void assignCountries() {

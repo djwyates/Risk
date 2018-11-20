@@ -612,6 +612,7 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 1147, 29);
         countries.add(country);
         
+        // Initializing continents
         Continent.create();
     }
 }
