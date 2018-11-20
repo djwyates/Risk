@@ -12,9 +12,9 @@ import static risk.Risk.g;
 
 public class Country {
     static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-    static private ArrayList<Country> selected = new ArrayList<Country>();
+    static private ArrayList<Country> currentlySelected = new ArrayList<Country>();
     static private Country onMouse;
-    static private Country hovered;
+    static private Country recentlyHovered;
     // instance variables
     private String name;
     private Polygon boundary;
@@ -22,7 +22,7 @@ public class Country {
     private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     private Player owner;
     private int numTroops = 0;
-    private boolean isSelected = false;
+    private boolean shouldHover = false;
     
     Country(Polygon _boundry, String _name, int _centerX, int _centerY/*, ArrayList<Country> _neighboringCountries*/) { //todo: add arraylist of neighboring countries to constructor
         boundary = _boundry;
@@ -34,7 +34,7 @@ public class Country {
     
     // Draw methods
     static public void drawBoundaryOnSelected() {
-        for (Country country : selected)
+        for (Country country : currentlySelected)
             country.drawBoundary();
     }
     
@@ -64,22 +64,21 @@ public class Country {
     }
     
     // Handler methods
-    public void mouseInCountryHandler() {
-        drawBoundary();
-        if (hovered != this)
+    public void mouseInCountryHandler(Gameplay.Phase phase) {
+        selectedByHoverHandler(phase);
+        if (shouldHover)
+            drawBoundary();
+        if (shouldHover && recentlyHovered != this)
             Titlescreen.getMenuSounds().play("terr_noise.wav");
-        hovered = this;
+        recentlyHovered = this;
     }
     
-    public void selectedHandler(Gameplay.Phase phase){
+    private void selectedByHoverHandler(Gameplay.Phase phase) {
+        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
-                if (selected.contains(this))
-                    selected.clear();
-                else {
-                    selected.clear();
-                    selected.add(this);
-                }
+                if (owner == game.getCurrentPlayer())
+                    shouldHover = true;
                 break;
             case ATTACK:
                 break;
@@ -88,7 +87,22 @@ public class Country {
         }
     }
     
-    
+    public void selectedByClickHandler(Gameplay.Phase phase){
+        switch (phase) {
+            case DEPLOY:
+                if (currentlySelected.contains(this))
+                    currentlySelected.clear();
+                else {
+                    currentlySelected.clear();
+                    currentlySelected.add(this);
+                }
+                break;
+            case ATTACK:
+                break;
+            case FORTIFY:
+                break;
+        }
+    }
     
     // Mutator methods
     static public void setCountryOnMouse(int x, int y) {
@@ -117,7 +131,7 @@ public class Country {
     }
     
     static public ArrayList<Country> getSelectedList() {
-        return selected;
+        return currentlySelected;
     }
     
     public Player getOwner() {
