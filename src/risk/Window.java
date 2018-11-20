@@ -1,7 +1,6 @@
 
 package risk;
 
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 

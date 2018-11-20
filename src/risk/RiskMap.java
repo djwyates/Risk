@@ -1,8 +1,6 @@
 
 package risk;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
@@ -11,15 +9,14 @@ import static risk.Risk.g;
 
 public class RiskMap {
     static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-    static private Image phaseImage = null;
+    static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int x, int y) {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws current phase name
-        //drawPhase();
-        g.drawImage(phaseImage, 0, 0, 0, 0, frame); //todo: draw phase image
+        drawPhase(850, 800, 260, 100, frame);
         // Draws troop counters
         Country.drawAllTroopCounters();
         // Draws back button
@@ -34,13 +31,13 @@ public class RiskMap {
     static public void drawPhase(int x, int y, int width, int height, Risk frame) {
         switch (Titlescreen.getGame().getPhase()) {
             case DEPLOY:
-                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
                 break;
             case ATTACK:
-                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./attack.png");
                 break;
             case FORTIFY:
-                //phaseImage = Toolkit.getDefaultToolkit().getImage("./");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./fortify.png");
                 break;
         }
         g.drawImage(phaseImage, x, y, width, height, frame);

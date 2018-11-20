@@ -1,6 +1,8 @@
 // Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David Yates
 package risk;
 
+
+import java.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,6 +28,7 @@ public class Risk extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
+                System.out.println(x + "     " + y);
                 if(Titlescreen.gameIsStarted()&&bcActive){
                     BorderCreator.startBorder(x, y);
                 }

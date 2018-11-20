@@ -1,8 +1,6 @@
 
 package risk;
 
-import java.awt.Image;
-
 public class Gameplay {
     
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
