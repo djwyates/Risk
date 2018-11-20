@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import static risk.Risk.g;
 
 public class RiskMap {
-    static private Image map = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+    static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int x, int y) {
         // Draws map
-        g.drawImage(map, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws troop counters
-        Country.drawAllTroopCounters();
+        Country.drawAllSoldierCounters();
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
+        // Draws boundary on selected country
+        Country.drawBoundaryOnSelected();
         // Draws current country name by mouse pointer
-//        if(Country.getCountryOnMouse()!=null)
-//        System.out.println(Country.getCountryOnMouse().getName());
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
     }
@@ -38,7 +38,11 @@ public class RiskMap {
     
     static public void mouseInCountryHandler(int x, int y) {
         if (Country.getCountryOnMouse() != null)
-            Country.getCountryOnMouse().mouseInCountry();
+            Country.getCountryOnMouse().mouseInCountryHandler();
+    }
+    
+    static public ArrayList<Country> getCountryList() {
+        return countries;
     }
          
     RiskMap() {
@@ -609,9 +613,5 @@ public class RiskMap {
         countries.add(country);
         
         Continent.create();
-    }
-    
-    static public ArrayList<Country> getCountryList() {
-        return countries;
     }
 }

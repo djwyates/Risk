@@ -13,65 +13,39 @@ import static risk.Risk.g;
 public class Country {
     static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");    
     static private Country onMouse;
-    static private Country selected;
+    static private Country hovered;
+    static private ArrayList<Country> selected = new ArrayList<Country>();
     private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     private Player owner;
     private Polygon boundary;
     private String name;
     private int numTroops;
     private int centerX, centerY;
-    private boolean isHovered = false;
     private boolean isSelected = false;
     
     Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
-        numTroops=0;
-        isHovered=false;
+        numTroops = 0;
         boundary = _boundry;
         name = _name;
         centerX = _centerX;
         centerY = _centerY;
     }
     
-    public void mouseInCountry() {
-        drawBoundary();
-        // Plays the sound effect only once
-        if (selected != this)
-            isHovered = false;
-        if (!isHovered)
-            playSoundEffect();
-        isHovered = true;
-        selected = this;
-    }
-    public static void clickedInCountry(){
-        if(!onMouse.isSelected)
-            onMouse.isSelected=true;
-        else
-            onMouse.isSelected=false;
+    static public void drawBoundaryOnSelected() {
+        for (Country country : selected)
+            country.drawBoundary();
     }
     
-    public void drawBoundary() {
-        g.setColor(Color.white);
-        g.drawPolygon(boundary);
-    }
-    public static void drawSelected(){
-        for(Country c : RiskMap.getCountryList()){
-            if(c.isSelected)
-                c.drawBoundary();
-        }
-    }
-    
-    static public void drawAllTroopCounters() {
+    static public void drawAllSoldierCounters() {
         for (Country country : RiskMap.getCountryList()) {
             g.drawImage(troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
-            country.drawSoldierCount(0,country.centerX,country.centerY); // 0 is hardcoded; add actual troop amount
+            country.drawSoldierNumber(0,country.centerX,country.centerY); // 0 is hardcoded; add actual troop amount
         }
     }
     
-    public void drawSoldierCount(int soldiers, int x, int y) {
-        g.setColor(Color.magenta);
+    public void drawSoldierNumber(int soldiers, int x, int y) {
         if(owner != null)
             g.setColor(owner.getColor());
-        
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
         g.drawString(""+soldiers, x+19, y+33);
     }
@@ -82,16 +56,37 @@ public class Country {
         g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
     }
     
-    private void playSoundEffect() {
-        int i = 0;
-        if(isHovered) {
-            i++;
-            if(i>1)
-                isHovered=false;
+    private void drawBoundary() {
+        g.setColor(Color.white);
+        g.drawPolygon(boundary);
+    }
+    
+    public void selectedHandler(Gameplay.Phase phase){
+        switch (phase) {
+            case DEPLOY:
+                if (selected.contains(this))
+                    selected.clear();
+                else {
+                    selected.clear();
+                    selected.add(this);
+                }
+                break;
+            case ATTACK:
+                break;
+            case FORTIFY:
+                break;
         }
-        if(isHovered)
-            g.drawPolygon(boundary);
-        Titlescreen.getMenuSounds().play("terr_noise.wav");
+    }
+    
+    public void mouseInCountryHandler() {
+        drawBoundary();
+        if (hovered != this)
+            Titlescreen.getMenuSounds().play("terr_noise.wav");
+        hovered = this;
+    }
+    
+    static public void setCountryOnMouse(int x, int y) {
+        onMouse = RiskMap.contains(x, y);
     }
     
     static Country getCountry (String name) {
@@ -101,13 +96,13 @@ public class Country {
         }
         return null;
     }
-        
-    static public void setCountryOnMouse(int x, int y) {
-        onMouse = RiskMap.contains(x, y);
-    }
     
     static public Country getCountryOnMouse() {
         return onMouse;
+    }
+    
+    static public ArrayList<Country> getSelectedList() {
+        return selected;
     }
     
     public void setOwner(Player player) {

@@ -27,10 +27,9 @@ public class Risk extends JFrame implements Runnable
                 int x = e.getX();
                 int y = e.getY();
                 if(Titlescreen.gameIsStarted()&&bcActive){
-                    BorderCreator.startBorder(x, y);
+                    //BorderCreator.startBorder(x, y);
                 }
                 else if(Titlescreen.gameIsStarted())
-                    Country.clickedInCountry();
                 
                 repaint();
             }
@@ -118,7 +117,7 @@ public class Risk extends JFrame implements Runnable
                 if (Connect.gameStarted())
                 {
                     if(e.getKeyCode() == KeyEvent.VK_W){
-                        BorderCreator.Reset();
+                        //BorderCreator.Reset();
                     }
                     else if(e.getKeyCode() == KeyEvent.VK_S){
                     }
@@ -189,23 +188,18 @@ public class Risk extends JFrame implements Runnable
             } catch (IOException ex) {
                 Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        else if (Connect.isClient()) {
+        } else if (Connect.isClient()) {
             g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
             g.setColor(Color.black);
             g.drawString("The Client",100,150);
-        }
-        
-        else {
+        } else {
             g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
             g.setColor(Color.black);
             g.drawString("The Server",100,150);
         }
         
-        //g.drawLine(Window.getX(0),Window.getY(0),Window.getWidth2(),Window.getY(0));
-        BorderCreator.drawLines(mouseX, mouseY, g);
-        Country.drawSelected();
+        //BorderCreator.drawLines(mouseX, mouseY, g);
+        
         
         gOld.drawImage(image, 0, 0, null);
     }

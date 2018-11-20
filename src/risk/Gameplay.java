@@ -3,7 +3,7 @@ package risk;
 
 public class Gameplay {
     
-    static private enum Phase { DEPLOY, ATTACK, FORTIFY }
+    static public enum Phase { DEPLOY, ATTACK, FORTIFY }
     Phase phase;
     RiskMap riskMap = null;
     private Player players[];
@@ -50,7 +50,7 @@ public class Gameplay {
     private void deployPhaseHandler() {
         Country country = Country.getCountryOnMouse();
         if (country != null && country.getOwner() == currentPlayer) {
-            
+            country.selectedHandler(phase);
         }
     }
     
