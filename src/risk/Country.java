@@ -123,6 +123,10 @@ public class Country {
         onMouse = RiskMap.contains(x, y);
     }
     
+    public void addNeighboringCountry(Country neighboringCountry) {
+        neighboringCountries.add(neighboringCountry);
+    }
+    
     public void setOwner(Player _owner) {
         owner = _owner;
     }
