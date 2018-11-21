@@ -104,6 +104,20 @@ public class Country {
         }
     }
     
+    static public void switchedTurnHandler(Gameplay.Phase phase) {
+        Gameplay game = Titlescreen.getGame();
+        switch (phase) {
+            case DEPLOY:
+                for (Country country : RiskMap.getCountryList())
+                    country.shouldHover = false;
+                break;
+            case ATTACK:
+                break;
+            case FORTIFY:
+                break;
+        }
+    }
+    
     // Mutator methods
     static public void setCountryOnMouse(int x, int y) {
         onMouse = RiskMap.contains(x, y);

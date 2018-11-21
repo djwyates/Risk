@@ -8,6 +8,9 @@ public class Gameplay {
     private RiskMap riskMap = null;
     private Player players[];
     private Player currentPlayer;
+    private Country clickedCountry;
+    private Country selectedCountry;
+    private int deployAmount;
     
     Gameplay(Risk frame, int numPlayers) {
         // Handles drawing & window
@@ -23,7 +26,6 @@ public class Gameplay {
         // Handles troops
         assignTroops();
         // Handles game phases
-        phase = Phase.DEPLOY;
         deployPhaseInit();
         // Handles other classes
         Titlescreen.startedGame();
@@ -37,15 +39,18 @@ public class Gameplay {
     
     public void mouseClickHandler(int x, int y) {
         Country.setCountryOnMouse(x, y);
+        if (Country.getCountryOnMouse() == null)
+            return;
+        clickedCountry = Country.getCountryOnMouse();
         switch (phase) {
             case DEPLOY:
-                deployPhaseHandler();
+                deployPhaseHandler(x, y, "none");
                 break;
             case ATTACK:
-                attackPhaseHandler();
+                attackPhaseHandler(x, y, "none");
                 break;
             case FORTIFY:
-                fortifyPhaseHandler();
+                fortifyPhaseHandler(x, y, "none");
                 break;
         }
     }
@@ -53,36 +58,131 @@ public class Gameplay {
     public void keyPressedHandler(String key) {
         switch (phase) {
             case DEPLOY:
-                deployPhaseHandler();
+                deployPhaseHandler(0, 0, key);
                 break;
             case ATTACK:
-                attackPhaseHandler();
+                attackPhaseHandler(0, 0, key);
                 break;
             case FORTIFY:
-                fortifyPhaseHandler();
+                fortifyPhaseHandler(0, 0, key);
                 break;
         }
     }
     
-    private void deployPhaseHandler() {
-        Country country = Country.getCountryOnMouse();
-        if (country != null && country.getOwner() == currentPlayer) {
-            country.selectedByClickHandler(phase);
-            System.out.println("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n"
-                    + "How many would you like to deploy here?");
+    private void deployPhaseHandler(int x, int y, String key) {
+        if (key.equals("none")) {
+            if (clickedCountry.getOwner() == currentPlayer) {
+                clickedCountry.selectedByClickHandler(phase);
+                if (Country.getSelectedList().isEmpty())
+                    selectedCountry = null;
+                else
+                    selectedCountry = Country.getSelectedList().get(0);
+                if (selectedCountry != null)
+                System.out.println("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n"
+                        + "How many would you like to deploy in " + selectedCountry.getName() + "?");
+            }
+        }
+        else if (selectedCountry != null) {
+            switch (key) {
+                case "0":
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    if (deployAmount*10+Integer.parseInt(key) <= currentPlayer.getDeployableTroops())
+                        deployAmount = deployAmount*10+Integer.parseInt(key);
+                    System.out.println("Press enter to deploy " + deployAmount + " troops into " + selectedCountry.getName() + ".");
+                    break;
+                case "backspace":
+                    deployAmount = (int)deployAmount/10;
+                    break;
+                case "enter":
+                    if (deployAmount > 0) {
+                        currentPlayer.addTotalTroops(deployAmount);
+                        currentPlayer.addDeployableTroops(-deployAmount);
+                        selectedCountry.addNumTroops(deployAmount);
+                        System.out.println("You have successfully deployed " + deployAmount + " troops into " + selectedCountry.getName() + ".");
+                        deployAmount = 0;
+                        Country.getSelectedList().clear();
+                        if (currentPlayer.getDeployableTroops() <= 0) {
+                            System.out.println("No more troops to deploy. Switching turns.");
+                            switchTurnHandler();
+                        }
+                        else
+                            System.out.println("You have " + currentPlayer.getDeployableTroops() + " left to deploy.");
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
     
-    private void attackPhaseHandler() {
+    private void attackPhaseHandler(int x, int y, String key) {
         
     }
     
-    private void fortifyPhaseHandler() {
+    private void fortifyPhaseHandler(int x, int y, String key) {
         
     }
     
     private void deployPhaseInit() {
+        phase = Phase.DEPLOY;
         currentPlayer.setDeployableTroops();
+        deployAmount = 0;
+    }
+    
+    private void attackPhaseInit() {
+        phase = Phase.ATTACK;
+    }
+    
+    private void fortifyPhaseInit() {
+        phase = Phase.FORTIFY;
+    }
+    
+    private void switchTurnHandler() {
+        for (int i=0;i<players.length;i++) {
+            if (currentPlayer == players[i]) {
+                if (i == players.length-1) {
+                    currentPlayer = players[0];
+                    System.out.println("Successfully switched turns. Player " + i + " is now playing.");
+                    switch (phase) {
+                    case DEPLOY:
+                        attackPhaseInit();
+                        break;
+                    case ATTACK:
+                        fortifyPhaseInit();
+                        break;
+                    case FORTIFY:
+                        deployPhaseInit();
+                        break;
+                    }
+                    break;
+                }
+                else {
+                    currentPlayer = players[i+1];
+                    System.out.println("Successfully switched turns. Player " + i + " is now playing.");
+                    switch (phase) {
+                    case DEPLOY:
+                        deployPhaseInit();
+                        break;
+                    case ATTACK:
+                        attackPhaseInit();
+                        break;
+                    case FORTIFY:
+                        fortifyPhaseInit();
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
+        Country.switchedTurnHandler(phase);
     }
     
     private void assignCountries() {
@@ -150,7 +250,7 @@ public class Gameplay {
             } else
                 break;
         }
-        System.out.println("Player 1 Troop Count: " + players[0].getTotalTroops() + "   Player 2 Troop Count: " + players[1].getTotalTroops());
+        //System.out.println("Player 1 Troop Count: " + players[0].getTotalTroops() + "   Player 2 Troop Count: " + players[1].getTotalTroops());
     }
     
     public Player getCurrentPlayer() {

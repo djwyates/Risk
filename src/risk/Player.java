@@ -34,6 +34,10 @@ public class Player {
         deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
     }
     
+    public void addDeployableTroops(int inc) {
+        deployableTroops += inc;
+    }
+    
     private void checkOwnedContinents() {
         Continent[] continents = Continent.getContinents();
         ArrayList<Country> countries = new ArrayList<Country>();

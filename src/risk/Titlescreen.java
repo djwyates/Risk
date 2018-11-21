@@ -94,6 +94,11 @@ public class Titlescreen {
             game.mouseClickHandler(x, y);
     }
     
+    static public void keyPressedHandler(String key) {
+        if (game != null)
+            game.keyPressedHandler(key);
+    }
+    
     static public void activateMain() {
         mainActive = true;
         singleActive = false;

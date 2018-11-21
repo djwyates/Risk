@@ -50,11 +50,11 @@ public class Connect {
         }
     }
     
-    static public void addToHost (String character)
-    { if (!gameStarted) host += character; }
+    static public void addCharToHost (String character)
+    { if (Titlescreen.isMultiActive()) host += character; }
     
     static public void deleteCharFromHost()
-    { if (!gameStarted) host = host.substring(0, host.length()-1); }
+    { if (Titlescreen.isMultiActive()) host = host.substring(0, host.length()-1); }
     
     static public void deleteAllCharsFromHost()
     { host = ""; }
