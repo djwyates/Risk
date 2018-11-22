@@ -171,6 +171,7 @@ public class Gameplay {
     }
     
     private void switchTurnHandler() {
+        selectedCountry = null;
         for (int i=0;i<players.length;i++) {
             if (currentPlayer == players[i]) {
                 if (i == players.length-1) {

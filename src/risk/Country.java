@@ -137,10 +137,12 @@ public class Country {
             case DEPLOY:
                 for (Country country : RiskMap.getCountryList())
                     country.shouldHover = false;
+                currentlySelected[0] = null;
                 break;
             case ATTACK:
                 for (Country country : RiskMap.getCountryList())
                     country.shouldHover = false;
+                currentlySelected[0] = null;
                 break;
             case FORTIFY:
                 break;
