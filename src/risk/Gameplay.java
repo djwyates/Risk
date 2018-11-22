@@ -116,11 +116,11 @@ public class Gameplay {
                         currentPlayer.addTotalTroops(deployAmount);
                         currentPlayer.addDeployableTroops(-deployAmount);
                         selectedCountry.addNumTroops(deployAmount);
-                        System.out.println("You have successfully deployed " + deployAmount + " troops into " + selectedCountry.getName() + ".");
+                        TextLog.createStatement("+" +deployAmount + " troops in " + selectedCountry.getName() + ".");
                         deployAmount = 0;
                         Country.getSelectedList()[0] = null;
                         if (currentPlayer.getDeployableTroops() <= 0) {
-                            System.out.println("No more troops to deploy. Switching turns.");
+                            TextLog.createStatement("0 Troops left. Switching turns.");
                             Player oldPlayer = currentPlayer;
                             switchTurnHandler();
                             if(oldPlayer == currentPlayer)
@@ -173,11 +173,10 @@ public class Gameplay {
     private void switchTurnHandler() {
         for (int i=0;i<players.length;i++) {
             if (currentPlayer == players[i]) {
-                
-                TextLog.createStatement("Next players turn");
                 if (i == players.length-1) {
                     currentPlayer = players[0];
-                    System.out.println("Successfully switched turns. Player " + i + " is now playing.");
+                    TextLog.createStatement("");
+                    TextLog.createStatement("-------Player " + i + "'s turn------");
                     switch (phase) {
                     case DEPLOY:
                         attackPhaseInit();
@@ -193,7 +192,8 @@ public class Gameplay {
                 }
                 else {
                     currentPlayer = players[i+1];
-                    System.out.println("Successfully switched turns. Player " + i + " is now playing.");
+                    TextLog.createStatement("");
+                    TextLog.createStatement("-------Player " + i + "'s turn------");
                     switch (phase) {
                     case DEPLOY:
                         deployPhaseInit();

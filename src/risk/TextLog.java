@@ -25,10 +25,10 @@ public class TextLog {
         statement=_statement;
         x=20;
         y=857;
-        color = Color.red;
+        color = Color.black;
         for(int i=0;i<statements.size();i++){
             statements.get(i).y-=25;
-            statements.get(i).color = new Color(255,0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15));
+            statements.get(i).color = new Color(0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15));
         }
     }
     
