@@ -23,13 +23,17 @@ public class Continent {
         return countries;
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public int getBonus() {
         return bonus;
     }
     
     static public void create() {
         continents[0] = new Continent("Canada", 4);
-        continents[0].countries.add(Country.getCountry("North West Canada"));
+        continents[0].countries.add(Country.getCountry("Northwest Territory"));
         continents[0].countries.add(Country.getCountry("Ontario"));
         continents[0].countries.add(Country.getCountry("Alberta"));
         continents[0].countries.add(Country.getCountry("Nunavut"));
@@ -40,13 +44,13 @@ public class Continent {
         continents[1].countries.add(Country.getCountry("Western United States"));
         continents[1].countries.add(Country.getCountry("Midwestern United States"));
         continents[1].countries.add(Country.getCountry("Southern United States"));
-        continents[1].countries.add(Country.getCountry("Northern United States"));
+        continents[1].countries.add(Country.getCountry("Northeastern United States"));
         continents[1].countries.add(Country.getCountry("Alaska"));
         continents[1].countries.add(Country.getCountry("Hawaii"));
         
         continents[2] = new Continent("Central America", 3);
         continents[2].countries.add(Country.getCountry("Mexico"));
-        continents[2].countries.add(Country.getCountry("Guatamala"));
+        continents[2].countries.add(Country.getCountry("Guatemala"));
         continents[2].countries.add(Country.getCountry("Caribbean Islands"));
         
         continents[3] = new Continent("South America", 4);
@@ -59,11 +63,11 @@ public class Continent {
         
         continents[4] = new Continent("Africa", 4);
         continents[4].countries.add(Country.getCountry("Algeria"));
-        continents[4].countries.add(Country.getCountry("North Africa"));
+        continents[4].countries.add(Country.getCountry("Northern Africa"));
         continents[4].countries.add(Country.getCountry("Congo"));
         continents[4].countries.add(Country.getCountry("Sudan"));
         continents[4].countries.add(Country.getCountry("Eastern Africa"));
-        continents[4].countries.add(Country.getCountry("South Africa"));
+        continents[4].countries.add(Country.getCountry("Southern Africa"));
         continents[4].countries.add(Country.getCountry("Libya"));
         continents[4].countries.add(Country.getCountry("Madagascar"));
         
@@ -86,15 +90,15 @@ public class Continent {
         continents[7] = new Continent("Russia", 6);
         continents[7].countries.add(Country.getCountry("Volga"));
         continents[7].countries.add(Country.getCountry("Northern Russia"));
-        continents[7].countries.add(Country.getCountry("Novada Zendya"));
+        continents[7].countries.add(Country.getCountry("Novaya Zemlya"));
         continents[7].countries.add(Country.getCountry("Urd"));
         continents[7].countries.add(Country.getCountry("Siberia"));
-        continents[7].countries.add(Country.getCountry("Soverya"));
-        continents[7].countries.add(Country.getCountry("Yakutta"));
-        continents[7].countries.add(Country.getCountry("Irkatsk"));
-        continents[7].countries.add(Country.getCountry("Amer"));
-        continents[7].countries.add(Country.getCountry("Kamchakta"));
-        continents[7].countries.add(Country.getCountry("Novashelkye"));
+        continents[7].countries.add(Country.getCountry("Severneya Zemlya"));
+        continents[7].countries.add(Country.getCountry("Yakutia"));
+        continents[7].countries.add(Country.getCountry("Irkutsk"));
+        continents[7].countries.add(Country.getCountry("Amar"));
+        continents[7].countries.add(Country.getCountry("Kamchatka"));
+        continents[7].countries.add(Country.getCountry("Ostrova"));
         
         continents[8] = new Continent("Scandinavia", 3);
         continents[8].countries.add(Country.getCountry("Iceland"));
@@ -106,7 +110,7 @@ public class Continent {
         continents[9].countries.add(Country.getCountry("China"));
         continents[9].countries.add(Country.getCountry("Thailand"));
         continents[9].countries.add(Country.getCountry("India"));
-        continents[9].countries.add(Country.getCountry("Xijang"));
+        continents[9].countries.add(Country.getCountry("Xijiang"));
         continents[9].countries.add(Country.getCountry("Xiajano"));
         continents[9].countries.add(Country.getCountry("Mongolia"));
         continents[9].countries.add(Country.getCountry("Japan"));

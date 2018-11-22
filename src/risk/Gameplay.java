@@ -33,7 +33,7 @@ public class Gameplay {
     
     public void drawAndSoundHandler(Risk frame, int x, int y) {
         Country.setCountryOnMouse(x, y);
-        RiskMap.draw(frame, x, y);
+        RiskMap.draw(frame, x, y, phase);
         RiskMap.mouseInCountryHandler(x, y, phase);
     }
     
@@ -124,7 +124,10 @@ public class Gameplay {
     }
     
     private void attackPhaseHandler(int x, int y, String key) {
-        
+        if (key.equals("none")) {
+            if (clickedCountry.getOwner() == currentPlayer)
+                clickedCountry.selectedByClickHandler(phase);
+        }
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {

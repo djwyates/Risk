@@ -12,7 +12,7 @@ public class RiskMap {
     static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(Risk frame, int x, int y) {
+    static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws current phase name
@@ -22,7 +22,7 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws boundary on selected country
-        Country.drawBoundaryOnSelected();
+        Country.drawBoundaryOnSelectedHandler(phase);
         // Draws current country name by mouse pointer
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
@@ -64,6 +64,7 @@ public class RiskMap {
     RiskMap() {
         Polygon countryBoundry;
         String countryName;
+        ArrayList<Country> neighboringCountries = new ArrayList<Country>();
         Country country;
         
         // Initializing countries 
@@ -91,11 +92,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 157,349);
         countries.add(country);
         
-        // Guatamala
+        // Guatemala
         { int x[] = {284,273,277,267,284,260,253,252,247,243,240,247,248,255,256,258,265,270,279,281,285};
           int y[] = {455,443,422,415,400,404,407,418,418,419,422,432,440,447,455,458,463,464,468,470,454};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Guatamala";
+        countryName = "Guatemala";
         country = new Country(countryBoundry, countryName, 241,424);
         countries.add(country);
         
@@ -131,11 +132,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 333,394);
         countries.add(country);
         
-        // North West Canada
+        // Northwest Territory
         { int x[] = {126,249,248,234,219,211,210,206,191,182,169,164,157,148,138,128,125,127};
           int y[] = {162,162,132,122,115,108,92,85,87,90,95,96,97,97,91,91,103,159};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "North West Canada";
+        countryName = "Northwest Territory";
         country = new Country(countryBoundry, countryName, 164,101);
         countries.add(country);
         
@@ -256,7 +257,7 @@ public class RiskMap {
         { int x[] = {573,593,649,692,703,710,750,749,745,745,750,751,745,736,721,714,710,712,712,698,688,681,677,665,656,649,628,614,600,590,586,577,572,567,560,556,555,557,554,570};
           int y[] = {474,477,518,497,502,501,521,540,548,553,562,566,571,576,581,585,587,606,608,609,609,606,594,596,584,586,592,596,598,595,591,584,578,569,558,550,541,529,507,477};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "North Africa";
+        countryName = "Northern Africa";
         country = new Country(countryBoundry, countryName, 560,507);
         countries.add(country);
         
@@ -268,11 +269,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 718,595);
         countries.add(country);
         
-        // South Africa
+        // Southern Africa
         { int x[] = {699,738,747,783,782,795,807,837,840,809,768,730,693,702,699,728};
           int y[] = {661,665,682,695,669,675,687,681,702,758,813,820,719,685,661,667};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "South Africa";
+        countryName = "Southern Africa";
         country = new Country(countryBoundry, countryName, 722,703);
         countries.add(country);
         
@@ -364,11 +365,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 789,132);
         countries.add(country);
         
-        // Novada Zendya
+        // Novaya Zemlya
         { int x[] = {860,856,911,884,860,838,827,821,831,849};
           int y[] = {121,102,46,42,55,72,87,105,119,124};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Novada Zendya";
+        countryName = "Novaya Zemlya";
         country = new Country(countryBoundry, countryName, 847,67);
         countries.add(country);
         
@@ -387,35 +388,36 @@ public class RiskMap {
         countryName = "Siberia";
         country = new Country(countryBoundry, countryName, 986,84);
         countries.add(country);
-        // Yakutta
+        
+        // Yakutia
         { int x[] = {1067,1076,1082,1090,1107,1134,1168,1192,1244,1226,1157,1078,1063,1083,1068,1077};
           int y[] = {144,180,200,201,186,208,206,162,103,90,82,79,90,123,140,180};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Yakutta";
+        countryName = "Yakutia";
         country = new Country(countryBoundry, countryName, 1096,84);
         countries.add(country);
         
-        // Irkatsk
+        // Irkutsk
         { int x[] = {1075,1080,1091,1108,1131,1142,1135,1142,1113,1084,1065,1045,1051,1059,1068,1072};
           int y[] = {180,199,200,188,203,224,228,246,264,264,251,235,216,210,214,183};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Irkatsk";
+        countryName = "Irkutsk";
         country = new Country(countryBoundry, countryName, 1075,197);
         countries.add(country);
         
-        // Amer
+        // Amar
         { int x[] = {1212,1228,1228,1228,1231,1230,1227,1225,1218,1215,1209,1207,1205,1203,1199,1196,1196,1192,1194,1196,1200,1201,1201,1204,1198,1202,1193,1185,1185,1185,1185,1185,1185,1182,1181,1179,1178,1175,1171,1171,1171,1168,1164,1158,1154,1153,1149,1146,1141,1136,1136,1137,1139,1143,1150,1155,1159,1161,1162,1167,1170,1179,1180,1182,1187,1190,1197,1200,1207,1207,1207,1205,1202,1201,1202,1203,1206,1209};
           int y[] = {280,244,236,234,224,219,216,215,219,211,211,209,208,201,200,198,194,192,188,186,183,182,182,178,173,169,164,168,175,176,177,181,181,183,183,191,193,195,201,201,204,205,205,205,205,205,205,205,206,207,207,215,220,223,223,223,223,231,232,234,235,240,240,242,245,244,242,241,236,238,247,254,259,264,266,270,277,278};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Amer";
+        countryName = "Amar";
         country = new Country(countryBoundry, countryName, 1175,194);
         countries.add(country);
         
-        // Kamchakta 
+        // Kamchatka 
         { int x[] = {1195,1196,1204,1206,1207,1212,1215,1220,1221,1226,1232,1240,1246,1248,1248,1251,1256,1256,1256,1261,1265,1265,1264,1264,1265,1270,1278,1286,1291,1292,1293,1293,1288,1285,1288,1298,1312,1316,1318,1308,1311,1318,1324,1328,1333,1346,1347,1351,1346,1326,1312,1305,1294,1285,1268,1256,1244,1238,1229,1228,1219,1217,1206,1202,1194,1193};
           int y[] = {164,166,175,183,184,185,187,182,176,172,172,172,173,175,177,179,166,158,158,167,175,185,199,205,211,216,223,227,223,212,202,193,176,169,165,155,155,158,144,137,128,133,141,146,148,145,144,133,128,125,113,106,105,103,102,106,107,114,121,126,131,142,142,148,160,163};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Kamchakta";
+        countryName = "Kamchatka";
         country = new Country(countryBoundry, countryName, 1254,97);
         countries.add(country);
         
@@ -451,11 +453,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 1013,309);
         countries.add(country);
         
-        // Xijang
+        // Xijiang
         { int x[] = {1014,1062,1070,1101,1105,1087,1081,1066,1013,1014,1063};
           int y[] = {362,367,382,382,423,426,412,420,390,364,367};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Xijang";
+        countryName = "Xijiang";
         country = new Country(countryBoundry, countryName, 1023,365);
         countries.add(country);
         
@@ -564,11 +566,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 238,243);
         countries.add(country);
         
-        // Northern United States
+        // Northeastern United States
         { int x[] = {345,345,361,370,377,378,386,391,397,394,391,396,399,403,409,402,400,395,390,390,386,378,371,363,360,354,347,347};
           int y[] = {282,292,292,294,296,303,295,293,291,288,281,275,274,272,269,259,251,247,248,262,263,263,264,264,270,275,281,281};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Northern United States";
+        countryName = "Northeastern United States";
         country = new Country(countryBoundry, countryName, 381,286);
         countries.add(country);
         
@@ -612,23 +614,536 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 377,76);
         countries.add(country);
         
-        // Soverya
+        // Severneya Zemlya
         { int x[] = {935,950,988,1036,1042,947};
           int y[] = {31,58,66,52,29,28};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Soverya";
+        countryName = "Severneya Zemlya";
         country = new Country(countryBoundry, countryName, 963, 29);
         countries.add(country);
         
-        // Novashelkye
+        // Ostrova
         { int x[] = {1141,1149,1153,1168,1169,1179,1182,1188,1183,1176,1156,1156,1149};
           int y[] = {40,59,64,64,78,75,63,46,32,28,36,36,39};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Novashelkye";
+        countryName = "Ostrova";
         country = new Country(countryBoundry, countryName, 1147, 29);
         countries.add(country);
         
         // Initializing continents
         Continent.create();
+        
+        // Adding neighboring countries
+        //Alaska
+        country = countries.get(0);
+        country.addNeighboringCountry(countries.get(43));
+        country.addNeighboringCountry(countries.get(8));
+        country.addNeighboringCountry(countries.get(4));
+
+        //Greenland
+        country = countries.get(1);
+        country.addNeighboringCountry(countries.get(11));
+        country.addNeighboringCountry(countries.get(67));
+        country.addNeighboringCountry(countries.get(64));
+        country.addNeighboringCountry(countries.get(9));
+
+        //Mexico
+        country = countries.get(2);
+        country.addNeighboringCountry(countries.get(3));
+        country.addNeighboringCountry(countries.get(7));
+        country.addNeighboringCountry(countries.get(4));
+        country.addNeighboringCountry(countries.get(60));
+
+        //Guatemala
+        country = countries.get(3);
+        country.addNeighboringCountry(countries.get(7));
+        country.addNeighboringCountry(countries.get(56));
+        country.addNeighboringCountry(countries.get(2));
+
+        //Western United States
+        country = countries.get(4);
+        country.addNeighboringCountry(countries.get(0));
+        country.addNeighboringCountry(countries.get(54));
+        country.addNeighboringCountry(countries.get(63));
+        country.addNeighboringCountry(countries.get(61));
+        country.addNeighboringCountry(countries.get(60));
+        country.addNeighboringCountry(countries.get(2));
+
+        //Brazil
+        country = countries.get(5);
+        country.addNeighboringCountry(countries.get(56));
+        country.addNeighboringCountry(countries.get(6));
+        country.addNeighboringCountry(countries.get(57));
+        country.addNeighboringCountry(countries.get(58));
+        country.addNeighboringCountry(countries.get(23));
+
+        //Peru
+        country = countries.get(6);
+        country.addNeighboringCountry(countries.get(56));
+        country.addNeighboringCountry(countries.get(57));
+        country.addNeighboringCountry(countries.get(5));
+
+        //Caribbean Islands
+        country = countries.get(7);
+        country.addNeighboringCountry(countries.get(2));
+        country.addNeighboringCountry(countries.get(3));
+        country.addNeighboringCountry(countries.get(56));
+        country.addNeighboringCountry(countries.get(60));
+
+        //Northwest Territory
+        country = countries.get(8);
+        country.addNeighboringCountry(countries.get(63));
+        country.addNeighboringCountry(countries.get(0));
+        country.addNeighboringCountry(countries.get(65));
+
+        //Iceland
+        country = countries.get(9);
+        country.addNeighboringCountry(countries.get(10));
+        country.addNeighboringCountry(countries.get(1));
+        country.addNeighboringCountry(countries.get(11));
+        country.addNeighboringCountry(countries.get(20));
+
+        //British Isles
+        country = countries.get(10);
+        country.addNeighboringCountry(countries.get(9));
+        country.addNeighboringCountry(countries.get(20));
+        country.addNeighboringCountry(countries.get(12));
+        country.addNeighboringCountry(countries.get(13));
+        
+        //Svalbard
+        country = countries.get(11);
+        country.addNeighboringCountry(countries.get(1));
+        country.addNeighboringCountry(countries.get(9));
+        country.addNeighboringCountry(countries.get(20));
+        country.addNeighboringCountry(countries.get(37));
+        
+        //Northern Europe
+        country = countries.get(12);
+        country.addNeighboringCountry(countries.get(20));
+        country.addNeighboringCountry(countries.get(10));
+        country.addNeighboringCountry(countries.get(13));
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(15));
+
+        //Western Europe
+        country = countries.get(13);
+        country.addNeighboringCountry(countries.get(12));
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(10));
+        country.addNeighboringCountry(countries.get(21));
+
+        //Southern Europe
+        country = countries.get(14);
+        country.addNeighboringCountry(countries.get(12));
+        country.addNeighboringCountry(countries.get(13));
+        country.addNeighboringCountry(countries.get(15));
+        country.addNeighboringCountry(countries.get(34));
+        country.addNeighboringCountry(countries.get(22));
+        country.addNeighboringCountry(countries.get(21));
+
+        //Ukraine
+        country = countries.get(15);
+        country.addNeighboringCountry(countries.get(20));
+        country.addNeighboringCountry(countries.get(12));
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(34));
+        country.addNeighboringCountry(countries.get(35));
+        country.addNeighboringCountry(countries.get(36));
+
+        //Ontario
+        country = countries.get(16);
+        country.addNeighboringCountry(countries.get(64));
+        country.addNeighboringCountry(countries.get(62));
+        country.addNeighboringCountry(countries.get(61));
+        country.addNeighboringCountry(countries.get(63));
+        country.addNeighboringCountry(countries.get(65));
+
+        //Western Australia
+        country = countries.get(17);
+        country.addNeighboringCountry(countries.get(52));
+        country.addNeighboringCountry(countries.get(18));
+        country.addNeighboringCountry(countries.get(19));
+
+        //Queensland
+        country = countries.get(18);
+        country.addNeighboringCountry(countries.get(52));
+        country.addNeighboringCountry(countries.get(19));
+        country.addNeighboringCountry(countries.get(17));
+        country.addNeighboringCountry(countries.get(53));
+        country.addNeighboringCountry(countries.get(55));
+
+        //Victoria
+        country = countries.get(19);
+        country.addNeighboringCountry(countries.get(17));
+        country.addNeighboringCountry(countries.get(18));
+        country.addNeighboringCountry(countries.get(55));
+
+        //Sweden
+        country = countries.get(20);
+        country.addNeighboringCountry(countries.get(9));
+        country.addNeighboringCountry(countries.get(10));
+        country.addNeighboringCountry(countries.get(11));
+        country.addNeighboringCountry(countries.get(12));
+        country.addNeighboringCountry(countries.get(15));
+        country.addNeighboringCountry(countries.get(36));
+
+        //Algeria
+        country = countries.get(21);
+        country.addNeighboringCountry(countries.get(13));
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(22));
+        country.addNeighboringCountry(countries.get(23));
+
+        //Libya
+        country = countries.get(22);
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(23));
+        country.addNeighboringCountry(countries.get(21));
+        country.addNeighboringCountry(countries.get(27));
+        country.addNeighboringCountry(countries.get(28));
+
+        //Northern Africa
+        country = countries.get(23);
+        country.addNeighboringCountry(countries.get(5));
+        country.addNeighboringCountry(countries.get(21));
+        country.addNeighboringCountry(countries.get(22));
+        country.addNeighboringCountry(countries.get(24));
+        country.addNeighboringCountry(countries.get(27));
+
+        //Congo
+        country = countries.get(24);
+        country.addNeighboringCountry(countries.get(23));
+        country.addNeighboringCountry(countries.get(27));
+        country.addNeighboringCountry(countries.get(25));
+        country.addNeighboringCountry(countries.get(26));
+
+        //Southern Africa
+        country = countries.get(25);
+        country.addNeighboringCountry(countries.get(59));
+        country.addNeighboringCountry(countries.get(66));
+        country.addNeighboringCountry(countries.get(24));
+        country.addNeighboringCountry(countries.get(26));
+
+        //Eastern Africa
+        country = countries.get(26);
+        country.addNeighboringCountry(countries.get(25));
+        country.addNeighboringCountry(countries.get(66));
+        country.addNeighboringCountry(countries.get(24));
+        country.addNeighboringCountry(countries.get(27));
+        country.addNeighboringCountry(countries.get(29));
+
+        //Sudan
+        country = countries.get(27);
+        country.addNeighboringCountry(countries.get(28));
+        country.addNeighboringCountry(countries.get(22));
+        country.addNeighboringCountry(countries.get(23));
+        country.addNeighboringCountry(countries.get(24));
+        country.addNeighboringCountry(countries.get(29));
+        country.addNeighboringCountry(countries.get(26));
+
+        //Egypt
+        country = countries.get(28);
+        country.addNeighboringCountry(countries.get(22));
+        country.addNeighboringCountry(countries.get(27));
+        country.addNeighboringCountry(countries.get(29));
+        country.addNeighboringCountry(countries.get(34));
+        country.addNeighboringCountry(countries.get(30));
+
+        //Saudi Arabia
+        country = countries.get(29);
+        country.addNeighboringCountry(countries.get(28));
+        country.addNeighboringCountry(countries.get(27));
+        country.addNeighboringCountry(countries.get(26));
+        country.addNeighboringCountry(countries.get(30));
+
+        //Iraq
+        country = countries.get(30);
+        country.addNeighboringCountry(countries.get(29));
+        country.addNeighboringCountry(countries.get(31));
+        country.addNeighboringCountry(countries.get(28));
+        country.addNeighboringCountry(countries.get(34));
+
+        //Iran
+        country = countries.get(31);
+        country.addNeighboringCountry(countries.get(30));
+        country.addNeighboringCountry(countries.get(32));
+        country.addNeighboringCountry(countries.get(33));
+        country.addNeighboringCountry(countries.get(34));
+        country.addNeighboringCountry(countries.get(35));
+
+        //Afghanistan
+        country = countries.get(32);
+        country.addNeighboringCountry(countries.get(31));
+        country.addNeighboringCountry(countries.get(33));
+        country.addNeighboringCountry(countries.get(47));
+        country.addNeighboringCountry(countries.get(49));
+
+        //Kazakhstan
+        country = countries.get(33);
+        country.addNeighboringCountry(countries.get(31));
+        country.addNeighboringCountry(countries.get(32));
+        country.addNeighboringCountry(countries.get(35));
+        country.addNeighboringCountry(countries.get(38));
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(47));
+
+        //Turkey
+        country = countries.get(34);
+        country.addNeighboringCountry(countries.get(14));
+        country.addNeighboringCountry(countries.get(15));
+        country.addNeighboringCountry(countries.get(28));
+        country.addNeighboringCountry(countries.get(30));
+        country.addNeighboringCountry(countries.get(31));
+
+        //Volga
+        country = countries.get(35);
+        country.addNeighboringCountry(countries.get(15));
+        country.addNeighboringCountry(countries.get(31));
+        country.addNeighboringCountry(countries.get(33));
+        country.addNeighboringCountry(countries.get(36));
+        country.addNeighboringCountry(countries.get(38));
+
+        //Northwestern Russia
+        country = countries.get(36);
+        country.addNeighboringCountry(countries.get(15));
+        country.addNeighboringCountry(countries.get(20));
+        country.addNeighboringCountry(countries.get(35));
+        country.addNeighboringCountry(countries.get(37));
+        country.addNeighboringCountry(countries.get(38));
+
+        //Novaya Zemlya
+        country = countries.get(37);
+        country.addNeighboringCountry(countries.get(11));
+        country.addNeighboringCountry(countries.get(36));
+        country.addNeighboringCountry(countries.get(38));
+        country.addNeighboringCountry(countries.get(68));
+
+        //Urd
+        country = countries.get(38);
+        country.addNeighboringCountry(countries.get(35));
+        country.addNeighboringCountry(countries.get(36));
+        country.addNeighboringCountry(countries.get(37));
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(33));
+
+        //Siberia
+        country = countries.get(39);
+        country.addNeighboringCountry(countries.get(33));
+        country.addNeighboringCountry(countries.get(38));
+        country.addNeighboringCountry(countries.get(46));
+        country.addNeighboringCountry(countries.get(41));
+        country.addNeighboringCountry(countries.get(40));
+        country.addNeighboringCountry(countries.get(68));
+
+        //Yakutta
+        country = countries.get(40);
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(41));
+        country.addNeighboringCountry(countries.get(42));
+        country.addNeighboringCountry(countries.get(43));
+        country.addNeighboringCountry(countries.get(69));
+
+        //Irkutsk
+        country = countries.get(41);
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(40));
+        country.addNeighboringCountry(countries.get(42));
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(46));
+
+        //Amar
+        country = countries.get(42);
+        country.addNeighboringCountry(countries.get(40));
+        country.addNeighboringCountry(countries.get(41));
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(43));
+        country.addNeighboringCountry(countries.get(44));
+
+        //Kamchatka
+        country = countries.get(43);
+        country.addNeighboringCountry(countries.get(0));
+        country.addNeighboringCountry(countries.get(40));
+        country.addNeighboringCountry(countries.get(42));
+        country.addNeighboringCountry(countries.get(44));
+        country.addNeighboringCountry(countries.get(69));
+
+        //Japan
+        country = countries.get(44);
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(42));
+        country.addNeighboringCountry(countries.get(43));
+        country.addNeighboringCountry(countries.get(51));
+        country.addNeighboringCountry(countries.get(54));
+
+        //China
+        country = countries.get(45);
+        country.addNeighboringCountry(countries.get(44));
+        country.addNeighboringCountry(countries.get(42));
+        country.addNeighboringCountry(countries.get(41));
+        country.addNeighboringCountry(countries.get(46));
+        country.addNeighboringCountry(countries.get(47));
+        country.addNeighboringCountry(countries.get(48));
+        country.addNeighboringCountry(countries.get(50));
+
+        //Mongolia
+        country = countries.get(46);
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(47));
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(41));
+
+        //Xiajano
+        country = countries.get(47);
+        country.addNeighboringCountry(countries.get(33));
+        country.addNeighboringCountry(countries.get(46));
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(48));
+        country.addNeighboringCountry(countries.get(32));
+
+        //Xijiang
+        country = countries.get(48);
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(47));
+        country.addNeighboringCountry(countries.get(49));
+        country.addNeighboringCountry(countries.get(50));
+
+        //India
+        country = countries.get(49);
+        country.addNeighboringCountry(countries.get(32));
+        country.addNeighboringCountry(countries.get(48));
+        country.addNeighboringCountry(countries.get(50));
+
+        //Thailand
+        country = countries.get(50);
+        country.addNeighboringCountry(countries.get(48));
+        country.addNeighboringCountry(countries.get(49));
+        country.addNeighboringCountry(countries.get(45));
+        country.addNeighboringCountry(countries.get(51));
+        country.addNeighboringCountry(countries.get(52));
+
+        //Philippines
+        country = countries.get(51);
+        country.addNeighboringCountry(countries.get(50));
+        country.addNeighboringCountry(countries.get(44));
+        country.addNeighboringCountry(countries.get(52));
+
+        //Indonesia
+        country = countries.get(52);
+        country.addNeighboringCountry(countries.get(50));
+        country.addNeighboringCountry(countries.get(51));
+        country.addNeighboringCountry(countries.get(53));
+        country.addNeighboringCountry(countries.get(17));
+        country.addNeighboringCountry(countries.get(18));
+
+        //New Guinea
+        country = countries.get(53);
+        country.addNeighboringCountry(countries.get(52));
+        country.addNeighboringCountry(countries.get(55));
+        country.addNeighboringCountry(countries.get(18));
+
+        //Hawaii
+        country = countries.get(54);
+        country.addNeighboringCountry(countries.get(4));
+        country.addNeighboringCountry(countries.get(44));
+
+        //New Zealand
+        country = countries.get(55);
+        country.addNeighboringCountry(countries.get(58));
+        country.addNeighboringCountry(countries.get(18));
+        country.addNeighboringCountry(countries.get(53));
+        country.addNeighboringCountry(countries.get(19));
+
+        //Venezuela
+        country = countries.get(56);
+        country.addNeighboringCountry(countries.get(3));
+        country.addNeighboringCountry(countries.get(5));
+        country.addNeighboringCountry(countries.get(6));
+        country.addNeighboringCountry(countries.get(7));
+
+        //Bolivia
+        country = countries.get(57);
+        country.addNeighboringCountry(countries.get(5));
+        country.addNeighboringCountry(countries.get(6));
+        country.addNeighboringCountry(countries.get(58));
+
+        //Argentina
+        country = countries.get(58);
+        country.addNeighboringCountry(countries.get(5));
+        country.addNeighboringCountry(countries.get(57));
+        country.addNeighboringCountry(countries.get(59));
+
+        //Falkland Islands
+        country = countries.get(59);
+        country.addNeighboringCountry(countries.get(25));
+        country.addNeighboringCountry(countries.get(58));
+
+        //Southern United States
+        country = countries.get(60);
+        country.addNeighboringCountry(countries.get(61));
+        country.addNeighboringCountry(countries.get(62));
+        country.addNeighboringCountry(countries.get(2));
+        country.addNeighboringCountry(countries.get(4));
+        country.addNeighboringCountry(countries.get(7));
+
+        //Midwestern United States
+        country = countries.get(61);
+        country.addNeighboringCountry(countries.get(4));
+        country.addNeighboringCountry(countries.get(60));
+        country.addNeighboringCountry(countries.get(62));
+        country.addNeighboringCountry(countries.get(63));
+        country.addNeighboringCountry(countries.get(16));
+
+        //Northeastern United States
+        country = countries.get(62);
+        country.addNeighboringCountry(countries.get(60));
+        country.addNeighboringCountry(countries.get(61));
+        country.addNeighboringCountry(countries.get(64));
+        country.addNeighboringCountry(countries.get(16));
+
+        //Alberta
+        country = countries.get(63);
+        country.addNeighboringCountry(countries.get(4));
+        country.addNeighboringCountry(countries.get(8));
+        country.addNeighboringCountry(countries.get(16));
+        country.addNeighboringCountry(countries.get(61));
+
+        //Quebec
+        country = countries.get(64);
+        country.addNeighboringCountry(countries.get(1));
+        country.addNeighboringCountry(countries.get(65));
+        country.addNeighboringCountry(countries.get(67));
+        country.addNeighboringCountry(countries.get(62));
+        country.addNeighboringCountry(countries.get(16));
+
+        //Nunavut
+        country = countries.get(65);
+        country.addNeighboringCountry(countries.get(8));
+        country.addNeighboringCountry(countries.get(67));
+        country.addNeighboringCountry(countries.get(16));
+        country.addNeighboringCountry(countries.get(64));
+
+        //Madagascar
+        country = countries.get(66);
+        country.addNeighboringCountry(countries.get(25));
+        country.addNeighboringCountry(countries.get(26));
+
+        //Buffalo Islands
+        country = countries.get(67);
+        country.addNeighboringCountry(countries.get(1));
+        country.addNeighboringCountry(countries.get(64));
+        country.addNeighboringCountry(countries.get(65));
+
+        //Severneya Zemlya
+        country = countries.get(68);
+        country.addNeighboringCountry(countries.get(37));
+        country.addNeighboringCountry(countries.get(39));
+        country.addNeighboringCountry(countries.get(69));
+
+        //Ostrova
+        country = countries.get(69);
+        country.addNeighboringCountry(countries.get(0));
+        country.addNeighboringCountry(countries.get(40));
+        country.addNeighboringCountry(countries.get(43));
+        country.addNeighboringCountry(countries.get(68));
     }
 }

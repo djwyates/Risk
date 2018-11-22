@@ -41,7 +41,7 @@ public class Player {
     private void checkOwnedContinents() {
         Continent[] continents = Continent.getContinents();
         ArrayList<Country> countries = new ArrayList<Country>();
-        int totalCountryNum = 0;
+        int totalCountryNum;
         for (int i=0;i<continents.length;i++) {
             countries = continents[i].getCountries();
             totalCountryNum = countries.size();

@@ -33,9 +33,25 @@ public class Country {
     }
     
     // Draw methods
-    static public void drawBoundaryOnSelected() {
-        for (Country country : currentlySelected)
-            country.drawBoundary();
+    static public void drawBoundaryOnSelectedHandler(Gameplay.Phase phase) {
+        Gameplay game = Titlescreen.getGame();
+        switch (phase) {
+            case DEPLOY:
+                for (Country country : currentlySelected)
+                    country.drawBoundary(Color.white);
+                break;
+            case ATTACK:
+                for (Country country : currentlySelected) {
+                    country.drawBoundary(Color.white);
+                    for (Country neighboringCountry : country.neighboringCountries) {
+                        if (neighboringCountry.owner != game.getCurrentPlayer())
+                            neighboringCountry.drawBoundary(Color.red);
+                    }
+                }
+                break;
+            case FORTIFY:
+                break;
+        }
     }
     
     static public void drawAllTroopCounters() {
@@ -58,8 +74,8 @@ public class Country {
         g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
     }
     
-    private void drawBoundary() {
-        g.setColor(Color.white);
+    private void drawBoundary(Color color) {
+        g.setColor(color);
         g.drawPolygon(boundary);
     }
     
@@ -67,7 +83,7 @@ public class Country {
     public void mouseInCountryHandler(Gameplay.Phase phase) {
         selectedByHoverHandler(phase);
         if (shouldHover)
-            drawBoundary();
+            drawBoundary(Color.white);
         if (shouldHover && recentlyHovered != this)
             Titlescreen.getMenuSounds().play("terr_noise.wav");
         recentlyHovered = this;
@@ -81,6 +97,8 @@ public class Country {
                     shouldHover = true;
                 break;
             case ATTACK:
+                if (owner == game.getCurrentPlayer())
+                    shouldHover = true;
                 break;
             case FORTIFY:
                 break;
@@ -98,6 +116,12 @@ public class Country {
                 }
                 break;
             case ATTACK:
+                if (currentlySelected.contains(this))
+                    currentlySelected.clear();
+                else {
+                    currentlySelected.clear();
+                    currentlySelected.add(this);
+                }
                 break;
             case FORTIFY:
                 break;
@@ -112,6 +136,8 @@ public class Country {
                     country.shouldHover = false;
                 break;
             case ATTACK:
+                for (Country country : RiskMap.getCountryList())
+                    country.shouldHover = false;
                 break;
             case FORTIFY:
                 break;
@@ -121,6 +147,10 @@ public class Country {
     // Mutator methods
     static public void setCountryOnMouse(int x, int y) {
         onMouse = RiskMap.contains(x, y);
+    }
+    
+    public void addNeighboringCountry(Country neighboringCountry) {
+        neighboringCountries.add(neighboringCountry);
     }
     
     public void setOwner(Player _owner) {
