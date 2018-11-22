@@ -73,6 +73,8 @@ public class Country {
     }
     
     public void drawNameOnMouse(int x, int y) {
+        if (owner == null)
+            System.out.println(name);
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,15));
         g.drawString(Country.getCountryOnMouse().getName(), x, y-5);

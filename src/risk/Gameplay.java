@@ -225,9 +225,10 @@ public class Gameplay {
                     assignedCountries[i]++;
                     break;
                 }
-                if (i == players.length) {
+                if (i == players.length-1) {
                     for (int a=0;a<players.length;a++) {
-                        if (assignedCountries[a] < countryLimit) {
+                        if (assignedCountries[a] < countryLimit || (RiskMap.getCountryList().indexOf(country) == 68 && a == 0) || (RiskMap.getCountryList().indexOf(country) == 69 && a == 1)) {
+                            System.out.println(RiskMap.getCountryList().indexOf(country));
                             country.setOwner(players[a]);
                             players[a].getOwnedCountries().add(country);
                             assignedCountries[a]++;
@@ -256,7 +257,6 @@ public class Gameplay {
                 troopLimit = 40;
                 break;
         }
-        
         for (int i=0;i<players.length;i++) {
             // randomly adds an amount of troops to each of the player's countries
             for (Country country : players[i].getOwnedCountries()) {
