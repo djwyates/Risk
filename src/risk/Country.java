@@ -12,7 +12,7 @@ import static risk.Risk.g;
 
 public class Country {
     static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-    static private ArrayList<Country> currentlySelected = new ArrayList<Country>();
+    static private Country[] currentlySelected = new Country[2];
     static private Country onMouse;
     static private Country recentlyHovered;
     // instance variables
@@ -37,11 +37,15 @@ public class Country {
         Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
-                for (Country country : currentlySelected)
-                    country.drawBoundary(Color.white);
+                for (Country country : currentlySelected) {
+                    if (country != null)
+                        country.drawBoundary(Color.white);
+                }
                 break;
             case ATTACK:
                 for (Country country : currentlySelected) {
+                    if (country == null)
+                        continue;
                     country.drawBoundary(Color.white);
                     for (Country neighboringCountry : country.neighboringCountries) {
                         if (neighboringCountry.owner != game.getCurrentPlayer())
@@ -105,23 +109,20 @@ public class Country {
         }
     }
     
-    public void selectedByClickHandler(Gameplay.Phase phase){
+    public void selectedByClickHandler(Gameplay.Phase phase) {
+        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
-                if (currentlySelected.contains(this))
-                    currentlySelected.clear();
-                else {
-                    currentlySelected.clear();
-                    currentlySelected.add(this);
-                }
+                if (currentlySelected[0] == this)
+                    currentlySelected[0] = null;
+                else
+                    currentlySelected[0] = this;
                 break;
             case ATTACK:
-                if (currentlySelected.contains(this))
-                    currentlySelected.clear();
-                else {
-                    currentlySelected.clear();
-                    currentlySelected.add(this);
-                }
+                if (currentlySelected[0] == this)
+                    currentlySelected[0] = null;
+                else
+                    currentlySelected[0] = this;
                 break;
             case FORTIFY:
                 break;
@@ -174,8 +175,12 @@ public class Country {
         return onMouse;
     }
     
-    static public ArrayList<Country> getSelectedList() {
+    static public Country[] getSelectedList() {
         return currentlySelected;
+    }
+    
+    public ArrayList<Country> getNeighboringCountries() {
+        return neighboringCountries;
     }
     
     public Player getOwner() {
@@ -183,7 +188,7 @@ public class Country {
     }
     
     public Polygon getBoundary() {
-        return(boundary);
+        return boundary;
     }
     
     public String getName() {
