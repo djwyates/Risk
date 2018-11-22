@@ -17,6 +17,7 @@ public class TextLog {
     private static String input = "";
     private static ArrayList<TextLog> statements = new ArrayList<TextLog>();
     private String statement;
+    private Color color;
     private int x;
     private int y;
     
@@ -24,8 +25,10 @@ public class TextLog {
         statement=_statement;
         x=20;
         y=857;
+        color = Color.red;
         for(int i=0;i<statements.size();i++){
             statements.get(i).y-=25;
+            statements.get(i).color = new Color(255,0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15));
         }
     }
     
@@ -38,7 +41,7 @@ public class TextLog {
         //Storing old sets for colors,text,etc
         Color oldColor = g.getColor();
         Font oldFont = g.getFont();
-        SetFontsAndColors(14);
+        SetFontsAndColors(20);
         
         
         
@@ -46,6 +49,7 @@ public class TextLog {
             if(s.y<500){
                 statements.remove(s);
             }
+            g.setColor(s.color);
             g.drawString(s.statement, s.x, s.y);
         }
         
@@ -81,7 +85,7 @@ public class TextLog {
     static void SetFontsAndColors(int fontSize){
         g.setColor(Color.RED);
         try {
-            g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
+            g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
         } catch (FontFormatException ex) {
             Logger.getLogger(TextLog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
