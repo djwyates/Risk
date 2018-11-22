@@ -125,7 +125,14 @@ public class Gameplay {
     
     private void attackPhaseHandler(int x, int y, String key) {
         if (key.equals("none")) {
-            if (clickedCountry.getOwner() == currentPlayer)
+            if (Country.getSelectedList().isEmpty())
+                    selectedCountry = null;
+                else
+                    selectedCountry = Country.getSelectedList().get(0);
+            if (selectedCountry != null && selectedCountry.getNeighboringCountries().contains(clickedCountry) && clickedCountry.getOwner() != currentPlayer) {
+                System.out.println("Would you like to attack " + clickedCountry.getName() + "?");
+            }
+            else if (clickedCountry.getOwner() == currentPlayer)
                 clickedCountry.selectedByClickHandler(phase);
         }
     }

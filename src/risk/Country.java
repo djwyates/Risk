@@ -105,7 +105,8 @@ public class Country {
         }
     }
     
-    public void selectedByClickHandler(Gameplay.Phase phase){
+    public void selectedByClickHandler(Gameplay.Phase phase) {
+        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
                 if (currentlySelected.contains(this))
@@ -178,12 +179,16 @@ public class Country {
         return currentlySelected;
     }
     
+    public ArrayList<Country> getNeighboringCountries() {
+        return neighboringCountries;
+    }
+    
     public Player getOwner() {
         return owner;
     }
     
     public Polygon getBoundary() {
-        return(boundary);
+        return boundary;
     }
     
     public String getName() {
