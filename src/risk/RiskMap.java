@@ -12,7 +12,7 @@ public class RiskMap {
     static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(Risk frame, int x, int y) {
+    static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws current phase name
@@ -22,7 +22,7 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws boundary on selected country
-        Country.drawBoundaryOnSelected();
+        Country.drawBoundaryOnSelectedHandler(phase);
         // Draws current country name by mouse pointer
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
@@ -257,7 +257,7 @@ public class RiskMap {
         { int x[] = {573,593,649,692,703,710,750,749,745,745,750,751,745,736,721,714,710,712,712,698,688,681,677,665,656,649,628,614,600,590,586,577,572,567,560,556,555,557,554,570};
           int y[] = {474,477,518,497,502,501,521,540,548,553,562,566,571,576,581,585,587,606,608,609,609,606,594,596,584,586,592,596,598,595,591,584,578,569,558,550,541,529,507,477};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "North Africa";
+        countryName = "Northern Africa";
         country = new Country(countryBoundry, countryName, 560,507);
         countries.add(country);
         
@@ -269,11 +269,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 718,595);
         countries.add(country);
         
-        // South Africa
+        // Southern Africa
         { int x[] = {699,738,747,783,782,795,807,837,840,809,768,730,693,702,699,728};
           int y[] = {661,665,682,695,669,675,687,681,702,758,813,820,719,685,661,667};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "South Africa";
+        countryName = "Southern Africa";
         country = new Country(countryBoundry, countryName, 722,703);
         countries.add(country);
         
@@ -566,11 +566,11 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 238,243);
         countries.add(country);
         
-        // Northern United States
+        // Northeastern United States
         { int x[] = {345,345,361,370,377,378,386,391,397,394,391,396,399,403,409,402,400,395,390,390,386,378,371,363,360,354,347,347};
           int y[] = {282,292,292,294,296,303,295,293,291,288,281,275,274,272,269,259,251,247,248,262,263,263,264,264,270,275,281,281};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Northern United States";
+        countryName = "Northeastern United States";
         country = new Country(countryBoundry, countryName, 381,286);
         countries.add(country);
         
@@ -614,19 +614,19 @@ public class RiskMap {
         country = new Country(countryBoundry, countryName, 377,76);
         countries.add(country);
         
-        // Soverya
+        // Severneya Zemlya
         { int x[] = {935,950,988,1036,1042,947};
           int y[] = {31,58,66,52,29,28};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Soverya";
+        countryName = "Severneya Zemlya";
         country = new Country(countryBoundry, countryName, 963, 29);
         countries.add(country);
         
-        // Novashelkye
+        // Ostrova
         { int x[] = {1141,1149,1153,1168,1169,1179,1182,1188,1183,1176,1156,1156,1149};
           int y[] = {40,59,64,64,78,75,63,46,32,28,36,36,39};
         countryBoundry = new Polygon(x, y, x.length); }
-        countryName = "Novashelkye";
+        countryName = "Ostrova";
         country = new Country(countryBoundry, countryName, 1147, 29);
         countries.add(country);
         
@@ -634,13 +634,6 @@ public class RiskMap {
         Continent.create();
         
         // Adding neighboring countries
-        
-        for (int i=0;i<countries.size();i++) {
-            System.out.println("//" + countries.get(i).getName()
-                    + "\ncountry = countries.get(" + i + ");\n"
-                    + "country.addNeighboringCountry();\ncountry.addNeighboringCountry();\n");
-        }
-        
         //Alaska
         country = countries.get(0);
         country.addNeighboringCountry(countries.get(43));
@@ -809,7 +802,7 @@ public class RiskMap {
         country.addNeighboringCountry(countries.get(27));
         country.addNeighboringCountry(countries.get(28));
 
-        //North Africa
+        //Northern Africa
         country = countries.get(23);
         country.addNeighboringCountry(countries.get(5));
         country.addNeighboringCountry(countries.get(21));
@@ -824,7 +817,7 @@ public class RiskMap {
         country.addNeighboringCountry(countries.get(25));
         country.addNeighboringCountry(countries.get(26));
 
-        //South Africa
+        //Southern Africa
         country = countries.get(25);
         country.addNeighboringCountry(countries.get(59));
         country.addNeighboringCountry(countries.get(66));
@@ -1100,7 +1093,7 @@ public class RiskMap {
         country.addNeighboringCountry(countries.get(63));
         country.addNeighboringCountry(countries.get(16));
 
-        //Northern United States
+        //Northeastern United States
         country = countries.get(62);
         country.addNeighboringCountry(countries.get(60));
         country.addNeighboringCountry(countries.get(61));
@@ -1140,13 +1133,13 @@ public class RiskMap {
         country.addNeighboringCountry(countries.get(64));
         country.addNeighboringCountry(countries.get(65));
 
-        //Soverya
+        //Severneya Zemlya
         country = countries.get(68);
         country.addNeighboringCountry(countries.get(37));
         country.addNeighboringCountry(countries.get(39));
         country.addNeighboringCountry(countries.get(69));
 
-        //Novashelkye
+        //Ostrova
         country = countries.get(69);
         country.addNeighboringCountry(countries.get(0));
         country.addNeighboringCountry(countries.get(40));

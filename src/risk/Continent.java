@@ -23,6 +23,10 @@ public class Continent {
         return countries;
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public int getBonus() {
         return bonus;
     }
@@ -40,7 +44,7 @@ public class Continent {
         continents[1].countries.add(Country.getCountry("Western United States"));
         continents[1].countries.add(Country.getCountry("Midwestern United States"));
         continents[1].countries.add(Country.getCountry("Southern United States"));
-        continents[1].countries.add(Country.getCountry("Northern United States"));
+        continents[1].countries.add(Country.getCountry("Northeastern United States"));
         continents[1].countries.add(Country.getCountry("Alaska"));
         continents[1].countries.add(Country.getCountry("Hawaii"));
         
@@ -59,11 +63,11 @@ public class Continent {
         
         continents[4] = new Continent("Africa", 4);
         continents[4].countries.add(Country.getCountry("Algeria"));
-        continents[4].countries.add(Country.getCountry("North Africa"));
+        continents[4].countries.add(Country.getCountry("Northern Africa"));
         continents[4].countries.add(Country.getCountry("Congo"));
         continents[4].countries.add(Country.getCountry("Sudan"));
         continents[4].countries.add(Country.getCountry("Eastern Africa"));
-        continents[4].countries.add(Country.getCountry("South Africa"));
+        continents[4].countries.add(Country.getCountry("Southern Africa"));
         continents[4].countries.add(Country.getCountry("Libya"));
         continents[4].countries.add(Country.getCountry("Madagascar"));
         
@@ -89,12 +93,12 @@ public class Continent {
         continents[7].countries.add(Country.getCountry("Novaya Zemlya"));
         continents[7].countries.add(Country.getCountry("Urd"));
         continents[7].countries.add(Country.getCountry("Siberia"));
-        continents[7].countries.add(Country.getCountry("Soverya"));
+        continents[7].countries.add(Country.getCountry("Severneya Zemlya"));
         continents[7].countries.add(Country.getCountry("Yakutia"));
         continents[7].countries.add(Country.getCountry("Irkutsk"));
         continents[7].countries.add(Country.getCountry("Amar"));
         continents[7].countries.add(Country.getCountry("Kamchatka"));
-        continents[7].countries.add(Country.getCountry("Novashelkye"));
+        continents[7].countries.add(Country.getCountry("Ostrova"));
         
         continents[8] = new Continent("Scandinavia", 3);
         continents[8].countries.add(Country.getCountry("Iceland"));
