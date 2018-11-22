@@ -127,7 +127,7 @@ public class Gameplay {
                                 TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
                         }
                         else
-                            System.out.println("You have " + currentPlayer.getDeployableTroops() + " left to deploy.");
+                            TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
                         
                     }
                     
