@@ -1,6 +1,11 @@
 
 package risk;
 
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Gameplay {
     
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
@@ -33,7 +38,13 @@ public class Gameplay {
     
     public void drawAndSoundHandler(Risk frame, int x, int y) {
         Country.setCountryOnMouse(x, y);
-        RiskMap.draw(frame, x, y, phase);
+        try {
+            RiskMap.draw(frame, x, y, phase);
+        } catch (FontFormatException ex) {
+            Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Gameplay.class.getName()).log(Level.SEVERE, null, ex);
+        }
         RiskMap.mouseInCountryHandler(x, y, phase);
     }
     
@@ -77,9 +88,10 @@ public class Gameplay {
                     selectedCountry = null;
                 else
                     selectedCountry = Country.getSelectedList().get(0);
-                if (selectedCountry != null)
-                System.out.println("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n"
-                        + "How many would you like to deploy in " + selectedCountry.getName() + "?");
+                if (selectedCountry != null){
+                
+                }
+                
             }
         }
         else if (selectedCountry != null) {
@@ -97,9 +109,11 @@ public class Gameplay {
                     if (deployAmount*10+Integer.parseInt(key) <= currentPlayer.getDeployableTroops())
                         deployAmount = deployAmount*10+Integer.parseInt(key);
                     System.out.println("Press enter to deploy " + deployAmount + " troops into " + selectedCountry.getName() + ".");
+                    TextLog.addToInput(key);
                     break;
                 case "backspace":
                     deployAmount = (int)deployAmount/10;
+                    TextLog.removeOneInput();
                     break;
                 case "enter":
                     if (deployAmount > 0) {
@@ -111,11 +125,17 @@ public class Gameplay {
                         Country.getSelectedList().clear();
                         if (currentPlayer.getDeployableTroops() <= 0) {
                             System.out.println("No more troops to deploy. Switching turns.");
+                            Player oldPlayer = currentPlayer;
                             switchTurnHandler();
+                            if(oldPlayer == currentPlayer)
+                                TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
                         }
                         else
                             System.out.println("You have " + currentPlayer.getDeployableTroops() + " left to deploy.");
+                        
                     }
+                    
+                    TextLog.clearInput();
                     break;
                 default:
                     break;
@@ -137,6 +157,8 @@ public class Gameplay {
     private void deployPhaseInit() {
         phase = Phase.DEPLOY;
         currentPlayer.setDeployableTroops();
+        System.out.println("called");
+        TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
         deployAmount = 0;
     }
     
@@ -151,6 +173,8 @@ public class Gameplay {
     private void switchTurnHandler() {
         for (int i=0;i<players.length;i++) {
             if (currentPlayer == players[i]) {
+                
+                TextLog.createStatement("Next players turn");
                 if (i == players.length-1) {
                     currentPlayer = players[0];
                     System.out.println("Successfully switched turns. Player " + i + " is now playing.");

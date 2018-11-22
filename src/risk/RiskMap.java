@@ -1,9 +1,11 @@
 
 package risk;
 
+import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.ArrayList;
 import static risk.Risk.g;
 
@@ -12,7 +14,7 @@ public class RiskMap {
     static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");;
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) {
+    static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) throws FontFormatException, IOException {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws current phase name
@@ -26,6 +28,9 @@ public class RiskMap {
         // Draws current country name by mouse pointer
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
+        // Draws input in TextLog
+        TextLog.drawInput(g);
+        TextLog.drawStatements(g);
     }
     
     static public void drawPhase(int x, int y, int width, int height, Risk frame) {

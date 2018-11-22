@@ -28,7 +28,7 @@ public class Risk extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                //System.out.println(x + "     " + y);
+                System.out.println(x + " " + y);
                 if(Titlescreen.gameIsStarted()&&bcActive){
                     BorderCreator.startBorder(x, y);
                 }
@@ -196,6 +196,7 @@ public class Risk extends JFrame implements Runnable
         
         
         gOld.drawImage(image, 0, 0, null);
+        
     }
 
     // //////////////////////////////////////////////////////////////////////////
