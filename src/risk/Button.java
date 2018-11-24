@@ -26,6 +26,8 @@ public class Button {
     static private boolean onExit = false;
     static private boolean onMinus = false;
     static private boolean onPlus = false;
+    static private boolean onPlayerDec = false;
+    static private boolean onPlayerInc = false;
     static private boolean onStart = false;
     static private boolean onHome = false;
     static private boolean onHost = false;
@@ -61,7 +63,10 @@ public class Button {
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
         else if (onPlus) { activatePlusButton(); }
-        sliderHandler(x, y);
+        else if (onPlayerDec) { activatePlayerDec(); }
+        else if (onPlayerInc) { activatePlayerInc(); }
+        if (Titlescreen.isSetupActive())
+            sliderHandler(x, y);
     }
     
     static void setMouseIsHolding(){
@@ -73,71 +78,6 @@ public class Button {
     
     static boolean getMouseIsHolding(){
         return mouseIsHolding;
-    }
-    
-    static public void setupHandler(int x, int y) throws FileNotFoundException, FontFormatException, IOException {
-        // Start button detection & drawing of text
-        if (x>447 && x<772 && y>599 && y<672) {
-            onStart = true;
-            g.setColor(Color.orange);
-        } else {
-            onStart = false;
-            g.setColor(Color.white);
-        }
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,60));
-        g.drawString("START", 563, 657);
-        // Player number +/- detection & drawing of number
-        if (x>246 && x<278 && y>150 && y<180)
-            onMinus = true;
-        else
-            onMinus = false;
-        if (x>344 && x<374 && y>150 && y<180)
-            onPlus = true;
-        else
-            onPlus = false;
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
-        g.drawString("" + Gameplay.getNumPlayers(), 300, 180);
-        // Color sliders & oval
-        Color oColor = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(rsp[0], rsp[1], 15, 15);
-        g.setColor(Color.GREEN);
-        g.fillOval(gsp[0], gsp[1], 15, 15);
-        g.setColor(Color.BLUE);
-        g.fillOval(bsp[0], bsp[1], 15, 15);
-        g.setColor(colorSample);
-        g.fillOval(30, 400, 355, 355);
-        g.setColor(oColor);
-        
-        if(onsliderR){
-            rsp[0]=x-(sliderOffset/2);
-            if(rsp[0]<min_slider)
-                rsp[0]=min_slider;
-            if(rsp[0]>max_slider)
-                rsp[0]=max_slider;
-            
-            rsd=rsp[0]-min_slider;
-        }
-        if(onsliderG){
-            gsp[0]=x-(sliderOffset/2);
-            if(gsp[0]<min_slider)
-                gsp[0]=min_slider;
-            if(gsp[0]>max_slider)
-                gsp[0]=max_slider;
-            
-            gsd=gsp[0]-min_slider;
-        }
-        if(onsliderB){
-            bsp[0]=x-(sliderOffset/2);
-            if(bsp[0]<min_slider)
-                bsp[0]=min_slider;
-            if(bsp[0]>max_slider)
-                bsp[0]=max_slider;
-            
-            bsd=bsp[0]-min_slider;
-        }
-        //System.out.println(rsd + " " + gsd + " " + bsd);
-        colorSample = new Color((int)(rsd*disToRGB),(int)(gsd*disToRGB),(int)(bsd*disToRGB));
     }
     
     static public void mainHandler(Risk frame, int x, int y) {
@@ -182,6 +122,79 @@ public class Button {
         drawMute(frame, 760, 760);
     }
     
+    static public void setupHandler(int x, int y) throws FileNotFoundException, FontFormatException, IOException {
+        // Start button detection & drawing of text
+        if (x>447 && x<772 && y>599 && y<672) {
+            onStart = true;
+            g.setColor(Color.orange);
+        } else {
+            onStart = false;
+            g.setColor(Color.white);
+        }
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,60));
+        g.drawString("START", 563, 657);
+        // Player number +/- detection & drawing of number
+        if (x>246 && x<278 && y>150 && y<180)
+            onMinus = true;
+        else
+            onMinus = false;
+        if (x>344 && x<374 && y>150 && y<180)
+            onPlus = true;
+        else
+            onPlus = false;
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.drawString("" + Gameplay.getNumPlayers(), 300, 180);
+        // Player color detection
+        if (x>246 && x<278 && y>195 && y<235)
+            onPlayerDec = true;
+        else
+            onPlayerDec = false;
+        if (x>344 && x<374 && y>195 && y<235)
+            onPlayerInc = true;
+        else
+            onPlayerInc = false;
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.drawString("" + Titlescreen.getCustomizePlayerNum(), 300, 230);
+        // Color sliders & oval
+        g.setColor(Color.RED);
+        g.fillOval(rsp[0], rsp[1], 15, 15);
+        g.setColor(Color.GREEN);
+        g.fillOval(gsp[0], gsp[1], 15, 15);
+        g.setColor(Color.BLUE);
+        g.fillOval(bsp[0], bsp[1], 15, 15);
+        g.setColor(colorSample);
+        g.fillOval(30, 400, 355, 355);
+        if(onsliderR){
+            rsp[0]=x-(sliderOffset/2);
+            if(rsp[0]<min_slider)
+                rsp[0]=min_slider;
+            if(rsp[0]>max_slider)
+                rsp[0]=max_slider;
+            
+            rsd=rsp[0]-min_slider;
+        }
+        if(onsliderG){
+            gsp[0]=x-(sliderOffset/2);
+            if(gsp[0]<min_slider)
+                gsp[0]=min_slider;
+            if(gsp[0]>max_slider)
+                gsp[0]=max_slider;
+            
+            gsd=gsp[0]-min_slider;
+        }
+        if(onsliderB){
+            bsp[0]=x-(sliderOffset/2);
+            if(bsp[0]<min_slider)
+                bsp[0]=min_slider;
+            if(bsp[0]>max_slider)
+                bsp[0]=max_slider;
+            
+            bsd=bsp[0]-min_slider;
+        }
+        //System.out.println(rsd + " " + gsd + " " + bsd);
+        colorSample = new Color((int)(rsd*disToRGB),(int)(gsd*disToRGB),(int)(bsd*disToRGB));
+    }
+    
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
             // Drawws IP addresses
             try {
@@ -220,23 +233,28 @@ public class Button {
     
     static private void sliderHandler(int x, int y) {
         if(x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset){
-            System.out.println("r");
-            
-            onsliderR = true;
+            if (onsliderR)
+                onsliderR = false;
+            else
+                onsliderR = true;
             onsliderG = false;
             onsliderB = false;
         }
         else if(x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset){
-            System.out.println("g");
             onsliderR = false;
-            onsliderG = true;
+            if (onsliderG)
+                onsliderG = false;
+            else
+                onsliderG = true;
             onsliderB = false;
         }
         else if(x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset){
-            System.out.println("b");
             onsliderR = false;
             onsliderG = false;
-            onsliderB = true;
+            if (onsliderB)
+                onsliderB = false;
+            else
+                onsliderB = true;
         }
         else {
             onsliderR = false;
@@ -294,13 +312,26 @@ public class Button {
     }
     
     static private void activateMinusButton() {
-        if (Gameplay.getNumPlayers()-1 >= 2)
+        if (Gameplay.getNumPlayers()-1 >= 2) {
             Gameplay.addNumPlayers(-1);
+            if (Titlescreen.getCustomizePlayerNum() > Gameplay.getNumPlayers())
+                Titlescreen.addCustomizePlayerNum(-1);
+        }
     }
     
     static private void activatePlusButton() {
         if (Gameplay.getNumPlayers()+1 <= 70)
             Gameplay.addNumPlayers(1);
+    }
+    
+    static private void activatePlayerDec() {
+        if (Titlescreen.getCustomizePlayerNum()-1 >= 2)
+            Titlescreen.addCustomizePlayerNum(-1);
+    }
+    
+    static private void activatePlayerInc() {
+        if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers())
+            Titlescreen.addCustomizePlayerNum(1);
     }
     
     static public void drawMute(Risk frame, int x, int y) {

@@ -18,15 +18,15 @@ public class Titlescreen {
     static private final SoundManager MENU_SOUNDS = new SoundManager();
     static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
-    static private final Image MULTI_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
-    static private final Image MULTI_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+    static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
+    static private final Image INSTRUCTIONS_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
     static private Gameplay game;
     static private SoundManager menuSounds = null;
     static private boolean mainActive = true;
     static private boolean setupActive = false;
     static private boolean instructionsActive = false;
     static private boolean startedGame = false;
-    static int timeCount = 0;
+    static private int customizePlayerNum = 2;
     
     static void reset() {
         MENU_SOUNDS.clearSounds();
@@ -61,8 +61,8 @@ public class Titlescreen {
     
     static private void instructionsHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
         if(Connect.gameStarted()==false) {
-            g.drawImage(MULTI_BACKGROUND_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-            g.drawImage(MULTI_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            g.drawImage(INSTRUCTIONS_BACKGROUND_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+            g.drawImage(INSTRUCTIONS_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             Button.instructionsHandler(frame, x, y);
         }
         else { // If connected
@@ -125,12 +125,20 @@ public class Titlescreen {
         return mainActive;
     }
     
-    static public boolean isSingleActive() {
+    static public boolean isSetupActive() {
         return setupActive;
     }
     
     static public boolean isMultiActive() {
         return instructionsActive;
+    }
+    
+    static public void addCustomizePlayerNum(int inc) {
+        customizePlayerNum += inc;
+    }
+    
+    static public int getCustomizePlayerNum() {
+        return customizePlayerNum;
     }
     
     static SoundManager getMenuSounds() {

@@ -63,8 +63,7 @@ public class Country {
         }
     }
     public void drawTroopAmount(int x, int y) {
-        if(owner != null)
-            g.setColor(owner.getColor());
+        g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
         g.drawString(""+numTroops, x+19, y+33);
     }
