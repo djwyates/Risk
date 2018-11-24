@@ -47,8 +47,10 @@ public class Button {
     static private int sliderOffset = 15;
     //Color of color sample
     static private Color colorSample = Color.black;
-    //
-    static private final double disToRGB=0.8173;
+    //Converts (distance of sliders) -> (RGB 0-255)
+    static private final double disToRGB=0.8175;
+    //RGB values from conversion
+    static private int RGB[] = {0,0,0};
     
     
     static public void mouseClickHandler(Risk frame, int x, int y) {
@@ -156,12 +158,16 @@ public class Button {
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
         g.drawString("" + Titlescreen.getCustomizePlayerNum(), 300, 230);
         // Color sliders & oval
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,20));
         g.setColor(Color.RED);
         g.fillOval(rsp[0], rsp[1], 15, 15);
+        g.drawString(""+RGB[0],390,294);
         g.setColor(Color.GREEN);
         g.fillOval(gsp[0], gsp[1], 15, 15);
+        g.drawString(""+RGB[1],390,335);
         g.setColor(Color.BLUE);
         g.fillOval(bsp[0], bsp[1], 15, 15);
+        g.drawString(""+RGB[2],390,376);
         g.setColor(colorSample);
         g.fillOval(30, 400, 355, 355);
         g.setColor(Color.white);
@@ -194,11 +200,11 @@ public class Button {
                 bsp[0]=min_slider;
             if(bsp[0]>max_slider)
                 bsp[0]=max_slider;
-            
             bsd=bsp[0]-min_slider;
         }
         //System.out.println(rsd + " " + gsd + " " + bsd);
-        colorSample = new Color((int)(rsd*disToRGB),(int)(gsd*disToRGB),(int)(bsd*disToRGB));
+        RGB[0]=(int)(rsd*disToRGB);RGB[1]=(int)(gsd*disToRGB);RGB[2]=(int)(bsd*disToRGB);
+        colorSample = new Color(RGB[0],RGB[1],RGB[2]);
     }
     
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
@@ -331,7 +337,7 @@ public class Button {
     }
     
     static private void activatePlayerDec() {
-        if (Titlescreen.getCustomizePlayerNum()-1 >= 2)
+        if (Titlescreen.getCustomizePlayerNum()-1 >= 2 || Titlescreen.getCustomizePlayerNum()-1 == 1)
             Titlescreen.addCustomizePlayerNum(-1);
     }
     
