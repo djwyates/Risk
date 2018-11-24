@@ -12,7 +12,7 @@ import static risk.Risk.g;
 
 public class Country {
     static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-    static private Country[] currentlySelected = new Country[2];
+    static private Country[] currentlySelected = new Country[2];// [0] is the owner's [1] is the enemy's
     static private Country onMouse;
     static private Country recentlyHovered;
     // instance variables
@@ -24,12 +24,11 @@ public class Country {
     private int numTroops = 0;
     private boolean shouldHover = false;
     
-    Country(Polygon _boundry, String _name, int _centerX, int _centerY/*, ArrayList<Country> _neighboringCountries*/) { //todo: add arraylist of neighboring countries to constructor
+    Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
         boundary = _boundry;
         name = _name;
         centerX = _centerX;
         centerY = _centerY;
-        //neighboringCountries.addAll(_neighboringCountries);
     }
     
     // Draw methods
@@ -43,15 +42,15 @@ public class Country {
                 }
                 break;
             case ATTACK:
-                for (Country country : currentlySelected) {
-                    if (country == null)
-                        continue;
-                    country.drawBoundary(Color.white);
-                    for (Country neighboringCountry : country.neighboringCountries) {
+                if (currentlySelected[0] != null) {
+                    currentlySelected[0].drawBoundary(Color.white);
+                    for (Country neighboringCountry : currentlySelected[0].neighboringCountries) {
                         if (neighboringCountry.owner != game.getCurrentPlayer())
                             neighboringCountry.drawBoundary(Color.red);
                     }
                 }
+                if (currentlySelected[1] != null)
+                    currentlySelected[1].drawBoundary(new Color(124, 10, 2));
                 break;
             case FORTIFY:
                 break;
@@ -74,7 +73,7 @@ public class Country {
     
     public void drawNameOnMouse(int x, int y) {
         if (owner == null)
-            System.out.println(name);
+            System.out.println(name + " is null.");
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,15));
         g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
@@ -121,10 +120,20 @@ public class Country {
                     currentlySelected[0] = this;
                 break;
             case ATTACK:
-                if (currentlySelected[0] == this)
-                    currentlySelected[0] = null;
-                else
-                    currentlySelected[0] = this;
+                if (game.getCurrentPlayer() == owner) {
+                    if (currentlySelected[0] == this) {
+                        currentlySelected[0] = null;
+                        currentlySelected[1] = null;
+                    } else {
+                        currentlySelected[0] = this;
+                        currentlySelected[1] = null;
+                    }
+                } else {
+                    if (currentlySelected[1] == this)
+                        currentlySelected[1] = null;
+                    else
+                        currentlySelected[1] = this;
+                }
                 break;
             case FORTIFY:
                 break;
@@ -197,5 +206,9 @@ public class Country {
     
     public String getName() {
         return name;
+    }
+    
+    public boolean isNeighboringEnemy(Country otherCountry) {
+        return neighboringCountries.contains(otherCountry) && otherCountry.owner != Titlescreen.getGame().getCurrentPlayer();
     }
 }

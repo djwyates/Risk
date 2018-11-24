@@ -10,8 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static risk.Risk.g;
 public class TextLog {
     private static String input = "";
@@ -37,27 +35,26 @@ public class TextLog {
         statements.add(_statement);
     }
     
-    static void drawStatements(Graphics2D g){
+    static void drawStatements(Graphics2D g) throws FontFormatException, IOException{
         //Storing old sets for colors,text,etc
         Color oldColor = g.getColor();
         Font oldFont = g.getFont();
         SetFontsAndColors(20);
         
-        
-        
-        for(TextLog s : statements){
-            if(s.y<500){
-                statements.remove(s);
+        for(int i=0;i<statements.size();i++){
+            if(statements.get(i).y<500){
+                statements.remove(statements.get(i));
+                i++;
             }
-            g.setColor(s.color);
-            g.drawString(s.statement, s.x, s.y);
+            g.setColor(statements.get(i).color);
+            g.drawString(statements.get(i).statement, statements.get(i).x, statements.get(i).y);
         }
         
         //Setting font back to old sets
         g.setColor(oldColor);
         g.setFont(oldFont);
     }
-    static void drawInput(Graphics2D g) throws FileNotFoundException, FontFormatException, IOException{
+    static void drawInput(Graphics2D g) throws FileNotFoundException, FontFormatException, IOException {
         //Storing old sets for colors,text,etc
         Color oldColor = g.getColor();
         Font oldFont = g.getFont();
@@ -82,14 +79,8 @@ public class TextLog {
         input="";
     }
     
-    static void SetFontsAndColors(int fontSize){
+    static void SetFontsAndColors(int fontSize) throws FileNotFoundException, IOException, FontFormatException{
         g.setColor(Color.RED);
-        try {
-            g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
-        } catch (FontFormatException ex) {
-            Logger.getLogger(TextLog.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TextLog.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
     }
 }

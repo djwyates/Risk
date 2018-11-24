@@ -2,9 +2,17 @@
 package risk;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import static risk.Risk.g;
 
 public class Button {
@@ -31,7 +39,7 @@ public class Button {
         else if (onBack) { activateBackButton(frame); }
     }
     
-    static public void mainHandler(int x, int y) {
+    static public void mainHandler(Risk frame, int x, int y) {
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
             if(!onSingle)
@@ -68,19 +76,29 @@ public class Button {
         }
         g.drawString("Exit", 360, 668);
         
-        // Mute button detection
+        // Mute button detection and drawing
         if(x>740 && x<800 && y>740 && y<800)
         { onMute = true; }
         else
         { onMute = false; }
+        drawMute(frame, 760, 760);
     }
     
-    static public void singleHandler(int x, int y) {
-        
-    }
-    
-    static public void multiHandler(int x, int y) {
-        // Home button detection
+    static public void multiHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
+            // Drawws IP addresses
+            try {
+                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
+                g.setColor(Color.black);
+                g.drawString(InetAddress.getLocalHost().getHostAddress(), 266, 495);
+                g.drawString(Connect.getHost(), 266, 585);
+                g.setColor(Color.red);
+                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
+                g.drawString(Connect.getHost(), 261, 580);
+            }
+            catch (UnknownHostException e)
+            { e.printStackTrace(); }
+            
+            // Home button detection
             if(x>13 && x<111 && y>730 && y<783)
                 onHome = true;
             else
@@ -103,6 +121,7 @@ public class Button {
                 onMute = true;
             else 
                 onMute = false;
+            drawMute(frame, 760, 760);
     }
     
     static private void activateSingleButton() {
