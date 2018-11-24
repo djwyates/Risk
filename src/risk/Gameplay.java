@@ -212,7 +212,7 @@ public class Gameplay {
                             TextLog.createStatement("-------Player 1's Turn-------");
                         } else {
                             currentPlayer = players[i+1];
-                            TextLog.createStatement("-------Player " + i+2 + "'s turn------");
+                            TextLog.createStatement("-------Player " + playerID + "'s turn------");
                         }
                         break;
                 }
