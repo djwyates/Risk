@@ -12,33 +12,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 import static risk.Risk.g;
 public class TextLog {
+    static public enum Colors { DEPLOY, ATTACK, FORTIFY, SYSTEM }
     private static String input = "";
     private static ArrayList<TextLog> statements = new ArrayList<TextLog>();
+    private static Color deployColor = new Color(0,100,0,255);
+    private static Color attackColor = new Color(139,0,0,255);
+    private static Color fortifyColor = new Color(25,25,112,255);
+    private static Color systemColor = new Color(47,79,79,255);
+    private static Color inputColor = systemColor;
+    private static int startPos[] = {20,855};
     private String statement;
     private Color color;
     private int x;
     private int y;
     
-    TextLog(String _statement){
-        statement=_statement;
-        x=20;
-        y=857;
-        color = Color.black;
+    TextLog(String s,Gameplay.Phase p){
+        color = systemColor;
+        if(p!=null)
+            switch(p){
+                case DEPLOY:
+                    color = deployColor;
+                    break;
+                case ATTACK:
+                    color = attackColor;
+                    break;
+                case FORTIFY:
+                    color = fortifyColor;
+                    break;
+            }
+        statement=s;
+        x=startPos[0];
+        y=startPos[1];
         for(int i=0;i<statements.size();i++){
             statements.get(i).y-=35;
-            statements.get(i).color = new Color(0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15),0+((statements.size()-i-1)*15));
+            statements.get(i).color = new Color(statements.get(i).color.getRed(),statements.get(i).color.getGreen(),statements.get(i).color.getBlue(),statements.get(i).color.getAlpha()-15);
         }
     }
     
-    static void createStatement(String _state){
-        TextLog _statement = new TextLog(_state);
-        statements.add(_statement);
+    static void createStatement(String str,Gameplay.Phase p){
+        TextLog s = new TextLog(str,p);
+        statements.add(s);
     }
     
     static void drawStatements(Graphics2D g) throws FontFormatException, IOException{
         //Storing old sets for colors,text,etc
-        Color oldColor = g.getColor();
-        Font oldFont = g.getFont();
+        Color oColor = g.getColor();
+        Font oFont = g.getFont();
         SetFontsAndColors(20);
         for(int i=0;i<statements.size();i++){
             if(statements.get(i).y<500){
@@ -50,22 +69,22 @@ public class TextLog {
         }
         
         //Setting font back to old sets
-        g.setColor(oldColor);
-        g.setFont(oldFont);
+        g.setColor(oColor);
+        g.setFont(oFont);
     }
     static void drawInput(Graphics2D g) throws FileNotFoundException, FontFormatException, IOException {
         //Storing old sets for colors,text,etc
-        Color oldColor = g.getColor();
-        Font oldFont = g.getFont();
+        Color oColor = g.getColor();
+        Font oFont = g.getFont();
         SetFontsAndColors(20);
-        
+        g.setColor(inputColor);
         
         g.drawString(input, 20, 890);
         
         
         //Setting font back to old sets
-        g.setColor(oldColor);
-        g.setFont(oldFont);
+        g.setColor(oColor);
+        g.setFont(oFont);
     }
     static void addToInput(String s){
         input+=s;
@@ -79,7 +98,6 @@ public class TextLog {
     }
     
     static void SetFontsAndColors(int fontSize) throws FileNotFoundException, IOException, FontFormatException{
-        g.setColor(Color.RED);
         g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
     }
 }
