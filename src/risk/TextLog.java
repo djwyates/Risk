@@ -44,7 +44,6 @@ public class TextLog {
         SetFontsAndColors(20);
         
         
-        
         for(TextLog s : statements){
             if(s.y<500){
                 statements.remove(s);
