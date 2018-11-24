@@ -18,9 +18,7 @@ public class Titlescreen {
     static private boolean mainActive, singleActive, multiActive, startedGame;
     static private Image mainImage, multiImage, multiBackgroundImage;
     static private SoundManager menuSounds = null;
-    static private int fontSize;
     static int timeCount;
-    
     
     static void reset(){
         Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
@@ -37,9 +35,9 @@ public class Titlescreen {
         menuSounds.addSound("multiButtonCheer.wav");
         menuSounds.addSound("terr_noise.wav");
         menuSounds.loop("titlemusic.wav");
-        fontSize = 20;
         timeCount = 0;
     }
+    
     static void titlescreenHandler(int x, int y, Risk frame) throws FontFormatException, IOException {
         if (mainActive)
         { mainHandler(x, y, frame); }
@@ -51,10 +49,8 @@ public class Titlescreen {
     
     static private void mainHandler(int x, int y, Risk frame) throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(mainImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-        Button.drawMute(frame, 760,760);
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,fontSize));
-        
-        Button.mainHandler(x, y);
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Viner.ttf"))).deriveFont(Font.PLAIN,20));
+        Button.mainHandler(frame, x, y);
     }
     
     static private void singleHandler(int x, int y, Risk frame) {
@@ -64,24 +60,10 @@ public class Titlescreen {
     }
     
     static private void multiHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
-        System.out.println(Connect.gameStarted());
         if(Connect.gameStarted()==false) {
             g.drawImage(multiBackgroundImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
             g.drawImage(multiImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-            Button.drawMute(frame, 760, 760);
-            try {
-                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
-                g.setColor(Color.black);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 266, 495);
-                g.drawString(Connect.getHost(), 266, 585);
-                g.setColor(Color.red);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
-                g.drawString(Connect.getHost(), 261, 580);
-            }
-            catch (UnknownHostException e)
-            { e.printStackTrace(); }
-
-            Button.multiHandler(x, y);
+            Button.multiHandler(frame, x, y);
         }
         else { // If connected
             // implement map drawing and gameplay

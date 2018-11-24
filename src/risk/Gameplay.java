@@ -85,9 +85,6 @@ public class Gameplay {
             if (clickedCountry.getOwner() == currentPlayer) {
                 clickedCountry.selectedByClickHandler(phase);
                 selectedCountry = Country.getSelectedList()[0];
-                if (selectedCountry != null)
-                System.out.println("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n"
-                        + "How many would you like to deploy in " + selectedCountry.getName() + "?");
             }
         }
         else if (selectedCountry != null) {
@@ -102,10 +99,10 @@ public class Gameplay {
                 case "7":
                 case "8":
                 case "9":
-                    if (deployAmount*10+Integer.parseInt(key) <= currentPlayer.getDeployableTroops())
+                    if (deployAmount*10+Integer.parseInt(key) <= currentPlayer.getDeployableTroops()) {
                         deployAmount = deployAmount*10+Integer.parseInt(key);
-                    System.out.println("Press enter to deploy " + deployAmount + " troops into " + selectedCountry.getName() + ".");
-                    TextLog.addToInput(key);
+                        TextLog.addToInput(key);
+                    }
                     break;
                 case "backspace":
                     deployAmount = (int)deployAmount/10;
@@ -116,21 +113,16 @@ public class Gameplay {
                         currentPlayer.addTotalTroops(deployAmount);
                         currentPlayer.addDeployableTroops(-deployAmount);
                         selectedCountry.addNumTroops(deployAmount);
-                        TextLog.createStatement("+" +deployAmount + " troops in " + selectedCountry.getName() + ".");
+                        TextLog.createStatement("+" + deployAmount + " troops in " + selectedCountry.getName() + ".");
                         deployAmount = 0;
                         Country.getSelectedList()[0] = null;
                         if (currentPlayer.getDeployableTroops() <= 0) {
                             TextLog.createStatement("0 Troops left. Switching turns.");
-                            Player oldPlayer = currentPlayer;
                             switchTurnHandler();
-                            if(oldPlayer == currentPlayer)
-                                TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
                         }
                         else
                             TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
-                        
                     }
-                    
                     TextLog.clearInput();
                     break;
                 default:
@@ -142,8 +134,11 @@ public class Gameplay {
     private void attackPhaseHandler(int x, int y, String key) {
         if (key.equals("none")) {
             selectedCountry = Country.getSelectedList()[0];
-            if (selectedCountry != null && selectedCountry.getNeighboringCountries().contains(clickedCountry) && clickedCountry.getOwner() != currentPlayer) {
-                System.out.println("Would you like to attack " + clickedCountry.getName() + "?");
+            if (selectedCountry != null && selectedCountry.isNeighboringEnemy(clickedCountry)) {
+                clickedCountry.selectedByClickHandler(phase);
+                TextLog.createStatement("How many troops would you");
+                System.out.println("called method");
+                TextLog.createStatement("like to attack " + clickedCountry.getName() + " with?");
             }
             else if (clickedCountry.getOwner() == currentPlayer)
                 clickedCountry.selectedByClickHandler(phase);
@@ -157,7 +152,6 @@ public class Gameplay {
     private void deployPhaseInit() {
         phase = Phase.DEPLOY;
         currentPlayer.setDeployableTroops();
-        System.out.println("called");
         TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
         deployAmount = 0;
     }
@@ -176,8 +170,7 @@ public class Gameplay {
             if (currentPlayer == players[i]) {
                 if (i == players.length-1) {
                     currentPlayer = players[0];
-                    TextLog.createStatement("");
-                    TextLog.createStatement("-------Player " + i + "'s turn------");
+                    TextLog.createStatement("-------Player 1's turn------");
                     switch (phase) {
                     case DEPLOY:
                         attackPhaseInit();
@@ -193,8 +186,8 @@ public class Gameplay {
                 }
                 else {
                     currentPlayer = players[i+1];
-                    TextLog.createStatement("");
-                    TextLog.createStatement("-------Player " + i + "'s turn------");
+                    TextLog.createStatement("-------Player " + i+2 + "'s turn------");
+                    System.out.println(i);
                     switch (phase) {
                     case DEPLOY:
                         deployPhaseInit();
@@ -214,6 +207,7 @@ public class Gameplay {
     }
     
     private void assignCountries() {
+        //todo: fix bug that does not assign a country/countries an owner (null pointer)
         int assignedCountries[] = new int[players.length];
         int countryLimit = (int) 70/players.length;
         int randomVal;

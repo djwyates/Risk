@@ -1,8 +1,6 @@
 // Created by Liam Young, Austin Wood, Adam Oliva, and most importantly, David Yates
 package risk;
 
-
-import java.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
