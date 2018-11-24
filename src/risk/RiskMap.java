@@ -11,7 +11,7 @@ import static risk.Risk.g;
 
 public class RiskMap {
     static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-    static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");;
+    static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) throws FontFormatException, IOException {
@@ -24,7 +24,7 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, x, y);
         // Draws boundary on selected country
-        Country.drawBoundaryOnSelectedHandler(phase);
+        Country.drawBoundaryOnSelected(phase);
         // Draws current country name by mouse pointer
         if (Country.getCountryOnMouse() != null)
             Country.getCountryOnMouse().drawNameOnMouse(x, y);
@@ -1126,6 +1126,7 @@ public class RiskMap {
         country.addNeighboringCountry(countries.get(67));
         country.addNeighboringCountry(countries.get(16));
         country.addNeighboringCountry(countries.get(64));
+        country.addNeighboringCountry(countries.get(69));
 
         //Madagascar
         country = countries.get(66);
@@ -1146,7 +1147,7 @@ public class RiskMap {
 
         //Ostrova
         country = countries.get(69);
-        country.addNeighboringCountry(countries.get(0));
+        country.addNeighboringCountry(countries.get(65));
         country.addNeighboringCountry(countries.get(40));
         country.addNeighboringCountry(countries.get(43));
         country.addNeighboringCountry(countries.get(68));
