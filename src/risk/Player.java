@@ -38,6 +38,13 @@ public class Player {
         deployableTroops += inc;
     }
     
+    private void checkOwnedCountries() {
+        for (Country country : RiskMap.getCountryList()) {
+            if (country.getOwner() == this)
+                ownedCountries.add(country);
+        }
+    }
+    
     private void checkOwnedContinents() {
         Continent[] continents = Continent.getContinents();
         ArrayList<Country> countries = new ArrayList<Country>();
@@ -56,6 +63,7 @@ public class Player {
     
     // Accessor methods
     private int getContinentsTroopValue() {
+        checkOwnedCountries();
         checkOwnedContinents();
         int value = 0;
         for (Continent continent : ownedContinents) {

@@ -32,8 +32,7 @@ public class Country {
     }
     
     // Draw methods
-    static public void drawBoundaryOnSelectedHandler(Gameplay.Phase phase) {
-        Gameplay game = Titlescreen.getGame();
+    static public void drawBoundaryOnSelected(Gameplay.Phase phase) {
         switch (phase) {
             case DEPLOY:
                 for (Country country : currentlySelected) {
@@ -45,7 +44,7 @@ public class Country {
                 if (currentlySelected[0] != null) {
                     currentlySelected[0].drawBoundary(Color.white);
                     for (Country neighboringCountry : currentlySelected[0].neighboringCountries) {
-                        if (neighboringCountry.owner != game.getCurrentPlayer())
+                        if (neighboringCountry.owner != Titlescreen.getGame().getCurrentPlayer())
                             neighboringCountry.drawBoundary(Color.red);
                     }
                 }
@@ -95,14 +94,13 @@ public class Country {
     }
     
     private void selectedByHoverHandler(Gameplay.Phase phase) {
-        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
-                if (owner == game.getCurrentPlayer())
+                if (owner == Titlescreen.getGame().getCurrentPlayer())
                     shouldHover = true;
                 break;
             case ATTACK:
-                if (owner == game.getCurrentPlayer())
+                if (owner == Titlescreen.getGame().getCurrentPlayer())
                     shouldHover = true;
                 break;
             case FORTIFY:
@@ -131,7 +129,7 @@ public class Country {
                 } else {
                     if (currentlySelected[1] == this)
                         currentlySelected[1] = null;
-                    else
+                    else if (currentlySelected[0] != null)
                         currentlySelected[1] = this;
                 }
                 break;
@@ -141,7 +139,6 @@ public class Country {
     }
     
     static public void switchedTurnHandler(Gameplay.Phase phase) {
-        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
                 for (Country country : RiskMap.getCountryList())
@@ -152,6 +149,7 @@ public class Country {
                 for (Country country : RiskMap.getCountryList())
                     country.shouldHover = false;
                 currentlySelected[0] = null;
+                currentlySelected[1] = null;
                 break;
             case FORTIFY:
                 break;
@@ -169,6 +167,10 @@ public class Country {
     
     public void setOwner(Player _owner) {
         owner = _owner;
+    }
+    
+    public void setNumTroops(int _numTroops) {
+        numTroops = _numTroops;
     }
     
     public void addNumTroops(int inc) {
@@ -206,6 +208,10 @@ public class Country {
     
     public String getName() {
         return name;
+    }
+    
+    public int getNumTroops() {
+        return numTroops;
     }
     
     public boolean isNeighboringEnemy(Country otherCountry) {

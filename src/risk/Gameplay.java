@@ -14,7 +14,6 @@ public class Gameplay {
     private Player players[];
     private Player currentPlayer;
     private Country clickedCountry;
-    private Country selectedCountry;
     private int deployAmount;
     
     Gameplay(Risk frame, int numPlayers) {
@@ -84,10 +83,9 @@ public class Gameplay {
         if (key.equals("none")) {
             if (clickedCountry.getOwner() == currentPlayer) {
                 clickedCountry.selectedByClickHandler(phase);
-                selectedCountry = Country.getSelectedList()[0];
             }
         }
-        else if (selectedCountry != null) {
+        else if (Country.getSelectedList()[0] != null) {
             switch (key) {
                 case "0":
                 case "1":
@@ -112,12 +110,12 @@ public class Gameplay {
                     if (deployAmount > 0) {
                         currentPlayer.addTotalTroops(deployAmount);
                         currentPlayer.addDeployableTroops(-deployAmount);
-                        selectedCountry.addNumTroops(deployAmount);
-                        TextLog.createStatement("+" + deployAmount + " troops in " + selectedCountry.getName() + ".");
+                        Country.getSelectedList()[0].addNumTroops(deployAmount);
+                        TextLog.createStatement("+" + deployAmount + " troops in " + Country.getSelectedList()[0].getName() + ".");
                         deployAmount = 0;
                         Country.getSelectedList()[0] = null;
                         if (currentPlayer.getDeployableTroops() <= 0) {
-                            TextLog.createStatement("0 Troops left. Switching turns.");
+                            TextLog.createStatement("0 Troops left. Switching to attack phase.");
                             switchTurnHandler();
                         }
                         else
@@ -133,15 +131,28 @@ public class Gameplay {
     
     private void attackPhaseHandler(int x, int y, String key) {
         if (key.equals("none")) {
-            selectedCountry = Country.getSelectedList()[0];
-            if (selectedCountry != null && selectedCountry.isNeighboringEnemy(clickedCountry)) {
-                clickedCountry.selectedByClickHandler(phase);
+            clickedCountry.selectedByClickHandler(phase);
+            if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
                 TextLog.createStatement("How many troops would you");
-                System.out.println("called method");
                 TextLog.createStatement("like to attack " + clickedCountry.getName() + " with?");
             }
-            else if (clickedCountry.getOwner() == currentPlayer)
-                clickedCountry.selectedByClickHandler(phase);
+        }
+        else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
+            switch (key) {
+                case "1":
+                case "2":
+                case "3":
+                    int troopsLeft = Country.getSelectedList()[0].getNumTroops() - Country.getSelectedList()[1].getNumTroops();
+                    if (troopsLeft <= 0) { // if they lost
+                        Country.getSelectedList()[0].setNumTroops(1);
+                        Country.getSelectedList()[1].setNumTroops(Math.abs(troopsLeft));
+                    }
+                    else { // if they won
+                        Country.getSelectedList()[0].setNumTroops(1);
+                        Country.getSelectedList()[1].setNumTroops(troopsLeft);
+                        Player.transferCountryOwnership(Country.getSelectedList()[1].getOwner(), currentPlayer, Country.getSelectedList()[1]);
+                    }
+            }
         }
     }
     
@@ -165,13 +176,11 @@ public class Gameplay {
     }
     
     private void switchTurnHandler() {
-        selectedCountry = null;
+        Country.getSelectedList()[0] = null;
+        Country.getSelectedList()[1] = null;
         for (int i=0;i<players.length;i++) {
             if (currentPlayer == players[i]) {
-                if (i == players.length-1) {
-                    currentPlayer = players[0];
-                    TextLog.createStatement("-------Player 1's turn------");
-                    switch (phase) {
+                switch (phase) {
                     case DEPLOY:
                         attackPhaseInit();
                         break;
@@ -198,10 +207,16 @@ public class Gameplay {
                         break;
                     case FORTIFY:
                         fortifyPhaseInit();
+                        if (i == players.length-1) {
+                            currentPlayer = players[0];
+                            TextLog.createStatement("-------Player 1's Turn-------");
+                        } else {
+                            currentPlayer = players[i+1];
+                            TextLog.createStatement("-------Player " + i+2 + "'s turn------");
+                        }
                         break;
-                    }
-                    break;
                 }
+                break;
             }
         }
         Country.switchedTurnHandler(phase);
