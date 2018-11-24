@@ -39,6 +39,12 @@ public class Button {
         else if (onBack) { activateBackButton(frame); }
     }
     
+    static public void setupHandler(Risk frame, int x, int y) {
+        //if test for R, G, and B locations
+        //in each if test, set R, G, and B booleans to true
+        //else false
+    }
+    
     static public void mainHandler(Risk frame, int x, int y) {
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
