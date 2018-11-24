@@ -166,15 +166,18 @@ public class Button {
         g.fillOval(30, 400, 355, 355);
         g.setColor(Color.white);
         if(onsliderR){
+            
+            g.drawOval(rsp[0], rsp[1], 15, 15);
             rsp[0]=x-(sliderOffset/2);
             if(rsp[0]<min_slider)
                 rsp[0]=min_slider;
             if(rsp[0]>max_slider)
                 rsp[0]=max_slider;
             rsd=rsp[0]-min_slider;
-            g.drawOval(rsp[0], rsp[1], 15, 15);
         }
         if(onsliderG){
+            
+            g.drawOval(gsp[0], gsp[1], 15, 15);
             gsp[0]=x-(sliderOffset/2);
             if(gsp[0]<min_slider)
                 gsp[0]=min_slider;
@@ -182,9 +185,10 @@ public class Button {
                 gsp[0]=max_slider;
             
             gsd=gsp[0]-min_slider;
-            g.drawOval(gsp[0], gsp[1], 15, 15);
         }
         if(onsliderB){
+            
+            g.drawOval(bsp[0], bsp[1], 15, 15);
             bsp[0]=x-(sliderOffset/2);
             if(bsp[0]<min_slider)
                 bsp[0]=min_slider;
@@ -192,7 +196,6 @@ public class Button {
                 bsp[0]=max_slider;
             
             bsd=bsp[0]-min_slider;
-            g.drawOval(bsp[0], bsp[1], 15, 15);
         }
         //System.out.println(rsd + " " + gsd + " " + bsd);
         colorSample = new Color((int)(rsd*disToRGB),(int)(gsd*disToRGB),(int)(bsd*disToRGB));
