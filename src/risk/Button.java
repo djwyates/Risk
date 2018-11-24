@@ -49,7 +49,7 @@ public class Button {
     static private final double disToRGB=0.8173;
     
     
-    static public void mouseClickHandler(Risk frame) {
+    static public void mouseClickHandler(Risk frame, int x, int y) {
         if (onPlay) { activateSingleButton(); }
         else if (onInstructions) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
@@ -61,6 +61,7 @@ public class Button {
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
         else if (onPlus) { activatePlusButton(); }
+        sliderHandler(x, y);
     }
     
     static void setMouseIsHolding(){
@@ -107,30 +108,7 @@ public class Button {
         g.setColor(colorSample);
         g.fillOval(30, 400, 355, 355);
         g.setColor(oColor);
-        if(x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset){
-            System.out.println("r");
-            
-            onsliderR = true;
-            onsliderG = false;
-            onsliderB = false;
-        }
-        else if(x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset){
-            System.out.println("g");
-            onsliderR = false;
-            onsliderG = true;
-            onsliderB = false;
-        }
-        else if(x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset){
-            System.out.println("b");
-            onsliderR = false;
-            onsliderG = false;
-            onsliderB = true;
-        }
-        else{
-            onsliderR = false;
-            onsliderG = false;
-            onsliderB = false;
-        }
+        
         if(onsliderR){
             rsp[0]=x-(sliderOffset/2);
             if(rsp[0]<min_slider)
@@ -238,6 +216,33 @@ public class Button {
             else 
                 onMute = false;
             drawMute(frame, 760, 760);
+    }
+    
+    static private void sliderHandler(int x, int y) {
+        if(x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset){
+            System.out.println("r");
+            
+            onsliderR = true;
+            onsliderG = false;
+            onsliderB = false;
+        }
+        else if(x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset){
+            System.out.println("g");
+            onsliderR = false;
+            onsliderG = true;
+            onsliderB = false;
+        }
+        else if(x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset){
+            System.out.println("b");
+            onsliderR = false;
+            onsliderG = false;
+            onsliderB = true;
+        }
+        else {
+            onsliderR = false;
+            onsliderG = false;
+            onsliderB = false;
+        }
     }
     
     static private void activateSingleButton() {

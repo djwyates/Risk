@@ -79,7 +79,7 @@ public class Titlescreen {
     }
     
     static public void mouseClickHandler(Risk frame, int x, int y) {
-        Button.mouseClickHandler(frame);
+        Button.mouseClickHandler(frame, x, y);
         if (startedGame)
             game.mouseClickHandler(x, y);
     }
