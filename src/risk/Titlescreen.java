@@ -55,7 +55,7 @@ public class Titlescreen {
     
     static private void singleHandler(int x, int y, Risk frame) {
         if(!startedGame)
-            game = new Gameplay(frame, 2);
+            game = new Gameplay(frame, 4);
         game.drawAndSoundHandler(frame, x, y);
     }
     

@@ -152,6 +152,7 @@ public class Gameplay {
                         Country.getSelectedList()[1].setNumTroops(troopsLeft);
                         Player.transferCountryOwnership(Country.getSelectedList()[1].getOwner(), currentPlayer, Country.getSelectedList()[1]);
                     }
+                    break;
             }
         }
     }
@@ -188,32 +189,15 @@ public class Gameplay {
                         fortifyPhaseInit();
                         break;
                     case FORTIFY:
-                        deployPhaseInit();
-                        break;
-                    }
-                    break;
-                }
-                else {
-                    currentPlayer = players[i+1];
-                    int playerID = i+1;
-                    TextLog.createStatement("-------Player " + playerID + "'s turn------");
-                    System.out.println(i);
-                    switch (phase) {
-                    case DEPLOY:
-                        deployPhaseInit();
-                        break;
-                    case ATTACK:
-                        attackPhaseInit();
-                        break;
-                    case FORTIFY:
-                        fortifyPhaseInit();
                         if (i == players.length-1) {
                             currentPlayer = players[0];
                             TextLog.createStatement("-------Player 1's Turn-------");
                         } else {
+                            int playerID = i+2;
                             currentPlayer = players[i+1];
                             TextLog.createStatement("-------Player " + playerID + "'s turn------");
                         }
+                        deployPhaseInit();
                         break;
                 }
                 break;
@@ -225,7 +209,7 @@ public class Gameplay {
     private void assignCountries() {
         //todo: fix bug that does not assign a country/countries an owner (null pointer)
         int assignedCountries[] = new int[players.length];
-        int countryLimit = (int) 70/players.length;
+        int countryLimit = (70+players.length-1)/players.length; //rounds up 70/players.length
         int randomVal;
         for (Country country : RiskMap.getCountryList()) {
             randomVal = (int) (Math.random()*players.length);
@@ -238,11 +222,11 @@ public class Gameplay {
                 }
                 if (i == players.length-1) {
                     for (int a=0;a<players.length;a++) {
-                        if (assignedCountries[a] < countryLimit || (RiskMap.getCountryList().indexOf(country) == 68 && a == 0) || (RiskMap.getCountryList().indexOf(country) == 69 && a == 1)) {
-                            System.out.println(RiskMap.getCountryList().indexOf(country));
+                        if (assignedCountries[a] < countryLimit) {
                             country.setOwner(players[a]);
                             players[a].getOwnedCountries().add(country);
                             assignedCountries[a]++;
+                            break;
                         }
                     }
                 }
@@ -268,30 +252,29 @@ public class Gameplay {
                 troopLimit = 40;
                 break;
         }
-        for (int i=0;i<players.length;i++) {
+        for (Player player : players) {
             // randomly adds an amount of troops to each of the player's countries
-            for (Country country : players[i].getOwnedCountries()) {
+            for (Country country : player.getOwnedCountries()) {
                 randomVal = (int) (Math.random()*3+1);
-                if (players[i].getTotalTroops()+randomVal <= troopLimit+1-countryNum) {
+                if (player.getTotalTroops() + randomVal <= troopLimit+1-countryNum) {
                     country.addNumTroops(randomVal);
-                    players[i].addTotalTroops(randomVal);
+                    player.addTotalTroops(randomVal);
                 } else {
                     country.addNumTroops(1);
-                    players[i].addTotalTroops(1);
+                    player.addTotalTroops(1);
                 }
                 countryNum++;
             }
             // distributes more troops to each player until they reach their limit of troops
-            for (Country country : players[i].getOwnedCountries()) {
-                if (players[i].getTotalTroops() < troopLimit) {
+            for (Country country : player.getOwnedCountries()) {
+                if (player.getTotalTroops() < troopLimit) {
                     country.addNumTroops(1);
-                    players[i].addTotalTroops(1);
+                    player.addTotalTroops(1);
                 } else
                     break;
             }
             countryNum = 1;
         }
-        //System.out.println("Player 1 Troop Count: " + players[0].getTotalTroops() + "   Player 2 Troop Count: " + players[1].getTotalTroops());
     }
     
     public Player getCurrentPlayer() {

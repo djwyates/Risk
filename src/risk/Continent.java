@@ -33,96 +33,96 @@ public class Continent {
     
     static public void create() {
         continents[0] = new Continent("Canada", 4);
-        continents[0].countries.add(Country.getCountry("Northwest Territory"));
-        continents[0].countries.add(Country.getCountry("Ontario"));
-        continents[0].countries.add(Country.getCountry("Alberta"));
-        continents[0].countries.add(Country.getCountry("Nunavut"));
-        continents[0].countries.add(Country.getCountry("Quebec"));
-        continents[0].countries.add(Country.getCountry("Buffalo Islands"));
+        continents[0].countries.add(RiskMap.getCountryList().get(8));
+        continents[0].countries.add(RiskMap.getCountryList().get(16));
+        continents[0].countries.add(RiskMap.getCountryList().get(63));
+        continents[0].countries.add(RiskMap.getCountryList().get(65));
+        continents[0].countries.add(RiskMap.getCountryList().get(64));
+        continents[0].countries.add(RiskMap.getCountryList().get(67));
         
         continents[1] = new Continent("United States", 4);
-        continents[1].countries.add(Country.getCountry("Western United States"));
-        continents[1].countries.add(Country.getCountry("Midwestern United States"));
-        continents[1].countries.add(Country.getCountry("Southern United States"));
-        continents[1].countries.add(Country.getCountry("Northeastern United States"));
-        continents[1].countries.add(Country.getCountry("Alaska"));
-        continents[1].countries.add(Country.getCountry("Hawaii"));
+        continents[1].countries.add(RiskMap.getCountryList().get(4));
+        continents[1].countries.add(RiskMap.getCountryList().get(61));
+        continents[1].countries.add(RiskMap.getCountryList().get(60));
+        continents[1].countries.add(RiskMap.getCountryList().get(62));
+        continents[1].countries.add(RiskMap.getCountryList().get(0));
+        continents[1].countries.add(RiskMap.getCountryList().get(54));
         
         continents[2] = new Continent("Central America", 3);
-        continents[2].countries.add(Country.getCountry("Mexico"));
-        continents[2].countries.add(Country.getCountry("Guatemala"));
-        continents[2].countries.add(Country.getCountry("Caribbean Islands"));
+        continents[2].countries.add(RiskMap.getCountryList().get(2));
+        continents[2].countries.add(RiskMap.getCountryList().get(3));
+        continents[2].countries.add(RiskMap.getCountryList().get(7));
         
         continents[3] = new Continent("South America", 4);
-        continents[3].countries.add(Country.getCountry("Venezuela"));
-        continents[3].countries.add(Country.getCountry("Peru"));
-        continents[3].countries.add(Country.getCountry("Bolivia"));
-        continents[3].countries.add(Country.getCountry("Brazil"));
-        continents[3].countries.add(Country.getCountry("Argentina"));
-        continents[3].countries.add(Country.getCountry("Falkland Islands"));
+        continents[3].countries.add(RiskMap.getCountryList().get(56));
+        continents[3].countries.add(RiskMap.getCountryList().get(6));
+        continents[3].countries.add(RiskMap.getCountryList().get(57));
+        continents[3].countries.add(RiskMap.getCountryList().get(5));
+        continents[3].countries.add(RiskMap.getCountryList().get(58));
+        continents[3].countries.add(RiskMap.getCountryList().get(59));
         
         continents[4] = new Continent("Africa", 4);
-        continents[4].countries.add(Country.getCountry("Algeria"));
-        continents[4].countries.add(Country.getCountry("Northern Africa"));
-        continents[4].countries.add(Country.getCountry("Congo"));
-        continents[4].countries.add(Country.getCountry("Sudan"));
-        continents[4].countries.add(Country.getCountry("Eastern Africa"));
-        continents[4].countries.add(Country.getCountry("Southern Africa"));
-        continents[4].countries.add(Country.getCountry("Libya"));
-        continents[4].countries.add(Country.getCountry("Madagascar"));
+        continents[4].countries.add(RiskMap.getCountryList().get(21));
+        continents[4].countries.add(RiskMap.getCountryList().get(23));
+        continents[4].countries.add(RiskMap.getCountryList().get(24));
+        continents[4].countries.add(RiskMap.getCountryList().get(27));
+        continents[4].countries.add(RiskMap.getCountryList().get(26));
+        continents[4].countries.add(RiskMap.getCountryList().get(25));
+        continents[4].countries.add(RiskMap.getCountryList().get(22));
+        continents[4].countries.add(RiskMap.getCountryList().get(66));
         
         continents[5] = new Continent("Europe", 4);
-        continents[5].countries.add(Country.getCountry("British Isles"));
-        continents[5].countries.add(Country.getCountry("Northern Europe"));
-        continents[5].countries.add(Country.getCountry("Ukraine"));
-        continents[5].countries.add(Country.getCountry("Southern Europe"));
-        continents[5].countries.add(Country.getCountry("Western Europe"));
+        continents[5].countries.add(RiskMap.getCountryList().get(10));
+        continents[5].countries.add(RiskMap.getCountryList().get(12));
+        continents[5].countries.add(RiskMap.getCountryList().get(15));
+        continents[5].countries.add(RiskMap.getCountryList().get(14));
+        continents[5].countries.add(RiskMap.getCountryList().get(17));
         
         continents[6] = new Continent("Middle East", 5);
-        continents[6].countries.add(Country.getCountry("Egypt"));
-        continents[6].countries.add(Country.getCountry("Iraq"));
-        continents[6].countries.add(Country.getCountry("Iran"));
-        continents[6].countries.add(Country.getCountry("Saudi Arabia"));
-        continents[6].countries.add(Country.getCountry("Turkey"));
-        continents[6].countries.add(Country.getCountry("Afghanistan"));
-        continents[6].countries.add(Country.getCountry("Kazakhstan"));
+        continents[6].countries.add(RiskMap.getCountryList().get(28));
+        continents[6].countries.add(RiskMap.getCountryList().get(30));
+        continents[6].countries.add(RiskMap.getCountryList().get(31));
+        continents[6].countries.add(RiskMap.getCountryList().get(29));
+        continents[6].countries.add(RiskMap.getCountryList().get(34));
+        continents[6].countries.add(RiskMap.getCountryList().get(32));
+        continents[6].countries.add(RiskMap.getCountryList().get(33));
         
         continents[7] = new Continent("Russia", 6);
-        continents[7].countries.add(Country.getCountry("Volga"));
-        continents[7].countries.add(Country.getCountry("Northern Russia"));
-        continents[7].countries.add(Country.getCountry("Novaya Zemlya"));
-        continents[7].countries.add(Country.getCountry("Urd"));
-        continents[7].countries.add(Country.getCountry("Siberia"));
-        continents[7].countries.add(Country.getCountry("Severneya Zemlya"));
-        continents[7].countries.add(Country.getCountry("Yakutia"));
-        continents[7].countries.add(Country.getCountry("Irkutsk"));
-        continents[7].countries.add(Country.getCountry("Amar"));
-        continents[7].countries.add(Country.getCountry("Kamchatka"));
-        continents[7].countries.add(Country.getCountry("Ostrova"));
+        continents[7].countries.add(RiskMap.getCountryList().get(35));
+        continents[7].countries.add(RiskMap.getCountryList().get(36));
+        continents[7].countries.add(RiskMap.getCountryList().get(37));
+        continents[7].countries.add(RiskMap.getCountryList().get(38));
+        continents[7].countries.add(RiskMap.getCountryList().get(39));
+        continents[7].countries.add(RiskMap.getCountryList().get(68));
+        continents[7].countries.add(RiskMap.getCountryList().get(40));
+        continents[7].countries.add(RiskMap.getCountryList().get(41));
+        continents[7].countries.add(RiskMap.getCountryList().get(42));
+        continents[7].countries.add(RiskMap.getCountryList().get(43));
+        continents[7].countries.add(RiskMap.getCountryList().get(69));
         
         continents[8] = new Continent("Scandinavia", 3);
-        continents[8].countries.add(Country.getCountry("Iceland"));
-        continents[8].countries.add(Country.getCountry("Greenland"));
-        continents[8].countries.add(Country.getCountry("Sweden"));
-        continents[8].countries.add(Country.getCountry("Svalbard"));
+        continents[8].countries.add(RiskMap.getCountryList().get(9));
+        continents[8].countries.add(RiskMap.getCountryList().get(1));
+        continents[8].countries.add(RiskMap.getCountryList().get(20));
+        continents[8].countries.add(RiskMap.getCountryList().get(11));
         
         continents[9] = new Continent("Asia", 6);
-        continents[9].countries.add(Country.getCountry("China"));
-        continents[9].countries.add(Country.getCountry("Thailand"));
-        continents[9].countries.add(Country.getCountry("India"));
-        continents[9].countries.add(Country.getCountry("Xijiang"));
-        continents[9].countries.add(Country.getCountry("Xiajano"));
-        continents[9].countries.add(Country.getCountry("Mongolia"));
-        continents[9].countries.add(Country.getCountry("Japan"));
-        continents[9].countries.add(Country.getCountry("Philippines"));
-        continents[9].countries.add(Country.getCountry("Indonesia"));
-        continents[9].countries.add(Country.getCountry("New Guinea"));
+        continents[9].countries.add(RiskMap.getCountryList().get(45));
+        continents[9].countries.add(RiskMap.getCountryList().get(50));
+        continents[9].countries.add(RiskMap.getCountryList().get(49));
+        continents[9].countries.add(RiskMap.getCountryList().get(47));
+        continents[9].countries.add(RiskMap.getCountryList().get(48));
+        continents[9].countries.add(RiskMap.getCountryList().get(46));
+        continents[9].countries.add(RiskMap.getCountryList().get(44));
+        continents[9].countries.add(RiskMap.getCountryList().get(51));
+        continents[9].countries.add(RiskMap.getCountryList().get(52));
+        continents[9].countries.add(RiskMap.getCountryList().get(53));
         
         continents[10] = new Continent("Oceania", 3);
-        continents[10].countries.add(Country.getCountry("Queensland"));
-        continents[10].countries.add(Country.getCountry("Victoria"));
-        continents[10].countries.add(Country.getCountry("Western Australia"));
-        continents[10].countries.add(Country.getCountry("New Zealand"));
+        continents[10].countries.add(RiskMap.getCountryList().get(18));
+        continents[10].countries.add(RiskMap.getCountryList().get(19));
+        continents[10].countries.add(RiskMap.getCountryList().get(17));
+        continents[10].countries.add(RiskMap.getCountryList().get(55));
         
         //Checks for null countries in all continent array lists of countries.
         for(Continent x : continents){
