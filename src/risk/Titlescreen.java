@@ -1,7 +1,7 @@
 
 package risk;
 
-import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -11,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import static risk.Risk.g;
-import java.net.*;
 
 public class Titlescreen {
     static private Gameplay game;
@@ -42,7 +41,7 @@ public class Titlescreen {
         if (mainActive)
         { mainHandler(x, y, frame); }
         else if (singleActive)
-        { singleHandler(x, y, frame); }
+        { playHandler(x, y, frame); }
         else if (multiActive)
         { multiHandler(x, y, frame); }
     }
@@ -53,7 +52,8 @@ public class Titlescreen {
         Button.mainHandler(frame, x, y);
     }
     
-    static private void singleHandler(int x, int y, Risk frame) {
+    static private void playHandler(int x, int y, Risk frame) {
+        
         if(!startedGame)
             game = new Gameplay(frame, 4);
         game.drawAndSoundHandler(frame, x, y);

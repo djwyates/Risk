@@ -1,6 +1,7 @@
 
 package risk;
 
+import java.awt.Color;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -111,15 +112,16 @@ public class Gameplay {
                         currentPlayer.addTotalTroops(deployAmount);
                         currentPlayer.addDeployableTroops(-deployAmount);
                         Country.getSelectedList()[0].addNumTroops(deployAmount);
-                        TextLog.createStatement("+" + deployAmount + " troops in " + Country.getSelectedList()[0].getName() + ".");
+                        TextLog.createStatement("+" + deployAmount + " troops in " + Country.getSelectedList()[0].getName() + ".",Phase.DEPLOY);
                         deployAmount = 0;
                         Country.getSelectedList()[0] = null;
                         if (currentPlayer.getDeployableTroops() <= 0) {
-                            TextLog.createStatement("0 Troops left. Switching to attack phase.");
+                            TextLog.createStatement("No Troops left.",Phase.DEPLOY);
+                            TextLog.createStatement("Switching to attack phase.",null);
                             switchTurnHandler();
                         }
                         else
-                            TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
+                            TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n",Phase.DEPLOY);
                     }
                     TextLog.clearInput();
                     break;
@@ -133,8 +135,8 @@ public class Gameplay {
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
             if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
-                TextLog.createStatement("How many troops would you");
-                TextLog.createStatement("like to attack " + clickedCountry.getName() + " with?");
+                TextLog.createStatement("How many troops would you",Phase.ATTACK);
+                TextLog.createStatement("like to attack " + clickedCountry.getName() + " with?",Phase.ATTACK);
             }
         }
         else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
@@ -164,7 +166,7 @@ public class Gameplay {
     private void deployPhaseInit() {
         phase = Phase.DEPLOY;
         currentPlayer.setDeployableTroops();
-        TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n");
+        TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n",Phase.DEPLOY);
         deployAmount = 0;
     }
     
@@ -191,11 +193,11 @@ public class Gameplay {
                     case FORTIFY:
                         if (i == players.length-1) {
                             currentPlayer = players[0];
-                            TextLog.createStatement("-------Player 1's Turn-------");
+                            TextLog.createStatement("-------Player 1's Turn-------",null);
                         } else {
                             int playerID = i+2;
                             currentPlayer = players[i+1];
-                            TextLog.createStatement("-------Player " + playerID + "'s turn------");
+                            TextLog.createStatement("-------Player " + playerID + "'s turn------",null);
                         }
                         deployPhaseInit();
                         break;

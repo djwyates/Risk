@@ -50,7 +50,7 @@ public class Button {
             onSingle = false;
             g.setColor(Color.red);
         }
-        g.drawString("Singleplayer", 320, 455);
+        g.drawString("Play", 358, 455);
         
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
@@ -62,7 +62,7 @@ public class Button {
             onMulti = false;
             g.setColor(Color.red);
         }
-        g.drawString("Multiplayer", 320, 563);
+        g.drawString("Intructions", 330, 563);
         
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {

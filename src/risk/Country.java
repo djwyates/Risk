@@ -62,7 +62,6 @@ public class Country {
             country.drawTroopAmount(country.centerX,country.centerY);
         }
     }
-    
     public void drawTroopAmount(int x, int y) {
         if(owner != null)
             g.setColor(owner.getColor());
