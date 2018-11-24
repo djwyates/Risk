@@ -171,27 +171,19 @@ public class Risk extends JFrame implements Runnable
         g.setColor(Color.white);
         g.fillPolygon(x, y, 4);
         
-        
-        if(Titlescreen.isActive()){
-            try  {
-                Titlescreen.titlescreenHandler(mouseX, mouseY, this);
-            } catch (FontFormatException ex) {
-                Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (Connect.isClient()) {
-            g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
-            g.setColor(Color.black);
-            g.drawString("The Client",100,150);
-        } else {
-            g.setFont(new Font("Comic Sans", Font.ROMAN_BASELINE, 20));
-            g.setColor(Color.black);
-            g.drawString("The Server",100,150);
+        try  {
+            if (Titlescreen.isActive())
+                Titlescreen.titlescreenHandler(this, mouseX, mouseY);
+            else
+                Titlescreen.getGame().drawAndSoundHandler(this, mouseX, mouseY);
+        } catch (FontFormatException ex) {
+            Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(bcActive)
-            BorderCreator.drawLines(mouseX, mouseY, g);
         
+//        if(bcActive)
+//            BorderCreator.drawLines(mouseX, mouseY, g);
         
         gOld.drawImage(image, 0, 0, null);
         

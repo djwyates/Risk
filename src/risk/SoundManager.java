@@ -24,6 +24,10 @@ class SoundManager {
         sounds.put(name, sound);
     }
     
+    public void clearSounds() {
+        sounds.clear();
+    }
+    
     static public void toggleMute() {
         Iterator it = sounds.entrySet().iterator();
         while (it.hasNext()) {

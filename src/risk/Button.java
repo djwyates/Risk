@@ -21,9 +21,12 @@ public class Button {
     static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
     static private boolean mouseIsHolding=false;
     static private boolean muteOn = false;
-    static private boolean onSingle = false;
-    static private boolean onMulti = false;
+    static private boolean onPlay = false;
+    static private boolean onInstructions = false;
     static private boolean onExit = false;
+    static private boolean onMinus = false;
+    static private boolean onPlus = false;
+    static private boolean onStart = false;
     static private boolean onHome = false;
     static private boolean onHost = false;
     static private boolean onJoin = false;
@@ -47,25 +50,53 @@ public class Button {
     
     
     static public void mouseClickHandler(Risk frame) {
-        if (onSingle) { activateSingleButton(); }
-        else if (onMulti) { activateMultiButton(); }
+        if (onPlay) { activateSingleButton(); }
+        else if (onInstructions) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
         else if (onHome) { activateHomeButton(); }
         else if (onHost) { activateHostButton(); }
         else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
+        else if (onStart) { activateStartButton(frame); }
+        else if (onMinus) { activateMinusButton(); }
+        else if (onPlus) { activatePlusButton(); }
     }
+    
     static void setMouseIsHolding(){
         if(mouseIsHolding)
             mouseIsHolding=false;
         else
             mouseIsHolding=true;
     }
+    
     static boolean getMouseIsHolding(){
         return mouseIsHolding;
     }
-    static public void setupHandler(Risk frame, int x, int y) {
+    
+    static public void setupHandler(int x, int y) throws FileNotFoundException, FontFormatException, IOException {
+        // Start button detection & drawing of text
+        if (x>447 && x<772 && y>599 && y<672) {
+            onStart = true;
+            g.setColor(Color.orange);
+        } else {
+            onStart = false;
+            g.setColor(Color.white);
+        }
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,60));
+        g.drawString("START", 563, 657);
+        // Player number +/- detection & drawing of number
+        if (x>246 && x<278 && y>150 && y<180)
+            onMinus = true;
+        else
+            onMinus = false;
+        if (x>344 && x<374 && y>150 && y<180)
+            onPlus = true;
+        else
+            onPlus = false;
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.drawString("" + Gameplay.getNumPlayers(), 300, 180);
+        // Color sliders & oval
         Color oColor = g.getColor();
         g.setColor(Color.RED);
         g.fillOval(rsp[0], rsp[1], 15, 15);
@@ -134,28 +165,26 @@ public class Button {
     static public void mainHandler(Risk frame, int x, int y) {
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(!onSingle)
+            if(!onPlay)
                 Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
-            onSingle = true;
+            onPlay = true;
             g.setColor(Color.white);
         } else {
-            onSingle = false;
+            onPlay = false;
             g.setColor(Color.red);
         }
         g.drawString("Play", 358, 455);
-        
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
-            if(!onMulti)
+            if(!onInstructions)
                 Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
-            onMulti = true;
+            onInstructions = true;
             g.setColor(Color.white);
         } else {
-            onMulti = false;
+            onInstructions = false;
             g.setColor(Color.red);
         }
         g.drawString("Intructions", 330, 563);
-        
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
             if(!onExit)
@@ -167,7 +196,6 @@ public class Button {
             g.setColor(Color.red);
         }
         g.drawString("Exit", 360, 668);
-        
         // Mute button detection and drawing
         if(x>740 && x<800 && y>740 && y<800)
         { onMute = true; }
@@ -176,7 +204,7 @@ public class Button {
         drawMute(frame, 760, 760);
     }
     
-    static public void multiHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
+    static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
             // Drawws IP addresses
             try {
                 g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
@@ -189,25 +217,21 @@ public class Button {
             }
             catch (UnknownHostException e)
             { e.printStackTrace(); }
-            
             // Home button detection
             if(x>13 && x<111 && y>730 && y<783)
                 onHome = true;
             else
                 onHome = false;
-
             // Host button detection
             if(x>256 && x<430 && y>666 && y<760)
                 onHost = true;
             else
                 onHost = false;
-
             // Join button detection
             if(x>477 && x<649 && y>666 && y<760)
                 onJoin = true;
             else
                 onJoin = false;
-
             // Mute button detection
             if(x>740 && x<800 && y>740 && y<800)
                 onMute = true;
@@ -219,12 +243,12 @@ public class Button {
     static private void activateSingleButton() {
         Titlescreen.activateSingle();
         Connect.setGameStarted(true);
-        onSingle = false;
+        onPlay = false;
     }
     
     static private void activateMultiButton() {
         Titlescreen.activateMulti();
-        onMulti = false;
+        onInstructions = false;
     }
     
     static private void activateExitButton() {
@@ -257,6 +281,21 @@ public class Button {
     static private void activateBackButton(Risk frame) {
         Window.changeWindow(frame, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
         Titlescreen.activateMain();
+    }
+    
+    static private void activateStartButton(Risk frame) {
+        Titlescreen.startGame(frame);
+        onStart = false;
+    }
+    
+    static private void activateMinusButton() {
+        if (Gameplay.getNumPlayers()-1 >= 2)
+            Gameplay.addNumPlayers(-1);
+    }
+    
+    static private void activatePlusButton() {
+        if (Gameplay.getNumPlayers()+1 <= 70)
+            Gameplay.addNumPlayers(1);
     }
     
     static public void drawMute(Risk frame, int x, int y) {
