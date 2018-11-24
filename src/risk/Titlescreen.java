@@ -14,18 +14,13 @@ import static risk.Risk.g;
 
 public class Titlescreen {
     static private Gameplay game;
-    static private boolean mainActive, singleActive, multiActive, startedGame;
-    static private Image mainImage, multiImage, multiBackgroundImage;
+    static private boolean mainActive = true, singleActive = false, multiActive = false, startedGame = false;
+    static private Image mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png"), multiImage, multiBackgroundImage;
     static private SoundManager menuSounds = null;
     static int timeCount;
     
     static void reset(){
         Window.currentFrame.setSize(Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT);
-        mainActive = true;
-        singleActive = false;
-        multiActive = false;
-        startedGame = false;
-        mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         multiBackgroundImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
         menuSounds = new SoundManager();
@@ -41,7 +36,7 @@ public class Titlescreen {
         if (mainActive)
         { mainHandler(x, y, frame); }
         else if (singleActive)
-        { playHandler(x, y, frame); }
+        { setupHandler(x, y, frame); }
         else if (multiActive)
         { multiHandler(x, y, frame); }
     }
@@ -52,8 +47,8 @@ public class Titlescreen {
         Button.mainHandler(frame, x, y);
     }
     
-    static private void playHandler(int x, int y, Risk frame) {
-        
+    static private void setupHandler(int x, int y, Risk frame) {
+        Button.setupHandler(frame, x, y);
         if(!startedGame)
             game = new Gameplay(frame, 4);
         game.drawAndSoundHandler(frame, x, y);
