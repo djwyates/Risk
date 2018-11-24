@@ -15,7 +15,7 @@ import static risk.Risk.g;
 public class Titlescreen {
     static private Gameplay game;
     static private boolean mainActive, singleActive, multiActive, startedGame;
-    static private Image mainImage, multiImage, multiBackgroundImage;
+    static private Image mainImage, multiImage, multiBackgroundImage,setupImage;
     static private SoundManager menuSounds = null;
     static int timeCount;
     
@@ -28,6 +28,7 @@ public class Titlescreen {
         mainImage = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
         multiImage = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
         multiBackgroundImage = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+        setupImage = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
         menuSounds = new SoundManager();
         menuSounds.addSound("titlemusic.wav");
         menuSounds.addSound("swordClashTitleScreen.wav");
@@ -53,10 +54,10 @@ public class Titlescreen {
     }
     
     static private void playHandler(int x, int y, Risk frame) {
-        
-        if(!startedGame)
-            game = new Gameplay(frame, 4);
-        game.drawAndSoundHandler(frame, x, y);
+        g.drawImage(setupImage,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+//        if(!startedGame)
+//            game = new Gameplay(frame, 4);
+//        game.drawAndSoundHandler(frame, x, y);
     }
     
     static private void multiHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
