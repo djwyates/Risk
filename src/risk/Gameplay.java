@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 public class Gameplay {
     
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
+    static private int numPlayers = 2;
     private Phase phase;
     private RiskMap riskMap = null;
     private Player players[];
@@ -17,7 +18,7 @@ public class Gameplay {
     private Country clickedCountry;
     private int deployAmount;
     
-    Gameplay(Risk frame, int numPlayers) {
+    Gameplay(Risk frame) {
         // Handles drawing & window
         riskMap = new RiskMap();
         Window.changeWindow(frame, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
@@ -279,11 +280,19 @@ public class Gameplay {
         }
     }
     
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    static public void addNumPlayers(int inc) {
+        numPlayers += inc;
+    }
+    
+    static public int getNumPlayers() {
+        return numPlayers;
     }
     
     public Phase getPhase() {
         return phase;
+    }
+    
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }

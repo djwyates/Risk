@@ -98,6 +98,6 @@ public class TextLog {
     }
     
     static void SetFontsAndColors(int fontSize) throws FileNotFoundException, IOException, FontFormatException{
-        g.setFont( Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
     }
 }
