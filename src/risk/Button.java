@@ -16,8 +16,10 @@ import java.net.UnknownHostException;
 import static risk.Risk.g;
 
 public class Button {
+    Risk mainframe;
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
     static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
+    static private boolean mouseIsHolding=false;
     static private boolean muteOn = false;
     static private boolean onSingle = false;
     static private boolean onMulti = false;
@@ -27,6 +29,22 @@ public class Button {
     static private boolean onJoin = false;
     static private boolean onMute = false;
     static private boolean onBack = false;
+    static private boolean onsliderR = false;
+    static private boolean onsliderG = false;
+    static private boolean onsliderB = false;
+    //slider positions
+    static private int rsp[] = {63,283},gsp[] = {63,324},bsp[] = {63,365};
+    //min and max x for sliders
+    static private int min_slider = 63,max_slider = 375;
+    //slider distance from min_slider
+    static private int rsd,gsd,bsd;
+    //slider width/height used in hitbox
+    static private int sliderOffset = 15;
+    //Color of color sample
+    static private Color colorSample = Color.black;
+    //
+    static private final double disToRGB=0.8173;
+    
     
     static public void mouseClickHandler(Risk frame) {
         if (onSingle) { activateSingleButton(); }
@@ -38,11 +56,79 @@ public class Button {
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
     }
-    
+    static void setMouseIsHolding(){
+        if(mouseIsHolding)
+            mouseIsHolding=false;
+        else
+            mouseIsHolding=true;
+    }
+    static boolean getMouseIsHolding(){
+        return mouseIsHolding;
+    }
     static public void setupHandler(Risk frame, int x, int y) {
-        //if test for R, G, and B locations
-        //in each if test, set R, G, and B booleans to true
-        //else false
+        Color oColor = g.getColor();
+        g.setColor(Color.RED);
+        g.fillOval(rsp[0], rsp[1], 15, 15);
+        g.setColor(Color.GREEN);
+        g.fillOval(gsp[0], gsp[1], 15, 15);
+        g.setColor(Color.BLUE);
+        g.fillOval(bsp[0], bsp[1], 15, 15);
+        g.setColor(colorSample);
+        g.fillOval(30, 400, 355, 355);
+        g.setColor(oColor);
+        if(x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset){
+            System.out.println("r");
+            
+            onsliderR = true;
+            onsliderG = false;
+            onsliderB = false;
+        }
+        else if(x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset){
+            System.out.println("g");
+            onsliderR = false;
+            onsliderG = true;
+            onsliderB = false;
+        }
+        else if(x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset){
+            System.out.println("b");
+            onsliderR = false;
+            onsliderG = false;
+            onsliderB = true;
+        }
+        else{
+            onsliderR = false;
+            onsliderG = false;
+            onsliderB = false;
+        }
+        if(onsliderR){
+            rsp[0]=x-(sliderOffset/2);
+            if(rsp[0]<min_slider)
+                rsp[0]=min_slider;
+            if(rsp[0]>max_slider)
+                rsp[0]=max_slider;
+            
+            rsd=rsp[0]-min_slider;
+        }
+        if(onsliderG){
+            gsp[0]=x-(sliderOffset/2);
+            if(gsp[0]<min_slider)
+                gsp[0]=min_slider;
+            if(gsp[0]>max_slider)
+                gsp[0]=max_slider;
+            
+            gsd=gsp[0]-min_slider;
+        }
+        if(onsliderB){
+            bsp[0]=x-(sliderOffset/2);
+            if(bsp[0]<min_slider)
+                bsp[0]=min_slider;
+            if(bsp[0]>max_slider)
+                bsp[0]=max_slider;
+            
+            bsd=bsp[0]-min_slider;
+        }
+        //System.out.println(rsd + " " + gsd + " " + bsd);
+        colorSample = new Color((int)(rsd*disToRGB),(int)(gsd*disToRGB),(int)(bsd*disToRGB));
     }
     
     static public void mainHandler(Risk frame, int x, int y) {

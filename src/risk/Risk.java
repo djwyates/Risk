@@ -14,7 +14,7 @@ public class Risk extends JFrame implements Runnable
     public static Graphics2D g;
 
     Thread relaxer;
-    int mouseX, mouseY;
+    static int mouseX, mouseY;
     boolean bcActive=false;
     
     public static void main(String[] args) {
@@ -26,19 +26,19 @@ public class Risk extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                System.out.println(x + " " + y);
-                if(Titlescreen.gameIsStarted()&&bcActive){
-                    BorderCreator.startBorder(x, y);
-                }
-                else if(Titlescreen.gameIsStarted())
-                
-                repaint();
+                Button.setMouseIsHolding();
+//                if(Titlescreen.gameIsStarted()&&bcActive){
+//                    BorderCreator.startBorder(x, y);
+//                }
+                if(Titlescreen.gameIsStarted())    
+                    repaint();
             }
         });
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                Button.setMouseIsHolding();
                 if (e.BUTTON1 == e.getButton()) {
                     Titlescreen.mouseClickHandler(Window.currentFrame, e.getX(), e.getY());
                 }
