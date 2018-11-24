@@ -186,7 +186,8 @@ public class Gameplay {
                 }
                 else {
                     currentPlayer = players[i+1];
-                    TextLog.createStatement("-------Player " + i+2 + "'s turn------");
+                    int playerID = i+1;
+                    TextLog.createStatement("-------Player " + playerID + "'s turn------");
                     System.out.println(i);
                     switch (phase) {
                     case DEPLOY:
