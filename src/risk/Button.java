@@ -132,7 +132,7 @@ public class Button {
         if(runFirst){
             runFirst=false;
             for (int i = 0; i < 70; i++) {
-                playerColors.add(null);
+                playerColors.add(Player.getBlankColor());
             }
         }
         // Start button detection & drawing of text
@@ -366,9 +366,9 @@ public class Button {
     static private void activatePlayerInc() {
         if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers()){
             Titlescreen.addCustomizePlayerNum(1);
-            rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/disToRGB);
-            gsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getGreen())/disToRGB);
-            bsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getBlue())/disToRGB);
+            rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/disToRGB)+1;
+            gsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getGreen())/disToRGB)+1;
+            bsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getBlue())/disToRGB)+1;
             rsp[0]=min_slider+rsd;
             gsp[0]=min_slider+gsd;
             bsp[0]=min_slider+bsd;

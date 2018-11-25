@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Player {
     private static ArrayList<Player> players = new ArrayList<Player>();
+    private static Color blank = new Color(0,0,0,0);
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private ArrayList<Continent> ownedContinents = new ArrayList<Continent>();
     private int totalTroops = 0;
@@ -16,7 +17,7 @@ public class Player {
     Player() {
         players.add(this);
         for(Color c : Button.getPlayerColors()){
-            if(c==null){
+            if(c==blank){
                 color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
                 break;
             }
@@ -98,5 +99,9 @@ public class Player {
     
     public Color getColor() {
         return color;
+    }
+    
+    static Color getBlankColor(){
+        return blank;
     }
 }
