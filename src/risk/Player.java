@@ -5,14 +5,26 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Player {
+    private static ArrayList<Player> players = new ArrayList<Player>();
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private ArrayList<Continent> ownedContinents = new ArrayList<Continent>();
     private int totalTroops = 0;
     private int deployableTroops = 0;
     private Color color = null;
     
+    
     Player() {
-        color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+        players.add(this);
+        for(Color c : Button.getPlayerColors()){
+            if(Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
+                if(c==null){
+                    System.out.println("yeeeeee");
+                    color = new Color((int)Math.random()*255,(int)Math.random()*255,(int)Math.random()*255);
+                }
+                else 
+                    color = c;
+            }
+        }
     }
     
     // Mutator methods

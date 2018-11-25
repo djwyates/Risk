@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import static risk.Risk.g;
 
 public class Button {
@@ -51,6 +52,9 @@ public class Button {
     static private final double disToRGB=0.8175;
     //RGB values from conversion
     static private int RGB[] = {0,0,0};
+    //Array of colors to assign to players.
+    static private ArrayList<Color> playerColors = new ArrayList<Color>();
+    static private boolean runFirst = true;
     
     
     static public void mouseClickHandler(Risk frame, int x, int y) {
@@ -125,6 +129,12 @@ public class Button {
     }
     
     static public void setupHandler(int x, int y) throws FileNotFoundException, FontFormatException, IOException {
+        if(runFirst){
+            runFirst=false;
+            for (int i = 0; i < 70; i++) {
+                playerColors.add(null);
+            }
+        }
         // Start button detection & drawing of text
         if (x>447 && x<772 && y>599 && y<672) {
             onStart = true;
@@ -145,6 +155,7 @@ public class Button {
         else
             onPlus = false;
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.setColor(Color.white);
         g.drawString("" + Gameplay.getNumPlayers(), 300, 180);
         // Player color detection
         if (x>246 && x<278 && y>195 && y<235)
@@ -156,6 +167,7 @@ public class Button {
         else
             onPlayerInc = false;
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.setColor(Color.white);
         g.drawString("" + Titlescreen.getCustomizePlayerNum(), 300, 230);
         // Color sliders & oval
         g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,20));
@@ -202,9 +214,12 @@ public class Button {
                 bsp[0]=max_slider;
             bsd=bsp[0]-min_slider;
         }
-        //System.out.println(rsd + " " + gsd + " " + bsd);
         RGB[0]=(int)(rsd*disToRGB);RGB[1]=(int)(gsd*disToRGB);RGB[2]=(int)(bsd*disToRGB);
         colorSample = new Color(RGB[0],RGB[1],RGB[2]);
+        
+        
+        if(playerColors.get(Titlescreen.getCustomizePlayerNum()-1)!=colorSample)
+            playerColors.set(Titlescreen.getCustomizePlayerNum()-1, colorSample);
     }
     
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
@@ -337,13 +352,18 @@ public class Button {
     }
     
     static private void activatePlayerDec() {
-        if (Titlescreen.getCustomizePlayerNum()-1 >= 2 || Titlescreen.getCustomizePlayerNum()-1 == 1)
+        if (Titlescreen.getCustomizePlayerNum()-1 >= 2 || Titlescreen.getCustomizePlayerNum()-1 == 1){
             Titlescreen.addCustomizePlayerNum(-1);
+        }
     }
     
     static private void activatePlayerInc() {
-        if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers())
+        if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers()){
             Titlescreen.addCustomizePlayerNum(1);
+        }
+    }
+    static ArrayList<Color> getPlayerColors(){
+        return playerColors;
     }
     
     static public void drawMute(Risk frame, int x, int y) {
