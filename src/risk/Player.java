@@ -18,11 +18,12 @@ public class Player {
         for(Color c : Button.getPlayerColors()){
             if(Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
                 if(c==null){
-                    System.out.println("yeeeeee");
-                    color = new Color((int)Math.random()*255,(int)Math.random()*255,(int)Math.random()*255);
+                    color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
                 }
-                else 
+                else {
                     color = c;
+                }
+                break;
             }
         }
     }
