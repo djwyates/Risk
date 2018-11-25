@@ -16,13 +16,12 @@ public class Player {
     Player() {
         players.add(this);
         for(Color c : Button.getPlayerColors()){
-            if(Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
-                if(c==Color.black){
-                    color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
-                }
-                else {
-                    color = c;
-                }
+            if(c==null){
+                color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+                break;
+            }
+            else if(Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
+                color = c;
                 break;
             }
         }

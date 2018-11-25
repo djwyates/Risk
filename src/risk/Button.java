@@ -132,7 +132,7 @@ public class Button {
         if(runFirst){
             runFirst=false;
             for (int i = 0; i < 70; i++) {
-                playerColors.add(Color.black);
+                playerColors.add(null);
             }
         }
         // Start button detection & drawing of text
