@@ -132,7 +132,7 @@ public class Button {
         if(runFirst){
             runFirst=false;
             for (int i = 0; i < 70; i++) {
-                playerColors.add(null);
+                playerColors.add(Color.black);
             }
         }
         // Start button detection & drawing of text
@@ -354,12 +354,24 @@ public class Button {
     static private void activatePlayerDec() {
         if (Titlescreen.getCustomizePlayerNum()-1 >= 2 || Titlescreen.getCustomizePlayerNum()-1 == 1){
             Titlescreen.addCustomizePlayerNum(-1);
+            rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/disToRGB);
+            gsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getGreen())/disToRGB);
+            bsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getBlue())/disToRGB);
+            rsp[0]=min_slider+rsd;
+            gsp[0]=min_slider+gsd;
+            bsp[0]=min_slider+bsd;
         }
     }
     
     static private void activatePlayerInc() {
         if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers()){
             Titlescreen.addCustomizePlayerNum(1);
+            rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/disToRGB);
+            gsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getGreen())/disToRGB);
+            bsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getBlue())/disToRGB);
+            rsp[0]=min_slider+rsd;
+            gsp[0]=min_slider+gsd;
+            bsp[0]=min_slider+bsd;
         }
     }
     static ArrayList<Color> getPlayerColors(){
