@@ -145,15 +145,10 @@ public class Gameplay {
                 case "1":
                 case "2":
                 case "3":
-                    int troopsLeft = Country.getSelectedList()[0].getNumTroops() - Country.getSelectedList()[1].getNumTroops();
-                    if (troopsLeft <= 0) { // if they lost
-                        Country.getSelectedList()[0].setNumTroops(1);
-                        Country.getSelectedList()[1].setNumTroops(Math.abs(troopsLeft));
-                    }
-                    else { // if they won
-                        Country.getSelectedList()[0].setNumTroops(1);
-                        Country.getSelectedList()[1].setNumTroops(troopsLeft);
-                        Player.transferCountryOwnership(Country.getSelectedList()[1].getOwner(), currentPlayer, Country.getSelectedList()[1]);
+                    if (currentPlayer == battleTroops()) { // if current player won
+                        currentPlayer.addCountry(Country.getSelectedList()[1]);
+                        Country.getSelectedList()[0] = Country.getSelectedList()[1];
+                        Country.getSelectedList()[1] = null;
                     }
                     break;
             }
@@ -278,6 +273,23 @@ public class Gameplay {
             }
             countryNum = 1;
         }
+    }
+    
+    private Player battleTroops() { //returns the winner
+        int offensivePlayerRoll;
+        int defensivePlayerRoll;
+        do {
+            if (Country.getSelectedList()[1].getNumTroops() == 0)
+                return currentPlayer;
+            offensivePlayerRoll = (int)(Math.random()*6+1);
+            defensivePlayerRoll = (int)(Math.random()*6+1);
+            if (offensivePlayerRoll > defensivePlayerRoll)
+                Country.getSelectedList()[1].addNumTroops(-1);
+            else
+                Country.getSelectedList()[0].addNumTroops(-1);
+        }
+        while(Country.getSelectedList()[0].getNumTroops() > 1);
+        return Country.getSelectedList()[1].getOwner();
     }
     
     static public void addNumPlayers(int inc) {

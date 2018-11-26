@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static risk.Risk.g;
 
 public class Titlescreen {
@@ -26,7 +24,7 @@ public class Titlescreen {
     static private boolean setupActive = false;
     static private boolean instructionsActive = false;
     static private boolean startedGame = false;
-    static private int customizePlayerNum = 2;
+    static private int customizePlayerNum = 1;
     
     static void reset() {
         MENU_SOUNDS.clearSounds();

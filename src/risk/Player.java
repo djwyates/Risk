@@ -29,10 +29,10 @@ public class Player {
     }
     
     // Mutator methods
-    static public void transferCountryOwnership(Player previousOwner, Player newOwner, Country country) {
-        previousOwner.ownedCountries.remove(country);
-        newOwner.ownedCountries.add(country);
-        country.setOwner(newOwner);
+    public void addCountry(Country country) {
+        ownedCountries.add(country);
+        country.getOwner().ownedCountries.remove(country);
+        country.setOwner(this);
     }
     
     public void addTerritory(Country country) {
