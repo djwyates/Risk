@@ -161,6 +161,7 @@ public class Gameplay {
                         //deselects all countries
                         Country.getSelectedList()[0] = null;
                         Country.getSelectedList()[1] = null;
+                        Country.changeTroopCounter();
                     }
                     break;
             }
