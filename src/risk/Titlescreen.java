@@ -70,12 +70,14 @@ public class Titlescreen {
 //        else { 
 //        }
         
-            if(!InstuctionsConnected){
+           // if(!InstuctionsConnected){
             g.setColor(Color.cyan);
             g.fillRect(0, 0, Window.MENU_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
-            InstuctionsConnected = false;
-        }
-            
+           // InstuctionsConnected = false;
+      //  }
+            g.setColor(Color.black);
+            g.setFont(new Font("Arial",Font.PLAIN,50));
+            g.drawString("Risk Rules",25,500);         
             
     }
         
