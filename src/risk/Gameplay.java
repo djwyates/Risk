@@ -145,6 +145,8 @@ public class Gameplay {
                     if (currentPlayer == battleTroops()) { // if current player won
                         //transfers country ownership to the current player from the defending player
                         currentPlayer.addCountry(Country.getSelectedList()[1]);
+                        //makes all countries' troop counters normal
+                        Country.changeTroopCounter();
                         //transfers all but 1 troop into conquered country
                         Country.getSelectedList()[1].setNumTroops(Country.getSelectedList()[0].getNumTroops()-1);
                         Country.getSelectedList()[0].setNumTroops(1);

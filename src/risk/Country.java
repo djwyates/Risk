@@ -11,7 +11,7 @@ import static risk.Risk.g;
 
 
 public class Country {
-    static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
+    private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
     static private Country[] currentlySelected = new Country[2];// [0] is the owner's [1] is the enemy's // change this to encompass more than two players!
     static private Country onMouse;
     static private Country recentlyHovered;
@@ -36,20 +36,25 @@ public class Country {
         switch (phase) {
             case DEPLOY:
                 for (Country country : currentlySelected) {
-                    if (country != null)
+                    if (country != null){
                         country.drawBoundary(Color.white);
+                    }
                 }
                 break;
             case ATTACK:
                 if (currentlySelected[0] != null) {
                     currentlySelected[0].drawBoundary(Color.white);
                     for (Country neighboringCountry : currentlySelected[0].neighboringCountries) {
-                        if (neighboringCountry.owner != Titlescreen.getGame().getCurrentPlayer())
+                        if (neighboringCountry.owner != Titlescreen.getGame().getCurrentPlayer()){
                             neighboringCountry.drawBoundary(Color.red);
+                            neighboringCountry.troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
+                        }
                     }
                 }
-                if (currentlySelected[1] != null)
-                    currentlySelected[1].drawBoundary(new Color(124, 10, 2));
+                if (currentlySelected[1] != null){
+                    currentlySelected[1].drawBoundary(new Color(255, 124, 0));
+                    currentlySelected[1].troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./ClashedSwords.png");
+                }
                 break;
             case FORTIFY:
                 break;
@@ -58,10 +63,17 @@ public class Country {
     
     static public void drawAllTroopCounters() {
         for (Country country : RiskMap.getCountryList()) {
-            g.drawImage(troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
+            g.drawImage(country.troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
             country.drawTroopAmount(country.centerX,country.centerY);
         }
     }
+    
+    public static void changeTroopCounter(){
+        for(Country country : RiskMap.getCountryList()) {
+            country.troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
+        }
+    }
+    
     public void drawTroopAmount(int x, int y) {
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
