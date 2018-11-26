@@ -12,7 +12,7 @@ import static risk.Risk.g;
 
 public class Country {
     static private Image troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-    static private Country[] currentlySelected = new Country[2];// [0] is the owner's [1] is the enemy's
+    static private Country[] currentlySelected = new Country[2];// [0] is the owner's [1] is the enemy's // change this to encompass more than two players!
     static private Country onMouse;
     static private Country recentlyHovered;
     // instance variables
@@ -65,7 +65,10 @@ public class Country {
     public void drawTroopAmount(int x, int y) {
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
+        if(numTroops<10)
         g.drawString(""+numTroops, x+19, y+33);
+        else
+        g.drawString(""+numTroops, x+14, y+33);
     }
     
     public void drawNameOnMouse(int x, int y) {
