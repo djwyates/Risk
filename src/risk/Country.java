@@ -84,10 +84,11 @@ public class Country {
     // Handler methods
     public void mouseInCountryHandler(Gameplay.Phase phase) {
         selectedByHoverHandler(phase);
-        if (shouldHover)
+        if (shouldHover) {
             drawBoundary(Color.white);
-        if (shouldHover && recentlyHovered != this)
-            Titlescreen.getMenuSounds().play("terr_noise.wav");
+            if (recentlyHovered != this)
+                Titlescreen.getMenuSounds().play("terr_noise.wav");
+        }
         recentlyHovered = this;
     }
     
@@ -96,10 +97,14 @@ public class Country {
             case DEPLOY:
                 if (owner == Titlescreen.getGame().getCurrentPlayer())
                     shouldHover = true;
+                else
+                    shouldHover = false;
                 break;
             case ATTACK:
-                if (owner == Titlescreen.getGame().getCurrentPlayer())
+                if (owner == Titlescreen.getGame().getCurrentPlayer() && numTroops > 1)
                     shouldHover = true;
+                else
+                    shouldHover = false;
                 break;
             case FORTIFY:
                 break;
@@ -107,7 +112,6 @@ public class Country {
     }
     
     public void selectedByClickHandler(Gameplay.Phase phase) {
-        Gameplay game = Titlescreen.getGame();
         switch (phase) {
             case DEPLOY:
                 if (currentlySelected[0] == this)
@@ -116,18 +120,18 @@ public class Country {
                     currentlySelected[0] = this;
                 break;
             case ATTACK:
-                if (game.getCurrentPlayer() == owner) {
-                    if (currentlySelected[0] == this) {
+                if (Titlescreen.getGame().getCurrentPlayer() == owner) {
+                    if (currentlySelected[0] == this) { //deselects your country
                         currentlySelected[0] = null;
                         currentlySelected[1] = null;
-                    } else {
+                    } else if (numTroops > 1) { //selects your country
                         currentlySelected[0] = this;
                         currentlySelected[1] = null;
                     }
                 } else {
-                    if (currentlySelected[1] == this)
+                    if (currentlySelected[1] == this) //deselects attackable enemy country
                         currentlySelected[1] = null;
-                    else if (currentlySelected[0] != null)
+                    else if (currentlySelected[0] != null) //selects attackable enemy country
                         currentlySelected[1] = this;
                 }
                 break;
@@ -139,13 +143,10 @@ public class Country {
     static public void switchedTurnHandler(Gameplay.Phase phase) {
         switch (phase) {
             case DEPLOY:
-                for (Country country : RiskMap.getCountryList())
-                    country.shouldHover = false;
                 currentlySelected[0] = null;
+                currentlySelected[1] = null;
                 break;
             case ATTACK:
-                for (Country country : RiskMap.getCountryList())
-                    country.shouldHover = false;
                 currentlySelected[0] = null;
                 currentlySelected[1] = null;
                 break;

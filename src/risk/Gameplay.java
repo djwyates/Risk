@@ -136,18 +136,28 @@ public class Gameplay {
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
             if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
-                TextLog.createStatement("How many troops would you",Phase.ATTACK);
-                TextLog.createStatement("like to attack " + clickedCountry.getName() + " with?",Phase.ATTACK);
+                TextLog.createStatement("Press enter to attack " + Country.getSelectedList()[0].getName(),Phase.ATTACK);
             }
         }
         else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
             switch (key) {
-                case "1":
-                case "2":
-                case "3":
+                case "enter":
                     if (currentPlayer == battleTroops()) { // if current player won
+                        //transfers country ownership to the current player from the defending player
                         currentPlayer.addCountry(Country.getSelectedList()[1]);
-                        Country.getSelectedList()[0] = Country.getSelectedList()[1];
+                        //transfers all but 1 troop into conquered country
+                        Country.getSelectedList()[1].setNumTroops(Country.getSelectedList()[0].getNumTroops()-1);
+                        Country.getSelectedList()[0].setNumTroops(1);
+                        //selects the conquered country if it has more than 1 troop
+                        if (Country.getSelectedList()[1].getNumTroops() > 1)
+                            Country.getSelectedList()[0] = Country.getSelectedList()[1];
+                        else
+                            Country.getSelectedList()[0] = null;
+                        Country.getSelectedList()[1] = null;
+                    }
+                    else { //if current player lost
+                        //deselects all countries
+                        Country.getSelectedList()[0] = null;
                         Country.getSelectedList()[1] = null;
                     }
                     break;
@@ -278,17 +288,19 @@ public class Gameplay {
     private Player battleTroops() { //returns the winner
         int offensivePlayerRoll;
         int defensivePlayerRoll;
-        do {
-            if (Country.getSelectedList()[1].getNumTroops() == 0)
-                return currentPlayer;
-            offensivePlayerRoll = (int)(Math.random()*6+1);
-            defensivePlayerRoll = (int)(Math.random()*6+1);
-            if (offensivePlayerRoll > defensivePlayerRoll)
-                Country.getSelectedList()[1].addNumTroops(-1);
-            else
-                Country.getSelectedList()[0].addNumTroops(-1);
+        if (Country.getSelectedList()[0].getNumTroops() > 1) {
+            do {
+                if (Country.getSelectedList()[1].getNumTroops() == 0)
+                    return currentPlayer;
+                offensivePlayerRoll = (int)(Math.random()*6+1);
+                defensivePlayerRoll = (int)(Math.random()*6+1);
+                if (offensivePlayerRoll > defensivePlayerRoll)
+                    Country.getSelectedList()[1].addNumTroops(-1);
+                else
+                    Country.getSelectedList()[0].addNumTroops(-1);
+            }
+            while(Country.getSelectedList()[0].getNumTroops() > 1);
         }
-        while(Country.getSelectedList()[0].getNumTroops() > 1);
         return Country.getSelectedList()[1].getOwner();
     }
     
