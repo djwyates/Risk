@@ -57,12 +57,11 @@ public class Titlescreen {
         Button.setupHandler(x, y);
     }
     
-    static private void instructionsHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
+    static private void instructionsHandler(int x, int y,Risk frame)throws FileNotFoundException, FontFormatException, IOException {
         if(Connect.gameStarted()==false) {
-            g.drawImage(INSTRUCTIONS_BACKGROUND_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-            g.drawImage(INSTRUCTIONS_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
-            Button.instructionsHandler(frame, x, y);
+            
         }
+        
         else { // If connected
             // implement map drawing and gameplay
         }
