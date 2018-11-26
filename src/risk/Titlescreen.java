@@ -1,7 +1,7 @@
 
 package risk;
 
-
+import java.awt.*;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import static risk.Risk.g;
 
 public class Titlescreen {
+    static private boolean InstuctionsConnected ;
     static private final SoundManager MENU_SOUNDS = new SoundManager();
     static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
@@ -27,6 +28,7 @@ public class Titlescreen {
     static private int customizePlayerNum = 1;
     
     static void reset() {
+        InstuctionsConnected = true;
         MENU_SOUNDS.clearSounds();
         MENU_SOUNDS.addSound("titlemusic.wav");
         MENU_SOUNDS.addSound("swordClashTitleScreen.wav");
@@ -40,8 +42,8 @@ public class Titlescreen {
             mainHandler(x, y, frame);
         else if (setupActive)
             setupHandler(x, y, frame);
-        else if (instructionsActive)
-            instructionsHandler(x, y, frame);
+//        else if (instructionsActive)
+//            instructionsHandler(x, y, frame);
         else if (startedGame)
             game.drawAndSoundHandler(frame, x, y);
     }
@@ -56,16 +58,28 @@ public class Titlescreen {
         g.drawImage(SETUP_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         Button.setupHandler(x, y);
     }
-    
-    static private void instructionsHandler(int x, int y,Risk frame)throws FileNotFoundException, FontFormatException, IOException {
-        if(Connect.gameStarted()==false) {
-            
-        }
-        
-        else { // If connected
-            // implement map drawing and gameplay
-        }
+    //////////////////////////////////////////////////////////////////////////
+    static public void instructionsHand(int x, int y,Graphics2D g)throws FileNotFoundException, FontFormatException, IOException{
+        if(instructionsActive)
+        instructionsHandler(x,y,g);
     }
+    //////////////////////////////////////////////////////////////////////////
+    static private void instructionsHandler(int x, int y,Graphics2D g)throws FileNotFoundException, FontFormatException, IOException {
+//        if(Connect.gameStarted()==false) {     
+//        }
+//        else { 
+//        }
+        
+            if(!InstuctionsConnected){
+            g.setColor(Color.cyan);
+            g.fillRect(0, 0, Window.MENU_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
+            InstuctionsConnected = false;
+        }
+            
+            
+    }
+        
+    
     
     static public void startGame(Risk frame) {
         game = new Gameplay(frame);

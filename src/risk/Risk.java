@@ -173,8 +173,10 @@ public class Risk extends JFrame implements Runnable
         g.fillPolygon(x, y, 4);
         
         try  {
-            if (Titlescreen.isActive())
-                Titlescreen.titlescreenHandler(this, mouseX, mouseY);
+            if (Titlescreen.isActive()){
+                    Titlescreen.titlescreenHandler(this, mouseX, mouseY);
+                    Titlescreen.instructionsHand(mouseX, mouseY, g);
+            }
             else
                 Titlescreen.getGame().drawAndSoundHandler(this, mouseX, mouseY);
         } catch (FontFormatException ex) {
@@ -182,6 +184,7 @@ public class Risk extends JFrame implements Runnable
         } catch (IOException ex) {
             Logger.getLogger(Risk.class.getName()).log(Level.SEVERE, null, ex);
         }
+         
         
 //        if(bcActive)
 //            BorderCreator.drawLines(mouseX, mouseY, g);
@@ -229,9 +232,10 @@ public class Risk extends JFrame implements Runnable
             }
             reset();
         }
+                
     }
 
-    // //////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     public void start() {
         if (relaxer == null) {
             relaxer = new Thread(this);
@@ -239,7 +243,7 @@ public class Risk extends JFrame implements Runnable
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     public void stop() {
         if (relaxer.isAlive()) {
             relaxer.stop();
