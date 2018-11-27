@@ -129,6 +129,8 @@ public class Country {
     public void selectedByClickHandler(Gameplay.Phase phase) {
         switch (phase) {
             case DEPLOY:
+                if (Titlescreen.getGame().getCurrentPlayer() != owner)
+                    return;
                 if (currentlySelected[0] == this)
                     currentlySelected[0] = null;
                 else
@@ -151,6 +153,17 @@ public class Country {
                 }
                 break;
             case FORTIFY:
+                if (Titlescreen.getGame().getCurrentPlayer() != owner)
+                    return;
+                if (currentlySelected[0] == this) {
+                    currentlySelected[0] = null;
+                    currentlySelected[1] = null;
+                } else if (currentlySelected[0] == null)
+                    currentlySelected[0] = this;
+                else if (currentlySelected[1] == this)
+                    currentlySelected[1] = null;
+                else if (currentlySelected[1] == null)
+                    currentlySelected[1] = this;
                 break;
         }
     }
