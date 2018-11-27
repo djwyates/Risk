@@ -15,12 +15,11 @@ public class TextLog {
     static public enum Colors { DEPLOY, ATTACK, FORTIFY, SYSTEM }
     private static String input = "";
     private static ArrayList<TextLog> statements = new ArrayList<TextLog>();
-    private static Color deployColor = new Color(0,100,0,255);
-    private static Color attackColor = new Color(139,0,0,255);
-    private static Color fortifyColor = new Color(25,25,112,255);
-    private static Color systemColor = new Color(47,79,79,255);
-    private static Color inputColor = systemColor;
-    private static int startPos[] = {20,855};
+    private static Color systemColor  = new Color(47,79,79),
+                         deployColor  = new Color(0,100,0),
+                         attackColor  = new Color(139,0,0),  
+                         fortifyColor = new Color(25,25,112),
+                         inputColor   = systemColor;
     private String statement;
     private Color color;
     private int x;
@@ -40,11 +39,14 @@ public class TextLog {
                     color = fortifyColor;
                     break;
             }
+        
+            
         statement=s;
-        x=startPos[0];
-        y=startPos[1];
+        x=20;
+        y=855;
         for(int i=0;i<statements.size();i++){
             statements.get(i).y-=35;
+            System.out.println(statements.get(i).color.getAlpha() + " alpha " + i );
             statements.get(i).color = new Color(statements.get(i).color.getRed(),statements.get(i).color.getGreen(),statements.get(i).color.getBlue(),statements.get(i).color.getAlpha()-15);
         }
     }
@@ -53,7 +55,6 @@ public class TextLog {
         TextLog s = new TextLog(str,p);
         statements.add(s);
     }
-    
     static void drawStatements(Graphics2D g) throws FontFormatException, IOException{
         //Storing old sets for colors,text,etc
         Color oColor = g.getColor();
