@@ -18,6 +18,7 @@ public class Gameplay {
     private Player currentPlayer;
     private Country clickedCountry;
     private int deployAmount;
+    private int fortifyAmount;
     
     Gameplay(Risk frame) {
         // Handles drawing & window
@@ -88,11 +89,8 @@ public class Gameplay {
     }
     
     private void deployPhaseHandler(int x, int y, String key) {
-        if (key.equals("none")) {
-            if (clickedCountry.getOwner() == currentPlayer) {
-                clickedCountry.selectedByClickHandler(phase);
-            }
-        }
+        if (key.equals("none"))
+            clickedCountry.selectedByClickHandler(phase);
         else if (Country.getSelectedList()[0] != null) {
             switch (key) {
                 case "0":
@@ -180,7 +178,40 @@ public class Gameplay {
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {
-        
+        if (key.equals("none"))
+            clickedCountry.selectedByClickHandler(phase);
+        else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
+            switch (key) {
+                case "0":
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    if (fortifyAmount*10+Integer.parseInt(key) <= Country.getSelectedList()[0].getNumTroops()) {
+                        fortifyAmount = fortifyAmount*10+Integer.parseInt(key);
+                        TextLog.addToInput(key);
+                    }
+                    break;
+                case "backspace":
+                    fortifyAmount = (int)fortifyAmount/10;
+                    TextLog.removeOneInput();
+                    break;
+                case "enter":
+                    if (fortifyAmount > 0) {
+                        Country.getSelectedList()[0].addNumTroops(-fortifyAmount);
+                        Country.getSelectedList()[1].addNumTroops(fortifyAmount);
+                        TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), phase);
+                        TextLog.createStatement("Changing turns to the next player.", null);
+                    }
+                    TextLog.clearInput();
+                    break;
+            }
+        }
     }
     
     private void deployPhaseInit() {
@@ -196,6 +227,7 @@ public class Gameplay {
     
     private void fortifyPhaseInit() {
         phase = Phase.FORTIFY;
+        fortifyAmount = 0;
     }
     
     private void switchTurnHandler() {
