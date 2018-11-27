@@ -20,7 +20,7 @@ public class RiskMap {
         // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK)
             Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
-        // Draws current phase name
+        // Draws current phase name  
         drawPhase(850, 800, 260, 100, frame);
         // Draws troop counters
         Country.drawAllTroopCounters();

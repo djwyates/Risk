@@ -9,13 +9,14 @@ public class Player {
     private static Color blank = new Color(0,0,0,0);
     private ArrayList<Country> ownedCountries = new ArrayList<Country>();
     private ArrayList<Continent> ownedContinents = new ArrayList<Continent>();
-    private int totalTroops = 0;
-    private int deployableTroops = 0;
-    private Color color = null;
+    private int totalTroops;
+    private int deployableTroops;
+    private Color color;
     
     
     Player() {
         players.add(this);
+        System.out.println(players.size());
         for(Color c : Button.getPlayerColors()){
             if(c==blank && Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
                 color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
