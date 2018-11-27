@@ -146,7 +146,7 @@ public class Country {
                 } else {
                     if (currentlySelected[1] == this) //deselects attackable enemy country
                         currentlySelected[1] = null;
-                    else if (currentlySelected[0] != null) //selects attackable enemy country
+                    else if (currentlySelected[0] != null && currentlySelected[0].isNeighboringEnemy(this)) //selects attackable enemy country
                         currentlySelected[1] = this;
                 }
                 break;

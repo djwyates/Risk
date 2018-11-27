@@ -14,7 +14,7 @@ public class RiskMap {
     static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
-    static public void draw(Risk frame, int x, int y, Gameplay.Phase phase) throws FontFormatException, IOException {
+    static public void draw(Risk frame, int mouseX, int mouseY, Gameplay.Phase phase) throws FontFormatException, IOException {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws current phase name
@@ -22,12 +22,16 @@ public class RiskMap {
         // Draws troop counters
         Country.drawAllTroopCounters();
         // Draws back button
-        Button.drawBack(frame, 0, Window.YTITLE, x, y);
+        Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
+        // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
+        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
+        Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
+        }
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
         // Draws current country name by mouse pointer
         if (Country.getCountryOnMouse() != null)
-            Country.getCountryOnMouse().drawNameOnMouse(x, y);
+            Country.getCountryOnMouse().drawNameOnMouse(mouseX, mouseY);
         // Draws input in TextLog
         TextLog.drawInput(g);
         TextLog.drawStatements(g);
