@@ -47,13 +47,11 @@ public class Country {
                     for (Country neighboringCountry : currentlySelected[0].neighboringCountries) {
                         if (neighboringCountry.owner != Titlescreen.getGame().getCurrentPlayer()){
                             neighboringCountry.drawBoundary(Color.red);
-                            neighboringCountry.troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
                         }
                     }
                 }
-                if (currentlySelected[1] != null){
+                if (currentlySelected[1] != null) {
                     currentlySelected[1].drawBoundary(new Color(255, 124, 0));
-                    currentlySelected[1].troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./ClashedSwords.png");
                 }
                 break;
             case FORTIFY:
@@ -157,6 +155,8 @@ public class Country {
                     currentlySelected[0] = this;
                 break;
             case ATTACK:
+                if (currentlySelected[1] != null)
+                    currentlySelected[1].troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
                 if (Titlescreen.getGame().getCurrentPlayer() == owner) {
                     if (currentlySelected[0] == this) { //deselects your country
                         currentlySelected[0] = null;
@@ -166,10 +166,12 @@ public class Country {
                         currentlySelected[1] = null;
                     }
                 } else {
-                    if (currentlySelected[1] == this) //deselects attackable enemy country
+                    if (currentlySelected[1] == this) { //deselects attackable enemy country
                         currentlySelected[1] = null;
-                    else if (currentlySelected[0] != null && currentlySelected[0].isNeighboringEnemy(this)) //selects attackable enemy country
+                    } else if (currentlySelected[0] != null && currentlySelected[0].isNeighboringEnemy(this)) { //selects attackable enemy country
                         currentlySelected[1] = this;
+                        troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./ClashedSwords.png");
+                    }
                 }
                 break;
             case FORTIFY:

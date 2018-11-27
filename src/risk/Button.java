@@ -357,7 +357,6 @@ public class Button {
     static private void activatePlusButton() {
         if (Gameplay.getNumPlayers()+1 <= 70){
             Gameplay.addNumPlayers(1);
-            
         }
     }
     
@@ -431,7 +430,7 @@ public class Button {
     static private boolean detectFortify(int x, int y) {
         int xBoundaryPos[] = {319,390,390,319};
         int yBoundaryPos[] = {830,830,881,881};
-        Polygon fBoundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
-        return(fBoundary.contains(x, y));
+        Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
+        return(boundary.contains(x, y));
     }
 }
