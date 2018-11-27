@@ -68,7 +68,7 @@ public class Button {
         else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
-        else if (onFortify) { activateFortifyButton(frame); }
+        else if (onFortify) { activateFortifyButton(); }
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
         else if (onPlus) { activatePlusButton(); }
@@ -336,9 +336,9 @@ public class Button {
         Titlescreen.activateMain();
     }
     
-    static private void activateFortifyButton(Risk frame) {
-        Gameplay.switchTurnAccessor();
-        System.out.println("Fortify activated");
+    static private void activateFortifyButton() {
+        Titlescreen.getGame().switchTurnHandler();
+        onFortify = false;
     }
     
     static private void activateStartButton(Risk frame) {

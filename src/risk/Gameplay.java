@@ -12,7 +12,6 @@ public class Gameplay {
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
     static private int numPlayers = 2;
     private Phase phase;
-    public static boolean changeToFortify = false;
     private RiskMap riskMap = null; // Purpose of this?
     private Player players[];
     private Player currentPlayer;
@@ -37,11 +36,6 @@ public class Gameplay {
         deployPhaseInit();
         // Handles other classes
         Titlescreen.startedGame();
-    }
-    
-    public static void switchTurnAccessor(){ // The boolean is inneffient, but in order to do the other method the current player needs to be accessible to a private circumstance
-        changeToFortify=true;
-//      getCurrentPlayer().switchTurnHandler();  
     }
     
     public void drawAndSoundHandler(Risk frame, int x, int y) {
@@ -89,9 +83,9 @@ public class Gameplay {
     }
     
     private void deployPhaseHandler(int x, int y, String key) {
-        if (key.equals("none"))
+        if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
-        else if (Country.getSelectedList()[0] != null) {
+        } else if (Country.getSelectedList()[0] != null) {
             switch (key) {
                 case "0":
                 case "1":
@@ -137,10 +131,6 @@ public class Gameplay {
     }
     
     private void attackPhaseHandler(int x, int y, String key) {
-        if(changeToFortify){
-            TextLog.createStatement("Switching to attack phase.",null);
-            switchTurnHandler();
-        }
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
             if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
@@ -178,9 +168,9 @@ public class Gameplay {
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {
-        if (key.equals("none"))
+        if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
-        else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
+        } else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
             switch (key) {
                 case "0":
                 case "1":
@@ -192,7 +182,7 @@ public class Gameplay {
                 case "7":
                 case "8":
                 case "9":
-                    if (fortifyAmount*10+Integer.parseInt(key) <= Country.getSelectedList()[0].getNumTroops()) {
+                    if (fortifyAmount*10+Integer.parseInt(key) <= Country.getSelectedList()[0].getNumTroops()-1) {
                         fortifyAmount = fortifyAmount*10+Integer.parseInt(key);
                         TextLog.addToInput(key);
                     }
@@ -207,6 +197,7 @@ public class Gameplay {
                         Country.getSelectedList()[1].addNumTroops(fortifyAmount);
                         TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), phase);
                         TextLog.createStatement("Changing turns to the next player.", null);
+                        switchTurnHandler();
                     }
                     TextLog.clearInput();
                     break;
@@ -230,7 +221,7 @@ public class Gameplay {
         fortifyAmount = 0;
     }
     
-    private void switchTurnHandler() {
+    public void switchTurnHandler() {
         Country.getSelectedList()[0] = null;
         Country.getSelectedList()[1] = null;
         for (int i=0;i<players.length;i++) {

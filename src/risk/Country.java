@@ -57,6 +57,10 @@ public class Country {
                 }
                 break;
             case FORTIFY:
+                if (currentlySelected[0] != null)
+                    currentlySelected[0].drawBoundary(Color.white);
+                if (currentlySelected[1] != null)
+                    currentlySelected[1].drawBoundary(Color.blue);
                 break;
         }
     }
@@ -100,7 +104,19 @@ public class Country {
     public void mouseInCountryHandler(Gameplay.Phase phase) {
         selectedByHoverHandler(phase);
         if (shouldHover) {
-            drawBoundary(Color.white);
+            switch (phase) {
+                case DEPLOY:
+                    drawBoundary(Color.white);
+                    break;
+                case ATTACK:
+                    drawBoundary(Color.white);
+                    break;
+                case FORTIFY:
+                    if (currentlySelected[0] != null && this != currentlySelected[0])
+                        drawBoundary(Color.blue);
+                    else
+                        drawBoundary(Color.white);
+            }
             if (recentlyHovered != this)
                 Titlescreen.getMenuSounds().play("terr_noise.wav");
         }
@@ -122,6 +138,10 @@ public class Country {
                     shouldHover = false;
                 break;
             case FORTIFY:
+                if (owner == Titlescreen.getGame().getCurrentPlayer())
+                    shouldHover = true;
+                else
+                    shouldHover = false;
                 break;
         }
     }
@@ -158,12 +178,14 @@ public class Country {
                 if (currentlySelected[0] == this) {
                     currentlySelected[0] = null;
                     currentlySelected[1] = null;
-                } else if (currentlySelected[0] == null)
-                    currentlySelected[0] = this;
-                else if (currentlySelected[1] == this)
+                } else if (currentlySelected[0] == null) {
+                    if (numTroops > 1)
+                        currentlySelected[0] = this;
+                } else if (currentlySelected[1] == this) {
                     currentlySelected[1] = null;
-                else if (currentlySelected[1] == null)
+                } else {
                     currentlySelected[1] = this;
+                }
                 break;
         }
     }
@@ -179,6 +201,8 @@ public class Country {
                 currentlySelected[1] = null;
                 break;
             case FORTIFY:
+                currentlySelected[0] = null;
+                currentlySelected[1] = null;
                 break;
         }
     }

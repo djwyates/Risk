@@ -17,16 +17,15 @@ public class RiskMap {
     static public void draw(Risk frame, int mouseX, int mouseY, Gameplay.Phase phase) throws FontFormatException, IOException {
         // Draws map
         g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
+        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK)
+            Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
         // Draws current phase name
         drawPhase(850, 800, 260, 100, frame);
         // Draws troop counters
         Country.drawAllTroopCounters();
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
-        // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
-        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
-        Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
-        }
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
         // Draws current country name by mouse pointer
