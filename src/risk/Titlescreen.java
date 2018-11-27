@@ -91,19 +91,23 @@ public class Titlescreen {
             g.setFont(new Font("Arial",Font.PLAIN,40));
             g.drawString("Attacking",50,130);         
     //2nd Sentence (Attacking Rules)
-             g.setColor(Color.white);   
+            g.setColor(Color.white);   
             g.setFont(new Font("Arial",Font.PLAIN,17));
             g.drawString(".  The object of an attack is to capture a territory by defeating all the opposing armies already on it",50,160);         
     //3rd Sentence ()
-            g.drawString(".   If the defender's troops are higher than yours, you lose",50,190);         
+            g.drawString(".  You can only attack territories adjacent to you. ",50,220);    
     //4th Sentence ()
-            g.drawString(".",50,220);         
+            g.drawString(".   If the defender's troops are higher than yours, you lose",50,190);         
     //5th Sentence ()
-            g.drawString(".",50,250);         
+            g.drawString(".  After an attack, the player can decide to attack again or pass.",50,250);         
     //6th Sentence ()
-            g.drawString(".",50,280);         
+            g.setColor(Color.green);
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Deploy",50,290);              
     //7th Sentence ()
-            g.drawString(".",50,310);         
+            g.setColor(Color.white);   
+            g.setFont(new Font("Arial",Font.PLAIN,17));
+            g.drawString(". The More Players you decide to have, the less troops you can deploy",50,310);         
     //8th Sentence ()
             g.drawString(".",50,340);         
     //9th Sentence ()
