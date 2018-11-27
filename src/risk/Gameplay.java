@@ -26,8 +26,10 @@ public class Gameplay {
         Window.changeWindow(frame, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
         // Handles players
         players = new Player[numPlayers];
-        for (int i=0;i<numPlayers;i++)
+        for (int i=0;i<numPlayers;i++){
             players[i] = new Player();
+            Button.getPlayerColors().set(i,new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+        }
         currentPlayer = players[0];
         // Handles countries
         assignCountries();
@@ -144,7 +146,7 @@ public class Gameplay {
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
             if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
-                TextLog.createStatement("Press enter to attack " + Country.getSelectedList()[0].getName(),Phase.ATTACK);
+                TextLog.createStatement("Press enter to attack " + clickedCountry.getName(),Phase.ATTACK);
             }
         }
         else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
@@ -332,12 +334,14 @@ public class Gameplay {
     }
     
     private Player battleTroops() { //returns the winner
-        int offensivePlayerRoll;
-        int defensivePlayerRoll;
+        int offensivePlayerRoll=0;
+        int defensivePlayerRoll=0;
         if (Country.getSelectedList()[0].getNumTroops() > 1) {
             do {
-                if (Country.getSelectedList()[1].getNumTroops() == 0)
+                if (Country.getSelectedList()[1].getNumTroops() == 0){
+                    TextLog.createStatement("Attacker Won!",null);
                     return currentPlayer;
+                }
                 offensivePlayerRoll = (int)(Math.random()*6+1);
                 defensivePlayerRoll = (int)(Math.random()*6+1);
                 if (offensivePlayerRoll > defensivePlayerRoll)
@@ -347,6 +351,7 @@ public class Gameplay {
             }
             while(Country.getSelectedList()[0].getNumTroops() > 1);
         }
+        TextLog.createStatement("Defender Won!",null);
         return Country.getSelectedList()[1].getOwner();
     }
     

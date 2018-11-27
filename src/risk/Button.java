@@ -135,7 +135,7 @@ public class Button {
         if(runFirst){
             runFirst=false;
             for (int i = 0; i < 70; i++) {
-                playerColors.add(Player.getBlankColor());
+                playerColors.add(i, new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
             }
         }
         // Start button detection & drawing of text
@@ -355,8 +355,10 @@ public class Button {
     }
     
     static private void activatePlusButton() {
-        if (Gameplay.getNumPlayers()+1 <= 70)
+        if (Gameplay.getNumPlayers()+1 <= 70){
             Gameplay.addNumPlayers(1);
+            
+        }
     }
     
     static private void activatePlayerDec() {
