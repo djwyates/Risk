@@ -26,6 +26,7 @@ public class Risk extends JFrame implements Runnable
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
+                Titlescreen.YaYeet(e.getX(),e.getY());
                 Button.setMouseIsHolding();
 //                if(Titlescreen.gameIsStarted()&&bcActive){
 //                    BorderCreator.startBorder(x, y);
@@ -175,8 +176,9 @@ public class Risk extends JFrame implements Runnable
         try  {
             if (Titlescreen.isActive()){
                     Titlescreen.titlescreenHandler(this, mouseX, mouseY);
-                    Titlescreen.instructionsHand(mouseX, mouseY, g);
+                    Titlescreen.instructionsHand(mouseX, mouseY, g, this);
             }
+            
             else
                 Titlescreen.getGame().drawAndSoundHandler(this, mouseX, mouseY);
         } catch (FontFormatException ex) {

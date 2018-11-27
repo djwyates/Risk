@@ -19,6 +19,9 @@ public class Titlescreen {
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
     static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
     static private final Image INSTRUCTIONS_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
+    static private final Image Instuction_Image = Toolkit.getDefaultToolkit().getImage("./instructionMenu.png");
+    static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
+    static private Image HbackImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
     static private Gameplay game;
     static private SoundManager menuSounds = null;
     static private boolean mainActive = true;
@@ -59,69 +62,76 @@ public class Titlescreen {
         Button.setupHandler(x, y);
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    static public void instructionsHand(int x, int y,Graphics2D g)throws FileNotFoundException, FontFormatException, IOException{
+    static public void instructionsHand(int x, int y,Graphics2D g,Risk frame)throws FileNotFoundException, FontFormatException, IOException{
         if(instructionsActive)
-        instructionsHandler(x,y,g);
+        instructionsHandler(x,y,g,frame);
     }
 
-    static private void instructionsHandler(int x, int y,Graphics2D g)throws FileNotFoundException, FontFormatException, IOException {
-//        if(Connect.gameStarted()==false) {     
-//        }
-//        else { 
-//        }
+     static public void YaYeet(int x, int y){
+         if(instructionsActive){
+            if(x > 17 && x < 143 && y > 721 && y < 784)
+            {
+                mainActive = true;
+                instructionsActive = false;
+            }
+         }
+     }
+    
+    static private void instructionsHandler(int x, int y,Graphics2D g, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
         
-           // if(!InstuctionsConnected){
-            g.setColor(Color.CYAN);
-            g.fillRect(0, 0, Window.MENU_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT);
-           // InstuctionsConnected = false;
-      //  }
-      
-    //Title (Risk Rules)
-            g.setColor(Color.black);
-            g.setFont(new Font("Arial",Font.PLAIN,50));
-            g.drawString("Risk Rules",300,90);         
+            g.drawImage(Instuction_Image,0,0,frame);
+            g.drawImage(backImage,20, 720, frame);
+            
+             if(x > 17 && x < 143 && y > 721 && y < 784)
+                g.drawImage(HbackImage,20, 720, frame);
+             
+    
     //1st Sentence (Spilts up Countries)
-            g.drawString("1. Countries are randomly divided between the amount of players.",50,130);         
-    //2nd Sentence ()
-            g.drawString("2.",50,160);         
+            g.setColor(Color.red);
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Attacking",50,130);         
+    //2nd Sentence (Attacking Rules)
+             g.setColor(Color.white);   
+            g.setFont(new Font("Arial",Font.PLAIN,17));
+            g.drawString(".  The object of an attack is to capture a territory by defeating all the opposing armies already on it",50,160);         
     //3rd Sentence ()
-            g.drawString("3.",50,190);         
+            g.drawString(".   If the defender's troops are higher than yours, you lose",50,190);         
     //4th Sentence ()
-            g.drawString("4.",50,220);         
+            g.drawString(".",50,220);         
     //5th Sentence ()
-            g.drawString("5.",50,250);         
+            g.drawString(".",50,250);         
     //6th Sentence ()
-            g.drawString("6.",50,280);         
+            g.drawString(".",50,280);         
     //7th Sentence ()
-            g.drawString("7.",50,310);         
+            g.drawString(".",50,310);         
     //8th Sentence ()
-            g.drawString("8.",50,340);         
+            g.drawString(".",50,340);         
     //9th Sentence ()
-            g.drawString("9.",50,370);         
+            g.drawString(".",50,370);         
     //10th Sentence ()
-            g.drawString("10.",50,400);         
+            g.drawString(".",50,400);         
     //11th Sentence ()
-            g.drawString("11.",50,430);         
+            g.drawString(".",50,430);         
     //12th Sentence ()
-            g.drawString("12.",50,460);         
+            g.drawString(".",50,460);         
     //13th Sentence ()
-            g.drawString("13.",50,490);         
+            g.drawString(".",50,490);         
     //14th Sentence ()
-            g.drawString("14.",50,520);         
+            g.drawString(".",50,520);         
     //15th Sentence ()
-            g.drawString("15.",50,550);         
+            g.drawString(".",50,550);         
     //16th Sentence ()
-            g.drawString("16.",50,580);         
+            g.drawString(".",50,580);         
     //17th Sentence ()
-            g.drawString("17.",50,610);         
+            g.drawString(".",50,610);         
     //18th Sentence ()
-            g.drawString("18.",50,640);         
+            g.drawString(".",50,640);         
     //19th Sentence ()
-            g.drawString("19.",50,670);         
+            g.drawString(".",50,670);         
     //20th Sentence ()
-            g.drawString("20.",50,700);         
+            g.drawString(".",50,700);         
     //21th Sentence ()
-            g.drawString("21.",50,730);         
+            g.drawString(".",50,730);         
             
     }
         
