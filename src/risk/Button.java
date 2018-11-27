@@ -20,6 +20,7 @@ public class Button {
     Risk mainframe;
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
     static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
+    static private Image fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
     static private boolean mouseIsHolding=false;
     static private boolean muteOn = false;
     static private boolean onPlay = false;
@@ -35,6 +36,7 @@ public class Button {
     static private boolean onJoin = false;
     static private boolean onMute = false;
     static private boolean onBack = false;
+    static private boolean onFortify = false;
     static private boolean onsliderR = false;
     static private boolean onsliderG = false;
     static private boolean onsliderB = false;
@@ -66,6 +68,7 @@ public class Button {
         else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
+        else if (onFortify) { activateFortifyButton(frame); }
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
         else if (onPlus) { activatePlusButton(); }
@@ -138,7 +141,7 @@ public class Button {
         // Start button detection & drawing of text
         if (x>447 && x<772 && y>599 && y<672) {
             onStart = true;
-            g.setColor(Color.orange);
+            g.setColor(Color.red);
         } else {
             onStart = false;
             g.setColor(Color.white);
@@ -333,6 +336,11 @@ public class Button {
         Titlescreen.activateMain();
     }
     
+    static private void activateFortifyButton(Risk frame) {
+        Gameplay.switchTurnAccessor();
+        System.out.println("Fortify activated");
+    }
+    
     static private void activateStartButton(Risk frame) {
         Titlescreen.startGame(frame);
         onStart = false;
@@ -398,10 +406,30 @@ public class Button {
         g.drawImage(backImage, xDrawPos, yDrawPos, frame);
     }
     
+    static public void drawFortifyButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
+        if (detectFortify(xMousePos, yMousePos)) {
+            fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButtonHighlight.png");
+            onFortify = true;
+        }
+        else {
+            fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
+            onFortify = false;
+        }
+        
+        g.drawImage(fortifyImage, xDrawPos, yDrawPos, frame);
+    }
+    
     static private boolean detectBack(int x, int y) {
         int xBoundaryPos[] = { 43,4,42,43,117,116,42 };
         int yBoundaryPos[] = { 91,62,33,49,50,71,71 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 7);
         return(boundary.contains(x, y));
+    }
+    
+    static private boolean detectFortify(int x, int y) {
+        int xBoundaryPos[] = {438,489,489,438};
+        int yBoundaryPos[] = {332,332,383,383};
+        Polygon fBoundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
+        return(fBoundary.contains(x, y));
     }
 }

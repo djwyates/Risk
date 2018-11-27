@@ -12,7 +12,8 @@ public class Gameplay {
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
     static private int numPlayers = 2;
     private Phase phase;
-    private RiskMap riskMap = null;
+    public static boolean changeToFortify = false;
+    private RiskMap riskMap = null; // Purpose of this?
     private Player players[];
     private Player currentPlayer;
     private Country clickedCountry;
@@ -35,6 +36,11 @@ public class Gameplay {
         deployPhaseInit();
         // Handles other classes
         Titlescreen.startedGame();
+    }
+    
+    public static void switchTurnAccessor(){ // The boolean is inneffient, but in order to do the other method the current player needs to be accessible to a private circumstance
+        changeToFortify=true;
+//      getCurrentPlayer().switchTurnHandler();  
     }
     
     public void drawAndSoundHandler(Risk frame, int x, int y) {
@@ -133,6 +139,10 @@ public class Gameplay {
     }
     
     private void attackPhaseHandler(int x, int y, String key) {
+        if(changeToFortify){
+            TextLog.createStatement("Switching to attack phase.",null);
+            switchTurnHandler();
+        }
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
             if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
@@ -166,6 +176,7 @@ public class Gameplay {
                     break;
             }
         }
+        
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {
