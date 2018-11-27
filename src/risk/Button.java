@@ -339,6 +339,7 @@ public class Button {
     static private void activateFortifyButton(Risk frame) {
         Gameplay.switchTurnAccessor();
         System.out.println("Fortify activated");
+//        fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyFinalButton.png"); pointless
     }
     
     static private void activateStartButton(Risk frame) {

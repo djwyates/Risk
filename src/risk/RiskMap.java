@@ -1,6 +1,7 @@
 
 package risk;
 
+import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Polygon;
@@ -25,7 +26,9 @@ public class RiskMap {
         Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
         // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
-        Button.drawFortifyButton(frame, 319, 830, mouseX, mouseY);
+            g.setColor(Color.magenta);
+            g.fillRect(319,830,71,51);
+            Button.drawFortifyButton(frame, 319, 830, mouseX, mouseY);
         }
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
