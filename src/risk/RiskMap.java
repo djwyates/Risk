@@ -25,7 +25,7 @@ public class RiskMap {
         Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
         // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
-        Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
+        Button.drawFortifyButton(frame, 319, 830, mouseX, mouseY);
         }
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
