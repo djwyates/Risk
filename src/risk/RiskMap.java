@@ -1,10 +1,14 @@
 
 package risk;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import static risk.Risk.g;
@@ -34,6 +38,10 @@ public class RiskMap {
         // Draws victory screen
         if (Titlescreen.getGame().victoryAchieved)
             g.drawImage(VICTORY_IMAGE, 0, 0, 1370, 912, frame);
+        // Draws next phase button
+        g.setColor(Color.white);
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.drawString("Next Phase", 690, 900);
     }
     
     static public void mouseInCountryHandler(int x, int y, Gameplay.Phase phase) {
