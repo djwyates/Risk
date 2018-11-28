@@ -60,17 +60,12 @@ public class Player {
     }
     
     private void checkOwnedContinents() {
-        Continent[] continents = Continent.getContinents();
-        ArrayList<Country> countries = new ArrayList<Country>();
-        int totalCountryNum;
-        for (int i=0;i<continents.length;i++) {
-            countries = continents[i].getCountries();
-            totalCountryNum = countries.size();
-            for (int a=0;a<totalCountryNum;a++) {
-                if (countries.get(a).getOwner() != this)
+        for (int i=0;i<Continent.getContinents().length;i++) {
+            for (int a=0;a<Continent.getContinents()[i].getCountries().size();a++) {
+                if (Continent.getContinents()[i].getCountries().get(a).getOwner() != this)
                     break;
-                else if (a == totalCountryNum)
-                    ownedContinents.add(continents[i]);
+                else if (a == Continent.getContinents()[i].getCountries().size()-1)
+                    ownedContinents.add(Continent.getContinents()[i]);
             }
         }
     }

@@ -70,12 +70,6 @@ public class Country {
         }
     }
     
-    public static void changeTroopCounter(){
-        for(Country country : RiskMap.getCountryList()) {
-            country.troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
-        }
-    }
-    
     public void drawTroopAmount(int x, int y) {
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,20));
@@ -83,6 +77,11 @@ public class Country {
         g.drawString(""+numTroops, x+19, y+33);
         else
         g.drawString(""+numTroops, x+14, y+33);
+    }
+    
+    public static void resetAllTroopCounters(){
+        for(Country country : RiskMap.getCountryList())
+            country.troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./Troop Counter Mark II Final.png");
     }
     
     public void drawNameOnMouse(int x, int y) {
@@ -205,6 +204,7 @@ public class Country {
                 currentlySelected[1] = null;
                 break;
             case FORTIFY:
+                resetAllTroopCounters();
                 currentlySelected[0] = null;
                 currentlySelected[1] = null;
                 break;
@@ -213,7 +213,7 @@ public class Country {
     
     // Mutator methods
     static public void setCountryOnMouse(int x, int y) {
-        onMouse = RiskMap.contains(x, y);
+        onMouse = RiskMap.containsPoint(x, y);
     }
     
     public void addNeighboringCountry(Country neighboringCountry) {
