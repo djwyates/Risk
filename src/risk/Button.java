@@ -24,7 +24,7 @@ public class Button {
     static private Image fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
     static private boolean muteOn = false;
     static private boolean mouseHoldOn = false;
-    static private boolean onPlay = false;
+    static private boolean onSetup = false;
     static private boolean onInstructions = false;
     static private boolean onExit = false;
     static private boolean onMinus = false;
@@ -66,7 +66,7 @@ public class Button {
         onsliderR = false;
         onsliderG = false;
         onsliderB = false;
-        if (onPlay) { activateSingleButton(); }
+        if (onSetup) { activateSetupButton(); }
         else if (onInstructions) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
         else if (onHome) { activateHomeButton(); }
@@ -99,12 +99,12 @@ public class Button {
     static public void mainHandler(Risk frame, int x, int y) {
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
-            if(!onPlay)
+            if(!onSetup)
                 Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
-            onPlay = true;
+            onSetup = true;
             g.setColor(Color.white);
         } else {
-            onPlay = false;
+            onSetup = false;
             g.setColor(Color.red);
         }
         g.drawString("Play", 358, 455);
@@ -211,30 +211,15 @@ public class Button {
     }
     
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
-            // Drawws IP addresses
-            try {
-                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
-                g.setColor(Color.black);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 266, 495);
-                g.drawString(Connect.getHost(), 266, 585);
-                g.setColor(Color.red);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
-                g.drawString(Connect.getHost(), 261, 580);
-            }
-            catch (UnknownHostException e)
-            { e.printStackTrace(); }
-            
             onHome = x>13 && x<111 && y>730 && y<783;
-            onHost = x>256 && x<430 && y>666 && y<760;
-            onJoin = x>477 && x<649 && y>666 && y<760;
             onMute = x>740 && x<800 && y>740 && y<800;
             drawMute(frame, 760, 760);
     }
     
-    static private void activateSingleButton() {
-        Titlescreen.activateSingle();
+    static private void activateSetupButton() {
+        Titlescreen.activateSetup();
         Connect.setGameStarted(true);
-        onPlay = false;
+        onSetup = false;
     }
     
     static private void activateMultiButton() {

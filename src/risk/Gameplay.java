@@ -127,7 +127,6 @@ public class Gameplay {
         }
         else if (key.equals("enter"))
             attackFunction();
-        
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {
@@ -173,7 +172,6 @@ public class Gameplay {
             Country.getSelectedList()[0] = null;
             if (currentPlayer.getDeployableTroops() <= 0) {
                 TextLog.createStatement("No Troops left.",Phase.DEPLOY);
-                TextLog.createStatement("Switching to attack phase.",null);
                 switchTurnHandler();
             }
             else
@@ -232,10 +230,12 @@ public class Gameplay {
     
     private void attackPhaseInit() {
         phase = Phase.ATTACK;
+        TextLog.createStatement("Switching to attack phase.",null);
     }
     
     private void fortifyPhaseInit() {
         phase = Phase.FORTIFY;
+        TextLog.createStatement("Switching to fortify phase.", null);
         TextLog.createStatement("Use the keyboard to fortify.", null);
         fortifyAmount = 0;
     }
@@ -342,16 +342,24 @@ public class Gameplay {
     }
     
     private Player battleTroops() { //returns the winner
-        int offensivePlayerRoll=0;
-        int defensivePlayerRoll=0;
+        int offensiveDiceAmount = Country.getSelectedList()[0].getNumTroops();
+        if (offensiveDiceAmount > 3)
+            offensiveDiceAmount = 3;
+        int defensiveDiceAmount = Country.getSelectedList()[1].getNumTroops();
+        if (defensiveDiceAmount > 2)
+            defensiveDiceAmount = 2;
+        int offensivePlayerRolls[] = new int[offensiveDiceAmount];
+        int defensivePlayerRolls[] = new int[defensiveDiceAmount];
         if (Country.getSelectedList()[0].getNumTroops() > 1) {
             do {
                 if (Country.getSelectedList()[1].getNumTroops() == 0){
                     TextLog.createStatement("Attacker Won!",null);
                     return currentPlayer;
                 }
-                offensivePlayerRoll = (int)(Math.random()*6+1);
-                defensivePlayerRoll = (int)(Math.random()*6+1);
+                for (int offensivePlayerRoll : offensivePlayerRolls)
+                    offensivePlayerRoll = (int)(Math.random()*6+1);
+                for (int defensivePlayerRoll : defensivePlayerRolls)
+                    defensivePlayerRoll = (int)(Math.random()*6+1);
                 if (offensivePlayerRoll > defensivePlayerRoll)
                     Country.getSelectedList()[1].addNumTroops(-1);
                 else
