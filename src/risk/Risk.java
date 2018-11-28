@@ -24,26 +24,39 @@ public class Risk extends JFrame implements Runnable
     public Risk() {
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                Titlescreen.YaYeet(e.getX(),e.getY());
-                Button.setMouseIsHolding();
 //                if(Titlescreen.gameIsStarted()&&bcActive){
 //                    BorderCreator.startBorder(x, y);
 //                }
-                if(Titlescreen.gameIsStarted())    
+                if(Titlescreen.gameStarted())    
                     repaint();
+            }
+        });
+        
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+                Titlescreen.mouseDraggedHandler(Window.currentFrame, mouseX, mouseY);
+                repaint();
             }
         });
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                Button.setMouseIsHolding();
                 if (e.BUTTON1 == e.getButton()) {
                     System.out.println(e.getX() + "   " + e.getY());
                     Titlescreen.mouseClickHandler(Window.currentFrame, e.getX(), e.getY());
                 }
+                repaint();
+            }
+        });
+        
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+                Titlescreen.mouseClickHandler(Window.currentFrame, mouseX, mouseY);
                 repaint();
             }
         });
@@ -174,11 +187,8 @@ public class Risk extends JFrame implements Runnable
         g.fillPolygon(x, y, 4);
         
         try  {
-            if (Titlescreen.isActive()){
+            if (Titlescreen.isActive())
                     Titlescreen.titlescreenHandler(this, mouseX, mouseY);
-                    Titlescreen.instructionsHand(mouseX, mouseY, g, this);
-            }
-            
             else
                 Titlescreen.getGame().drawAndSoundHandler(this, mouseX, mouseY);
         } catch (FontFormatException ex) {

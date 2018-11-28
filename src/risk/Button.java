@@ -21,8 +21,8 @@ public class Button {
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
     static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
     static private Image fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
-    static private boolean mouseIsHolding=false;
     static private boolean muteOn = false;
+    static private boolean mouseHoldOn = false;
     static private boolean onPlay = false;
     static private boolean onInstructions = false;
     static private boolean onExit = false;
@@ -60,6 +60,10 @@ public class Button {
     
     
     static public void mouseClickHandler(Risk frame, int x, int y) {
+        mouseHoldOn = false;
+        onsliderR = false;
+        onsliderG = false;
+        onsliderB = false;
         if (onPlay) { activateSingleButton(); }
         else if (onInstructions) { activateMultiButton(); }
         else if (onExit) { activateExitButton(); }
@@ -74,19 +78,18 @@ public class Button {
         else if (onPlus) { activatePlusButton(); }
         else if (onPlayerDec) { activatePlayerDec(); }
         else if (onPlayerInc) { activatePlayerInc(); }
-        if (Titlescreen.isSetupActive())
-            sliderHandler(x, y);
     }
     
-    static void setMouseIsHolding(){
-        if(mouseIsHolding)
-            mouseIsHolding=false;
-        else
-            mouseIsHolding=true;
-    }
-    
-    static boolean getMouseIsHolding(){
-        return mouseIsHolding;
+    static public void mouseDraggedHandler(Risk frame, int x, int y) {
+        if (!mouseHoldOn) {
+            onsliderR = false;
+            onsliderG = false;
+            onsliderB = false;
+            onsliderR = x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset;
+            onsliderG = x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset;
+            onsliderB = x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset;
+        }
+        mouseHoldOn = true;
     }
     
     static public void mainHandler(Risk frame, int x, int y) {
@@ -187,7 +190,6 @@ public class Button {
         g.fillOval(30, 400, 355, 355);
         g.setColor(Color.white);
         if(onsliderR){
-            
             g.drawOval(rsp[0], rsp[1], 15, 15);
             rsp[0]=x-(sliderOffset/2);
             if(rsp[0]<min_slider)
@@ -197,7 +199,6 @@ public class Button {
             rsd=rsp[0]-min_slider;
         }
         if(onsliderG){
-            
             g.drawOval(gsp[0], gsp[1], 15, 15);
             gsp[0]=x-(sliderOffset/2);
             if(gsp[0]<min_slider)
@@ -208,7 +209,6 @@ public class Button {
             gsd=gsp[0]-min_slider;
         }
         if(onsliderB){
-            
             g.drawOval(bsp[0], bsp[1], 15, 15);
             bsp[0]=x-(sliderOffset/2);
             if(bsp[0]<min_slider)
@@ -219,7 +219,6 @@ public class Button {
         }
         RGB[0]=(int)(rsd*disToRGB);RGB[1]=(int)(gsd*disToRGB);RGB[2]=(int)(bsd*disToRGB);
         colorSample = new Color(RGB[0],RGB[1],RGB[2]);
-        
         
         if(playerColors.get(Titlescreen.getCustomizePlayerNum()-1)!=colorSample)
             playerColors.set(Titlescreen.getCustomizePlayerNum()-1, colorSample);
@@ -259,38 +258,6 @@ public class Button {
             else 
                 onMute = false;
             drawMute(frame, 760, 760);
-    }
-    
-    static private void sliderHandler(int x, int y) {
-        if(x>rsp[0] && x<rsp[0]+sliderOffset && y>rsp[1] && y<rsp[1]+sliderOffset){
-            if (onsliderR)
-                onsliderR = false;
-            else
-                onsliderR = true;
-            onsliderG = false;
-            onsliderB = false;
-        }
-        else if(x>gsp[0] && x<gsp[0]+sliderOffset && y>gsp[1] && y<gsp[1]+sliderOffset){
-            onsliderR = false;
-            if (onsliderG)
-                onsliderG = false;
-            else
-                onsliderG = true;
-            onsliderB = false;
-        }
-        else if(x>bsp[0] && x<bsp[0]+sliderOffset && y>bsp[1] && y<bsp[1]+sliderOffset){
-            onsliderR = false;
-            onsliderG = false;
-            if (onsliderB)
-                onsliderB = false;
-            else
-                onsliderB = true;
-        }
-        else {
-            onsliderR = false;
-            onsliderG = false;
-            onsliderB = false;
-        }
     }
     
     static private void activateSingleButton() {
@@ -342,6 +309,7 @@ public class Button {
     }
     
     static private void activateStartButton(Risk frame) {
+        Titlescreen.getMenuSounds().play("multiButtonCheer.wav");
         Titlescreen.startGame(frame);
         onStart = false;
     }
@@ -382,9 +350,6 @@ public class Button {
             gsp[0]=min_slider+gsd;
             bsp[0]=min_slider+bsd;
         }
-    }
-    static ArrayList<Color> getPlayerColors(){
-        return playerColors;
     }
     
     static public void drawMute(Risk frame, int x, int y) {
@@ -428,9 +393,13 @@ public class Button {
     }
     
     static private boolean detectFortify(int x, int y) {
-        int xBoundaryPos[] = {319,390,390,319};
-        int yBoundaryPos[] = {830,830,881,881};
+        int xBoundaryPos[] = { 445,501,501,445 };
+        int yBoundaryPos[] = { 382,382,331,331 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
         return(boundary.contains(x, y));
+    }
+    
+    static ArrayList<Color> getPlayerColors() {
+        return playerColors;
     }
 }

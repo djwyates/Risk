@@ -136,7 +136,7 @@ public class Country {
                     shouldHover = false;
                 break;
             case FORTIFY:
-                if (owner == Titlescreen.getGame().getCurrentPlayer())
+                if (owner == Titlescreen.getGame().getCurrentPlayer() && (currentlySelected[0] != null || (currentlySelected[0] == null && numTroops > 1)))
                     shouldHover = true;
                 else
                     shouldHover = false;

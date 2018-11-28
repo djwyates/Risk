@@ -20,14 +20,12 @@ public class Titlescreen {
     static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
     static private final Image INSTRUCTIONS_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
     static private final Image Instuction_Image = Toolkit.getDefaultToolkit().getImage("./instructionMenu.png");
-    static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
-    static private Image HbackImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
     static private Gameplay game;
     static private SoundManager menuSounds = null;
     static private boolean mainActive = true;
     static private boolean setupActive = false;
     static private boolean instructionsActive = false;
-    static private boolean startedGame = false;
+    static private boolean gameStarted = false;
     static private int customizePlayerNum = 1;
     
     static void reset() {
@@ -45,9 +43,9 @@ public class Titlescreen {
             mainHandler(x, y, frame);
         else if (setupActive)
             setupHandler(x, y, frame);
-//        else if (instructionsActive)
-//            instructionsHandler(x, y, frame);
-        else if (startedGame)
+        else if (instructionsActive)
+            instructionsHandler(x, y, frame);
+        else if (gameStarted)
             game.drawAndSoundHandler(frame, x, y);
     }
     
@@ -61,31 +59,12 @@ public class Titlescreen {
         g.drawImage(SETUP_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
         Button.setupHandler(x, y);
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    static public void instructionsHand(int x, int y,Graphics2D g,Risk frame)throws FileNotFoundException, FontFormatException, IOException{
-        if(instructionsActive)
-        instructionsHandler(x,y,g,frame);
-    }
-
-     static public void YaYeet(int x, int y){
-         if(instructionsActive){
-            if(x > 17 && x < 143 && y > 721 && y < 784)
-            {
-                mainActive = true;
-                instructionsActive = false;
-            }
-         }
-     }
     
-    static private void instructionsHandler(int x, int y,Graphics2D g, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
+    static private void instructionsHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
+        g.drawImage(INSTRUCTIONS_BACKGROUND_IMAGE, 0, 0, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT,  frame);
+        g.drawImage(INSTRUCTIONS_IMAGE, 0, 0, frame);
+        Button.instructionsHandler(frame, x, y);
         
-            g.drawImage(Instuction_Image,0,0,frame);
-            g.drawImage(backImage,20, 720, frame);
-            
-             if(x > 17 && x < 143 && y > 721 && y < 784)
-                g.drawImage(HbackImage,20, 720, frame);
-             
-    
     //1st Sentence (Spilts up Countries)
             g.setColor(Color.red);
             g.setFont(new Font("Arial",Font.PLAIN,40));
@@ -142,13 +121,17 @@ public class Titlescreen {
         mainActive = false;
         setupActive = false;
         instructionsActive = false;
-        startedGame = true;
+        gameStarted = true;
     }
     
     static public void mouseClickHandler(Risk frame, int x, int y) {
         Button.mouseClickHandler(frame, x, y);
-        if (startedGame)
+        if (gameStarted)
             game.mouseClickHandler(x, y);
+    }
+    
+    static public void mouseDraggedHandler(Risk frame, int x, int y) {
+        Button.mouseDraggedHandler(frame, x, y);
     }
     
     static public void keyPressedHandler(String key) {
@@ -160,7 +143,7 @@ public class Titlescreen {
         mainActive = true;
         setupActive = false;
         instructionsActive = false;
-        startedGame = false;
+        gameStarted = false;
     }
     
     static public void activateSingle() {
@@ -177,11 +160,11 @@ public class Titlescreen {
     
     static public void startedGame() {
         mainActive = false;
-        startedGame = true;
+        gameStarted = true;
     }
     
-    static public boolean gameIsStarted(){
-        return startedGame;
+    static public boolean gameStarted(){
+        return gameStarted;
     }
     
     static public boolean isActive() {

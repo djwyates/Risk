@@ -22,7 +22,7 @@ public class Gameplay {
     Gameplay(Risk frame) {
         // Handles drawing & window
         riskMap = new RiskMap();
-        Window.changeWindow(frame, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Singleplayer");
+        Window.changeWindow(frame, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, "Risk - Play");
         // Handles players
         players = new Player[numPlayers];
         for (int i=0;i<numPlayers;i++){
@@ -197,7 +197,7 @@ public class Gameplay {
                     if (fortifyAmount > 0) {
                         Country.getSelectedList()[0].addNumTroops(-fortifyAmount);
                         Country.getSelectedList()[1].addNumTroops(fortifyAmount);
-                        TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), phase);
+                        TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), Phase.FORTIFY);
                         TextLog.createStatement("Changing turns to the next player.", null);
                         switchTurnHandler();
                     }
@@ -210,7 +210,8 @@ public class Gameplay {
     private void deployPhaseInit() {
         phase = Phase.DEPLOY;
         currentPlayer.setDeployableTroops();
-        TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n",Phase.DEPLOY);
+        TextLog.createStatement("Use the keyboard to deploy.", null);
+        TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.",Phase.DEPLOY);
         deployAmount = 0;
     }
     
@@ -220,6 +221,7 @@ public class Gameplay {
     
     private void fortifyPhaseInit() {
         phase = Phase.FORTIFY;
+        TextLog.createStatement("Use the keyboard to fortify.", null);
         fortifyAmount = 0;
     }
     
@@ -356,6 +358,10 @@ public class Gameplay {
     
     public Phase getPhase() {
         return phase;
+    }
+    
+    public Player[] getCurrentPlayers() {
+        return players;
     }
     
     public Player getCurrentPlayer() {

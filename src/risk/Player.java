@@ -16,7 +16,6 @@ public class Player {
     
     Player() {
         players.add(this);
-        System.out.println(players.size());
         for(Color c : Button.getPlayerColors()){
             if(c==blank && Button.getPlayerColors().indexOf(c) == players.indexOf(this)){
                 color = new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
