@@ -375,8 +375,8 @@ public class Button {
     }
     
     static private boolean detectFortify(int x, int y) {
-        int xBoundaryPos[] = { 445,501,501,445 };
-        int yBoundaryPos[] = { 382,382,331,331 };
+        int xBoundaryPos[] = { 319,390,390,319 };
+        int yBoundaryPos[] = { 830,830,881,881 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
         return(boundary.contains(x, y));
     }
