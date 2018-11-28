@@ -336,6 +336,9 @@ public class Button {
     static public void drawPhaseClickButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.DEPLOY){
         if (detectPhaseClick(xMousePos, yMousePos)) {
+            g.setColor(new Color(255,0,0));
+            g.setFont(new Font("AMARILLO",Font.BOLD,25));
+            g.drawString("Attack",717,830);
             phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButtonHighlight.png");
             onPhaseButton = true;
         }
@@ -345,6 +348,9 @@ public class Button {
         }
         }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
         if (detectPhaseClick(xMousePos, yMousePos)) {
+            g.setColor(new Color(0,0,255));
+            g.setFont(new Font("AMARILLO",Font.BOLD,25));
+            g.drawString("Fortify",714,830);
             phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./AttackButtonHighlight.png");
             onPhaseButton = true;
         }
@@ -353,8 +359,11 @@ public class Button {
             onPhaseButton = false;
         }
         }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.FORTIFY){
+            g.setColor(new Color(255,0,0));
+            g.setFont(new Font("AMARILLO",Font.BOLD,25));
+            g.drawString("Next Turn",697,830);
         if (detectPhaseClick(xMousePos, yMousePos)) {
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png"); //Add FortifyButtonHighlight
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButtonHighlight.png"); //Add FortifyButtonHighlight
             onPhaseButton = true;
         }
         else {
