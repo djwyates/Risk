@@ -14,7 +14,7 @@ import static risk.Risk.g;
 
 public class Titlescreen {
     static private final SoundManager MENU_SOUNDS = new SoundManager();
-    static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
+    static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./images/TitleScreenGothic.png");
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
     static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
     static private final Image INSTRUCTIONS_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
@@ -168,7 +168,8 @@ public class Titlescreen {
         instructionsActive = false;
         game = null;
         gameStarted = false;
-        game.victoryAchieved = false;
+        if(game !=null)
+            game.victoryAchieved = false;
     }
     
     static public void activateSingle() {
