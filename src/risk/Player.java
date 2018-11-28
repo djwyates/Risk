@@ -44,7 +44,10 @@ public class Player {
     }
     
     public void setDeployableTroops() {
-        deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
+        if(ownedCountries.size()/3 > 3)
+            deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
+        else
+            deployableTroops = 3 + getContinentsTroopValue();
     }
     
     public void addDeployableTroops(int inc) {
