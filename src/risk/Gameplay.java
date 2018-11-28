@@ -40,6 +40,7 @@ public class Gameplay {
         Titlescreen.startedGame();
     }
     
+    
     public void drawAndSoundHandler(Risk frame, int x, int y) {
         Country.setCountryOnMouse(x, y);
         try {
