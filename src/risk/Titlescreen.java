@@ -84,59 +84,52 @@ public class Titlescreen {
             
              if(x > 17 && x < 143 && y > 721 && y < 784)
                 g.drawImage(HbackImage,20, 720, frame);
-             
-    
-    //1st Sentence (Spilts up Countries)
-            g.setColor(Color.red);
-            g.setFont(new Font("Arial",Font.PLAIN,40));
-            g.drawString("Attacking",50,130);         
-    //2nd Sentence (Attacking Rules)
-            g.setColor(Color.white);   
-            g.setFont(new Font("Arial",Font.PLAIN,17));
-            g.drawString(".  The object of an attack is to capture a territory by defeating all the opposing armies already on it",50,160);         
-    //3rd Sentence ()
-            g.drawString(".  You can only attack territories adjacent to you. ",50,220);    
-    //4th Sentence ()
-            g.drawString(".   If the defender's troops are higher than yours, you lose",50,190);         
-    //5th Sentence ()
-            g.drawString(".  After an attack, the player can decide to attack again or pass.",50,250);         
-    //6th Sentence ()
+    //
             g.setColor(Color.green);
             g.setFont(new Font("Arial",Font.PLAIN,40));
-            g.drawString("Deploy",50,290);              
-    //7th Sentence ()
+            g.drawString("Deploy",50,130);              
+    //
             g.setColor(Color.white);   
             g.setFont(new Font("Arial",Font.PLAIN,17));
-            g.drawString(". The More Players you decide to have, the less troops you can deploy",50,310);         
-    //8th Sentence ()
-            g.drawString(".",50,340);         
-    //9th Sentence ()
-            g.drawString(".",50,370);         
-    //10th Sentence ()
-            g.drawString(".",50,400);         
-    //11th Sentence ()
-            g.drawString(".",50,430);         
-    //12th Sentence ()
-            g.drawString(".",50,460);         
-    //13th Sentence ()
-            g.drawString(".",50,490);         
-    //14th Sentence ()
-            g.drawString(".",50,520);         
-    //15th Sentence ()
-            g.drawString(".",50,550);         
-    //16th Sentence ()
-            g.drawString(".",50,580);         
-    //17th Sentence ()
-            g.drawString(".",50,610);         
-    //18th Sentence ()
-            g.drawString(".",50,640);         
-    //19th Sentence ()
-            g.drawString(".",50,670);         
-    //20th Sentence ()
-            g.drawString(".",50,700);         
-    //21th Sentence ()
-            g.drawString(".",50,730);         
+            g.drawString(". This Phase is the first phase of your turn.",50,160);     
+    //
+            g.drawString(". Click one of your countries and type how many troops you would like to deploy.",50,190);     
+    //
+            g.drawString(". The More Players you decide to have, the less troops you can deploy.",50,220);          
+    //
+            g.setColor(Color.red);
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Attacking",50,260);         
+    //
+            g.setColor(Color.white);   
+            g.setFont(new Font("Arial",Font.PLAIN,17));
+            g.drawString(".  This Phase comes after Deploy",50,280);         
+    //
+            g.drawString(".  The object of an attack is to capture a territory by defeating all the opposing armies in thqat country.",50,310);         
+    //
+            g.drawString(".  You can only attack territories adjacent to you. ",50,340);    
+    //
+            g.drawString(".  Click on the country you would like to attack with," , 50 , 370);
+            g.drawString("and after click an enemy's territory you would like to attack. ",50,390);    
+    //
+            g.drawString(".   If the defender's troops are higher than yours, you lose.",50,420);         
+    //
+            g.drawString(".  After an attack, the player can decide to attack again or pass.",50,450);       
             
+            g.setColor(Color.blue);
+            g.setFont(new Font("Arial",Font.PLAIN,40));
+            g.drawString("Fortify",50,490);   
+    //
+            g.setColor(Color.white);
+            g.setFont(new Font("Arial",Font.PLAIN,17));
+            g.drawString(".  This Phase comes after Attack.",50,520);         
+    //
+            g.drawString(".  You can transfer troops from one of your countries, to another one of your countries.",50,550);       
+    //
+            g.drawString(".  Click on the country you want to take troops from and click another country.",50,580);       
+            g.drawString("you would like to deposit troops into, then enter the amount of troops to give.",50,600);
+    //
+            g.drawString(".  You may only transfer troops once per turn.",50,630);         
     }
         
     

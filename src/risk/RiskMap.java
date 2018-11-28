@@ -50,6 +50,7 @@ public class RiskMap {
         }
         g.drawImage(phaseImage, x, y, width, height, frame);
     }
+  
     
     static public void mouseInCountryHandler(int x, int y, Gameplay.Phase phase) {
         if (Country.getCountryOnMouse() != null)
