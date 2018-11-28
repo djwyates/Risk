@@ -16,7 +16,7 @@ public class Titlescreen {
     static private final SoundManager MENU_SOUNDS = new SoundManager();
     static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
-    static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./multiMenu.png");
+    static private final Image INSTRUCTIONS_IMAGE = Toolkit.getDefaultToolkit().getImage("./InstructionMenu.png");
     static private final Image INSTRUCTIONS_BACKGROUND_IMAGE = Toolkit.getDefaultToolkit().getImage("./Floating Embers.gif");
     static private final Image Instuction_Image = Toolkit.getDefaultToolkit().getImage("./instructionMenu.png");
     static private Gameplay game;
@@ -59,7 +59,7 @@ public class Titlescreen {
     }
     
     static private void instructionsHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
-        g.drawImage(INSTRUCTIONS_BACKGROUND_IMAGE, 0, 0, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT,  frame);
+       // g.drawImage(INSTRUCTIONS_BACKGROUND_IMAGE, 0, 0, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT,  frame);
         g.drawImage(INSTRUCTIONS_IMAGE, 0, 0, frame);
         Button.instructionsHandler(frame, x, y);
         

@@ -212,21 +212,9 @@ public class Button {
     
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
             // Drawws IP addresses
-            try {
-                g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,45));
-                g.setColor(Color.black);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 266, 495);
-                g.drawString(Connect.getHost(), 266, 585);
-                g.setColor(Color.red);
-                g.drawString(InetAddress.getLocalHost().getHostAddress(), 261, 490);
-                g.drawString(Connect.getHost(), 261, 580);
-            }
-            catch (UnknownHostException e)
-            { e.printStackTrace(); }
             
-            onHome = x>13 && x<111 && y>730 && y<783;
-            onHost = x>256 && x<430 && y>666 && y<760;
-            onJoin = x>477 && x<649 && y>666 && y<760;
+            
+            // onHome = x>13 && x<111 && y>730 && y<783;
             onMute = x>740 && x<800 && y>740 && y<800;
             drawMute(frame, 760, 760);
     }

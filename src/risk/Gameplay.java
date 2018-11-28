@@ -126,7 +126,6 @@ public class Gameplay {
         }
         else if (key.equals("enter"))
             attackFunction();
-        
     }
     
     private void fortifyPhaseHandler(int x, int y, String key) {
@@ -172,7 +171,6 @@ public class Gameplay {
             Country.getSelectedList()[0] = null;
             if (currentPlayer.getDeployableTroops() <= 0) {
                 TextLog.createStatement("No Troops left.",Phase.DEPLOY);
-                TextLog.createStatement("Switching to attack phase.",null);
                 switchTurnHandler();
             }
             else
@@ -231,10 +229,12 @@ public class Gameplay {
     
     private void attackPhaseInit() {
         phase = Phase.ATTACK;
+        TextLog.createStatement("Switching to attack phase.",null);
     }
     
     private void fortifyPhaseInit() {
         phase = Phase.FORTIFY;
+        TextLog.createStatement("Switching to fortify phase.", null);
         TextLog.createStatement("Use the keyboard to fortify.", null);
         fortifyAmount = 0;
     }

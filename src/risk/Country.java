@@ -16,19 +16,19 @@ public class Country {
     static private Country onMouse;
     static private Country recentlyHovered;
     // instance variables
-    private String name;
-    private Polygon boundary;
-    private int centerX, centerY;
+    private final String NAME;
+    private final Polygon BOUNDARY;
+    private final int CENTER_X, CENTER_Y;
     private ArrayList<Country> neighboringCountries = new ArrayList<Country>();
     private Player owner;
     private int numTroops = 0;
     private boolean shouldHover = false;
     
     Country(Polygon _boundry, String _name, int _centerX, int _centerY) {
-        boundary = _boundry;
-        name = _name;
-        centerX = _centerX;
-        centerY = _centerY;
+        BOUNDARY = _boundry;
+        NAME = _name;
+        CENTER_X = _centerX;
+        CENTER_Y = _centerY;
     }
     
     // Draw methods
@@ -65,8 +65,8 @@ public class Country {
     
     static public void drawAllTroopCounters() {
         for (Country country : RiskMap.getCountryList()) {
-            g.drawImage(country.troopEncasementImage, country.centerX, country.centerY, 51, 51, Window.currentFrame);
-            country.drawTroopAmount(country.centerX,country.centerY);
+            g.drawImage(country.troopEncasementImage, country.CENTER_X, country.CENTER_Y, 51, 51, Window.currentFrame);
+            country.drawTroopAmount(country.CENTER_X,country.CENTER_Y);
         }
     }
     
@@ -86,7 +86,7 @@ public class Country {
     
     public void drawNameOnMouse(int x, int y) {
         if (owner == null)
-            System.out.println(name + " is null.");
+            System.out.println(NAME + " is null.");
         g.setColor(owner.getColor());
         g.setFont (new Font("AMARILLO",Font.BOLD,15));
         g.drawString(Country.getCountryOnMouse().getName(), x, y-5);
@@ -94,7 +94,7 @@ public class Country {
     
     private void drawBoundary(Color color) {
         g.setColor(color);
-        g.drawPolygon(boundary);
+        g.drawPolygon(BOUNDARY);
     }
     
     // Handler methods
@@ -235,7 +235,7 @@ public class Country {
     // Accessor methods
     static Country getCountry (String name) {
         for(Country country : RiskMap.getCountryList()) {
-            if(country.name.equalsIgnoreCase(name))
+            if(country.NAME.equalsIgnoreCase(name))
                 return country;
         }
         return null;
@@ -258,11 +258,11 @@ public class Country {
     }
     
     public Polygon getBoundary() {
-        return boundary;
+        return BOUNDARY;
     }
     
     public String getName() {
-        return name;
+        return NAME;
     }
     
     public int getNumTroops() {
