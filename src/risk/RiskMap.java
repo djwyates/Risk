@@ -14,6 +14,8 @@ public class RiskMap {
     static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
     static private ArrayList<Country> countries = new ArrayList<Country>();
+    static private int fortifyColor=0;
+    static private boolean up=true;
     
     static public void draw(Risk frame, int mouseX, int mouseY, Gameplay.Phase phase) throws FontFormatException, IOException {
         // Draws map
@@ -25,11 +27,17 @@ public class RiskMap {
         // Draws back button
         Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
         // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
-        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
-            g.setColor(Color.magenta);
+        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.DEPLOY){
+            g.setColor(new Color(0,fortifyColor,0));
+        } else if (Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
+            g.setColor(new Color(fortifyColor,0,0));
+        } else if(Titlescreen.getGame().getPhase() == Gameplay.Phase.FORTIFY){
+            g.setColor(new Color(0,0,fortifyColor));
+        }
+            oscillate(fortifyColor);
             g.fillRect(319,830,71,51);
             Button.drawFortifyButton(frame, 319, 830, mouseX, mouseY);
-        }
+        
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
         // Draws current country name by mouse pointer
@@ -39,7 +47,20 @@ public class RiskMap {
         TextLog.drawInput(g);
         TextLog.drawStatements(g);
     }
-    
+    static public int oscillate(int _fortifyColor){
+        if(_fortifyColor==0){
+            up=true;
+        } else if(_fortifyColor==255){
+            up=false;
+        }
+        if(up){
+            _fortifyColor+=15;
+            return _fortifyColor;
+        } else {
+            _fortifyColor-=15;
+            return _fortifyColor;
+        }
+    }
     static public void drawPhase(int x, int y, int width, int height, Risk frame) {
         switch (Titlescreen.getGame().getPhase()) {
             case DEPLOY:
