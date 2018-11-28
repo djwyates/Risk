@@ -366,8 +366,8 @@ public class Gameplay {
                     defensivePlayerRoll = (int)(Math.random()*6+1);
                 Arrays.sort(offensivePlayerRolls);
                 Arrays.sort(defensivePlayerRolls);
-                for (int i=offensivePlayerRolls.length-1;i>0;i++) {
-                    for (int a=defensivePlayerRolls.length-1;a>0;a++) {
+                for (int i=offensivePlayerRolls.length-1;i>0;i--) {
+                    for (int a=defensivePlayerRolls.length-1;a>0;a--) {
                         if (offensivePlayerRolls[i] > defensivePlayerRolls[a])
                             offensivePlayerKills++;
                         else
