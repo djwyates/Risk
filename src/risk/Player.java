@@ -44,10 +44,13 @@ public class Player {
     }
     
     public void setDeployableTroops() {
-        if(ownedCountries.size()/3 > 3)
-            deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
-        else
-            deployableTroops = 3 + getContinentsTroopValue();
+        deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
+        if (deployableTroops < 3)
+            deployableTroops = 3;
+//        if(ownedCountries.size()/3 > 3)
+//            deployableTroops = ownedCountries.size()/3 + getContinentsTroopValue();
+//        else
+//            deployableTroops = 3 + getContinentsTroopValue();
     }
     
     public void addDeployableTroops(int inc) {
@@ -63,6 +66,7 @@ public class Player {
     }
     
     private void checkOwnedContinents() {
+        ownedContinents.clear();
         for (int i=0;i<Continent.getContinents().length;i++) {
             for (int a=0;a<Continent.getContinents()[i].getCountries().size();a++) {
                 if (Continent.getContinents()[i].getCountries().get(a).getOwner() != this)
@@ -79,9 +83,9 @@ public class Player {
             if (country.getOwner() != this)
                 return;
         }
-        System.out.println("A PLAYER HAS WON!");
-        Titlescreen.getGame().victoryAchieved = true;
-        Window.changeWindow(Window.currentFrame, 1370, 912, "Victory!");
+//        System.out.println("A PLAYER HAS WON!");
+//        Titlescreen.getGame().victoryAchieved = true;
+//        Window.changeWindow(Window.currentFrame, 1370, 912, "Victory!");
     }
     
     private int getContinentsTroopValue() {
