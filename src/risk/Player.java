@@ -71,6 +71,16 @@ public class Player {
     }
     
     // Accessor methods
+    public void checkWin() {
+        for (Country country : ownedCountries) {
+            if (country.getOwner() != this)
+                return;
+        }
+        System.out.println("A PLAYER HAS WON!");
+        Titlescreen.getGame().victoryAchieved = true;
+        Window.changeWindow(Window.currentFrame, 1370, 912, "Victory!");
+    }
+    
     private int getContinentsTroopValue() {
         refreshOwnedCountries();
         checkOwnedContinents();

@@ -11,6 +11,7 @@ import static risk.Risk.g;
 
 public class RiskMap {
     static private final Image MAP_IMAGE = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
+    static private final Image VICTORY_IMAGE = Toolkit.getDefaultToolkit().getImage("./VictoryRoyale");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int mouseX, int mouseY, Gameplay.Phase phase) throws FontFormatException, IOException {
@@ -33,6 +34,9 @@ public class RiskMap {
         // Draws input in TextLog
         TextLog.drawInput(g);
         TextLog.drawStatements(g);
+        // Draws victory screen
+        if (Titlescreen.getGame().victoryAchieved)
+            g.drawImage(VICTORY_IMAGE, 0, 0, 1370, 912, frame);
     }
     
     static public void mouseInCountryHandler(int x, int y, Gameplay.Phase phase) {
