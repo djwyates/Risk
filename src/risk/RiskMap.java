@@ -40,11 +40,10 @@ public class RiskMap {
             Country.getCountryOnMouse().mouseInCountryHandler(phase);
     }
     
-    static public Country contains(int x, int y) {
+    static public Country containsPoint(int x, int y) {
         for (Country country : countries) {
-            if (country != null && country.getBoundary().contains(x, y)) {
+            if (country != null && country.getBoundary().contains(x, y))
                 return country;
-            }
         }
         return null;
     }

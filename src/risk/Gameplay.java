@@ -188,7 +188,7 @@ public class Gameplay {
             //transfers country ownership to the current player from the defending player
             currentPlayer.addCountry(Country.getSelectedList()[1]);
             //makes all countries' troop counters normal
-            Country.changeTroopCounter();
+            Country.resetAllTroopCounters();
             //transfers all but 1 troop into conquered country
             Country.getSelectedList()[1].setNumTroops(Country.getSelectedList()[0].getNumTroops()-1);
             Country.getSelectedList()[0].setNumTroops(1);
@@ -203,7 +203,7 @@ public class Gameplay {
             //deselects all countries
             Country.getSelectedList()[0] = null;
             Country.getSelectedList()[1] = null;
-            Country.changeTroopCounter();
+            Country.resetAllTroopCounters();
         }
     }
     
