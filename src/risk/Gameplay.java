@@ -4,6 +4,7 @@ package risk;
 import java.awt.Color;
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -342,7 +343,7 @@ public class Gameplay {
     }
     
     private Player battleTroops() { //returns the winner
-        int offensiveDiceAmount = Country.getSelectedList()[0].getNumTroops();
+        int offensiveDiceAmount = Country.getSelectedList()[0].getNumTroops()-1;
         if (offensiveDiceAmount > 3)
             offensiveDiceAmount = 3;
         int defensiveDiceAmount = Country.getSelectedList()[1].getNumTroops();
@@ -350,20 +351,31 @@ public class Gameplay {
             defensiveDiceAmount = 2;
         int offensivePlayerRolls[] = new int[offensiveDiceAmount];
         int defensivePlayerRolls[] = new int[defensiveDiceAmount];
+        int offensivePlayerKills = 0;
+        int defensivePlayerKills = 0;
         if (Country.getSelectedList()[0].getNumTroops() > 1) {
             do {
                 if (Country.getSelectedList()[1].getNumTroops() == 0){
                     TextLog.createStatement("Attacker Won!",null);
                     return currentPlayer;
                 }
+                //sets rolls to random values
                 for (int offensivePlayerRoll : offensivePlayerRolls)
                     offensivePlayerRoll = (int)(Math.random()*6+1);
                 for (int defensivePlayerRoll : defensivePlayerRolls)
                     defensivePlayerRoll = (int)(Math.random()*6+1);
-                if (offensivePlayerRoll > defensivePlayerRoll)
-                    Country.getSelectedList()[1].addNumTroops(-1);
-                else
-                    Country.getSelectedList()[0].addNumTroops(-1);
+                Arrays.sort(offensivePlayerRolls);
+                Arrays.sort(defensivePlayerRolls);
+                for (int i=offensivePlayerRolls.length-1;i>0;i++) {
+                    for (int a=defensivePlayerRolls.length-1;a>0;a++) {
+                        if (offensivePlayerRolls[i] > defensivePlayerRolls[a])
+                            offensivePlayerKills++;
+                        else
+                            defensivePlayerKills++;
+                    }
+                }
+                Country.getSelectedList()[0].addNumTroops(-defensivePlayerKills);
+                Country.getSelectedList()[1].addNumTroops(-offensivePlayerKills);
             }
             while(Country.getSelectedList()[0].getNumTroops() > 1);
         }
