@@ -11,6 +11,7 @@ public class Gameplay {
     
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
     static private int numPlayers = 2;
+    public boolean victoryAchieved = false;
     private Phase phase;
     private RiskMap riskMap = null;
     private Player players[];
@@ -197,6 +198,7 @@ public class Gameplay {
             else
                 Country.getSelectedList()[0] = null;
             Country.getSelectedList()[1] = null;
+            currentPlayer.checkWin();
         }
         else { //if current player lost
             //deselects all countries

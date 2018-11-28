@@ -143,6 +143,7 @@ public class Titlescreen {
         instructionsActive = false;
         game = null;
         gameStarted = false;
+        game.victoryAchieved = false;
     }
     
     static public void activateSingle() {
