@@ -57,7 +57,11 @@ public class Titlescreen {
     
     static private void setupHandler(int x, int y, Risk frame) throws FileNotFoundException, FontFormatException, IOException {
         g.drawImage(SETUP_IMAGE,0,0,Window.MENU_WINDOW_WIDTH,Window.MENU_WINDOW_HEIGHT,frame);
+        g.drawImage(backImage,20,720, frame);
         Button.setupHandler(x, y);
+        if(x > 17 && x < 143 && y > 721 && y < 784)
+                g.drawImage(HbackImage,20, 720, frame);
+        Button.drawMute(frame, 760, 760);
     }
     
     static private void instructionsHandler(int x, int y, Risk frame)throws FileNotFoundException, FontFormatException, IOException {
@@ -67,6 +71,8 @@ public class Titlescreen {
         Button.instructionsHandler(frame, x, y);
         if(x > 17 && x < 143 && y > 721 && y < 784)
                 g.drawImage(HbackImage,20, 720, frame);
+        
+        Button.drawMute(frame, 760, 760);
 //
         g.setColor(Color.green);
         g.setFont(new Font("Arial",Font.PLAIN,40));
