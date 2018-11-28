@@ -360,10 +360,10 @@ public class Gameplay {
                     offensivePlayerRoll = (int)(Math.random()*6+1);
                 for (int defensivePlayerRoll : defensivePlayerRolls)
                     defensivePlayerRoll = (int)(Math.random()*6+1);
-                if (offensivePlayerRoll > defensivePlayerRoll)
-                    Country.getSelectedList()[1].addNumTroops(-1);
-                else
-                    Country.getSelectedList()[0].addNumTroops(-1);
+                //if (offensivePlayerRoll > defensivePlayerRoll)
+                    //Country.getSelectedList()[1].addNumTroops(-1);
+                //else
+                    //Country.getSelectedList()[0].addNumTroops(-1);
             }
             while(Country.getSelectedList()[0].getNumTroops() > 1);
         }

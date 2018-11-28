@@ -208,12 +208,14 @@ public class Button {
         
         if(playerColors.get(Titlescreen.getCustomizePlayerNum()-1)!=colorSample)
             playerColors.set(Titlescreen.getCustomizePlayerNum()-1, colorSample);
+        
+        onHome = x > 17 && x < 143 && y > 721 && y < 784;
+        onMute = x > 740 && x < 800 && y > 740 && y < 800;
     }
     
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
-            onHome = x>13 && x<111 && y>730 && y<783;
+            onHome = x > 17 && x < 143 && y > 721 && y < 784;
             onMute = x>740 && x<800 && y>740 && y<800;
-            drawMute(frame, 760, 760);
     }
     
     static private void activateSetupButton() {
