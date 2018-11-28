@@ -169,7 +169,7 @@ public class Country {
                         currentlySelected[1] = null;
                     } else if (currentlySelected[0] != null && currentlySelected[0].isNeighboringEnemy(this)) { //selects attackable enemy country
                         currentlySelected[1] = this;
-                        troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./ClashedSwords.png");
+                        troopEncasementImage = Toolkit.getDefaultToolkit().getImage("./AttackButton.png");
                     }
                 }
                 break;
