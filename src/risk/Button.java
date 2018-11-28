@@ -21,7 +21,7 @@ public class Button {
     static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
     static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
     static private Image phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
-    static private Image fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
+    static private Image phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButton.png");
     static private boolean muteOn = false;
     static private boolean mouseHoldOn = false;
     static private boolean onPlay = false;
@@ -37,7 +37,7 @@ public class Button {
     static private boolean onJoin = false;
     static private boolean onMute = false;
     static private boolean onBack = false;
-    static private boolean onFortify = false;
+    static private boolean onPhaseButton = false;
     static private boolean onPhase = false;
     static private boolean onsliderR = false;
     static private boolean onsliderG = false;
@@ -74,7 +74,7 @@ public class Button {
         else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
-        else if (onFortify) { activateFortifyButton(); }
+        else if (onPhaseButton) { activatePhaseClickButton(); }
         else if (onPhase) { activatePhaseButton(); }
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
@@ -274,9 +274,9 @@ public class Button {
         Titlescreen.activateMain();
     }
     
-    static private void activateFortifyButton() {
+    static private void activatePhaseClickButton() {
         Titlescreen.getGame().switchTurnHandler();
-        onFortify = false;
+        onPhaseButton = false;
     }
     
     static private void activatePhaseButton() {
@@ -346,16 +346,36 @@ public class Button {
         g.drawImage(muteImage, x, y, 20, 20, frame);
     }
     
-    static public void drawFortifyButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
-        if (detectFortify(xMousePos, yMousePos)) {
-            fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButtonHighlight.png");
-            onFortify = true;
+    static public void drawPhaseClickButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
+        if(Titlescreen.getGame().getPhase() == Gameplay.Phase.DEPLOY){
+        if (detectPhaseClick(xMousePos, yMousePos)) {
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButtonHighlight.png");
+            onPhaseButton = true;
         }
         else {
-            fortifyImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
-            onFortify = false;
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButton.png");
+            onPhaseButton = false;
         }
-        g.drawImage(fortifyImage, xDrawPos, yDrawPos, frame);
+        }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
+        if (detectPhaseClick(xMousePos, yMousePos)) {
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./AttackButtonHighlight.png");
+            onPhaseButton = true;
+        }
+        else {
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./AttackButton.png");
+            onPhaseButton = false;
+        }
+        }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.FORTIFY){
+        if (detectPhaseClick(xMousePos, yMousePos)) {
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png"); //Add FortifyButtonHighlight
+            onPhaseButton = true;
+        }
+        else {
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
+            onPhaseButton = false;
+        }
+        }
+        g.drawImage(phaseButtonImage, xDrawPos, yDrawPos, frame);
     }
     
     static public void drawPhaseButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
@@ -386,8 +406,8 @@ public class Button {
         g.drawImage(backImage, xDrawPos, yDrawPos, frame);
     }
     
-    static private boolean detectFortify(int x, int y) {
-        int xBoundaryPos[] = { 319,390,390,319 };
+    static private boolean detectPhaseClick(int x, int y) {
+        int xBoundaryPos[] = { 719,790,790,719 };
         int yBoundaryPos[] = { 830,830,881,881 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
         return(boundary.contains(x, y));
