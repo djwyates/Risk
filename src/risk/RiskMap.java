@@ -23,8 +23,6 @@ public class RiskMap {
         Button.drawPhaseButton(frame, 850, 800, mouseX, mouseY);
         // Draws troop counters
         Country.drawAllTroopCounters();
-        // Draws back button
-        Button.drawBack(frame, 0, Window.YTITLE, mouseX, mouseY);
         // Draws boundary on selected country
         Country.drawBoundaryOnSelected(phase);
         // Draws current country name by mouse pointer
