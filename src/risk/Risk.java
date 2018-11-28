@@ -45,7 +45,7 @@ public class Risk extends JFrame implements Runnable
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (e.BUTTON1 == e.getButton()) {
-                    System.out.println(e.getX() + "   " + e.getY());
+                    //System.out.println(e.getX() + "   " + e.getY());
                     Titlescreen.mouseClickHandler(Window.currentFrame, e.getX(), e.getY());
                 }
                 repaint();

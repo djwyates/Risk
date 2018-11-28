@@ -180,6 +180,8 @@ public class Country {
                 if (currentlySelected[0] == this) {
                     currentlySelected[0] = null;
                     currentlySelected[1] = null;
+                    TextLog.clearInput();
+                    Titlescreen.getGame().setFortifyAmount(0);
                 } else if (currentlySelected[0] == null) {
                     if (numTroops > 1)
                         currentlySelected[0] = this;

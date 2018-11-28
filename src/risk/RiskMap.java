@@ -10,18 +10,17 @@ import java.util.ArrayList;
 import static risk.Risk.g;
 
 public class RiskMap {
-    static private Image mapImage = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
-    static private Image phaseImage = phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
+    static private final Image MAP_IMAGE = Toolkit.getDefaultToolkit().getImage("./riskMap.jpg");
     static private ArrayList<Country> countries = new ArrayList<Country>();
     
     static public void draw(Risk frame, int mouseX, int mouseY, Gameplay.Phase phase) throws FontFormatException, IOException {
         // Draws map
-        g.drawImage(mapImage, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
+        g.drawImage(MAP_IMAGE, 0, 0, Window.MAP_WINDOW_WIDTH, Window.MAP_WINDOW_HEIGHT, frame);
         // Draws Fortify Button (in the wrong spot b/c Austin's home monitor is too small :))
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK)
             Button.drawFortifyButton(frame, 438, 332, mouseX, mouseY);
-        // Draws current phase name  
-        drawPhase(850, 800, 260, 100, frame);
+        // Draws current phase   
+        Button.drawPhaseButton(frame, 850, 800, mouseX, mouseY);
         // Draws troop counters
         Country.drawAllTroopCounters();
         // Draws back button
@@ -34,21 +33,6 @@ public class RiskMap {
         // Draws input in TextLog
         TextLog.drawInput(g);
         TextLog.drawStatements(g);
-    }
-    
-    static public void drawPhase(int x, int y, int width, int height, Risk frame) {
-        switch (Titlescreen.getGame().getPhase()) {
-            case DEPLOY:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
-                break;
-            case ATTACK:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./attack.png");
-                break;
-            case FORTIFY:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./fortify.png");
-                break;
-        }
-        g.drawImage(phaseImage, x, y, width, height, frame);
     }
     
     static public void mouseInCountryHandler(int x, int y, Gameplay.Phase phase) {

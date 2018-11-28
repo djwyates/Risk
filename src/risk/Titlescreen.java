@@ -13,7 +13,6 @@ import java.io.IOException;
 import static risk.Risk.g;
 
 public class Titlescreen {
-    static private boolean InstuctionsConnected ;
     static private final SoundManager MENU_SOUNDS = new SoundManager();
     static private final Image MAIN_IMAGE = Toolkit.getDefaultToolkit().getImage("./TitleScreenGothic.png");
     static private final Image SETUP_IMAGE = Toolkit.getDefaultToolkit().getImage("./setupscreen.png");
@@ -29,7 +28,6 @@ public class Titlescreen {
     static private int customizePlayerNum = 1;
     
     static void reset() {
-        InstuctionsConnected = true;
         MENU_SOUNDS.clearSounds();
         MENU_SOUNDS.addSound("titlemusic.wav");
         MENU_SOUNDS.addSound("swordClashTitleScreen.wav");
@@ -143,6 +141,7 @@ public class Titlescreen {
         mainActive = true;
         setupActive = false;
         instructionsActive = false;
+        game = null;
         gameStarted = false;
     }
     

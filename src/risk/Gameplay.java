@@ -12,7 +12,7 @@ public class Gameplay {
     static public enum Phase { DEPLOY, ATTACK, FORTIFY }
     static private int numPlayers = 2;
     private Phase phase;
-    private RiskMap riskMap = null; // Purpose of this?
+    private RiskMap riskMap = null;
     private Player players[];
     private Player currentPlayer;
     private Country clickedCountry;
@@ -109,22 +109,7 @@ public class Gameplay {
                     TextLog.removeOneInput();
                     break;
                 case "enter":
-                    if (deployAmount > 0) {
-                        currentPlayer.addTotalTroops(deployAmount);
-                        currentPlayer.addDeployableTroops(-deployAmount);
-                        Country.getSelectedList()[0].addNumTroops(deployAmount);
-                        TextLog.createStatement("+" + deployAmount + " troops in " + Country.getSelectedList()[0].getName() + ".",Phase.DEPLOY);
-                        deployAmount = 0;
-                        Country.getSelectedList()[0] = null;
-                        if (currentPlayer.getDeployableTroops() <= 0) {
-                            TextLog.createStatement("No Troops left.",Phase.DEPLOY);
-                            TextLog.createStatement("Switching to attack phase.",null);
-                            switchTurnHandler();
-                        }
-                        else
-                            TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n",Phase.DEPLOY);
-                    }
-                    TextLog.clearInput();
+                    deployFunction();
                     break;
                 default:
                     break;
@@ -135,37 +120,11 @@ public class Gameplay {
     private void attackPhaseHandler(int x, int y, String key) {
         if (key.equals("none")) {
             clickedCountry.selectedByClickHandler(phase);
-            if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry)) {
+            if (Country.getSelectedList()[0] != null && Country.getSelectedList()[0].isNeighboringEnemy(clickedCountry))
                 TextLog.createStatement("Press enter to attack " + clickedCountry.getName(),Phase.ATTACK);
-            }
         }
-        else if (Country.getSelectedList()[0] != null && Country.getSelectedList()[1] != null) {
-            switch (key) {
-                case "enter":
-                    if (currentPlayer == battleTroops()) { // if current player won
-                        //transfers country ownership to the current player from the defending player
-                        currentPlayer.addCountry(Country.getSelectedList()[1]);
-                        //makes all countries' troop counters normal
-                        Country.changeTroopCounter();
-                        //transfers all but 1 troop into conquered country
-                        Country.getSelectedList()[1].setNumTroops(Country.getSelectedList()[0].getNumTroops()-1);
-                        Country.getSelectedList()[0].setNumTroops(1);
-                        //selects the conquered country if it has more than 1 troop
-                        if (Country.getSelectedList()[1].getNumTroops() > 1)
-                            Country.getSelectedList()[0] = Country.getSelectedList()[1];
-                        else
-                            Country.getSelectedList()[0] = null;
-                        Country.getSelectedList()[1] = null;
-                    }
-                    else { //if current player lost
-                        //deselects all countries
-                        Country.getSelectedList()[0] = null;
-                        Country.getSelectedList()[1] = null;
-                        Country.changeTroopCounter();
-                    }
-                    break;
-            }
-        }
+        else if (key.equals("enter"))
+            attackFunction();
         
     }
     
@@ -194,17 +153,70 @@ public class Gameplay {
                     TextLog.removeOneInput();
                     break;
                 case "enter":
-                    if (fortifyAmount > 0) {
-                        Country.getSelectedList()[0].addNumTroops(-fortifyAmount);
-                        Country.getSelectedList()[1].addNumTroops(fortifyAmount);
-                        TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), Phase.FORTIFY);
-                        TextLog.createStatement("Changing turns to the next player.", null);
-                        switchTurnHandler();
-                    }
-                    TextLog.clearInput();
+                    fortifyFunction();
                     break;
             }
         }
+    }
+    
+    public void deployFunction() {
+        if (Country.getSelectedList()[0] == null)
+            return;
+        if (deployAmount > 0) {
+            currentPlayer.addTotalTroops(deployAmount);
+            currentPlayer.addDeployableTroops(-deployAmount);
+            Country.getSelectedList()[0].addNumTroops(deployAmount);
+            TextLog.createStatement("+" + deployAmount + " troops in " + Country.getSelectedList()[0].getName() + ".",Phase.DEPLOY);
+            deployAmount = 0;
+            Country.getSelectedList()[0] = null;
+            if (currentPlayer.getDeployableTroops() <= 0) {
+                TextLog.createStatement("No Troops left.",Phase.DEPLOY);
+                TextLog.createStatement("Switching to attack phase.",null);
+                switchTurnHandler();
+            }
+            else
+                TextLog.createStatement("You have " + currentPlayer.getDeployableTroops() + " troops left to deploy.\n",Phase.DEPLOY);
+        }
+        TextLog.clearInput();
+    }
+    
+    public void attackFunction() {
+        if (Country.getSelectedList()[0] == null || Country.getSelectedList()[1] == null)
+            return;
+        if (currentPlayer == battleTroops()) { // if current player won
+            //transfers country ownership to the current player from the defending player
+            currentPlayer.addCountry(Country.getSelectedList()[1]);
+            //makes all countries' troop counters normal
+            Country.changeTroopCounter();
+            //transfers all but 1 troop into conquered country
+            Country.getSelectedList()[1].setNumTroops(Country.getSelectedList()[0].getNumTroops()-1);
+            Country.getSelectedList()[0].setNumTroops(1);
+            //selects the conquered country if it has more than 1 troop
+            if (Country.getSelectedList()[1].getNumTroops() > 1)
+                Country.getSelectedList()[0] = Country.getSelectedList()[1];
+            else
+                Country.getSelectedList()[0] = null;
+            Country.getSelectedList()[1] = null;
+        }
+        else { //if current player lost
+            //deselects all countries
+            Country.getSelectedList()[0] = null;
+            Country.getSelectedList()[1] = null;
+            Country.changeTroopCounter();
+        }
+    }
+    
+    public void fortifyFunction() {
+        if (Country.getSelectedList()[0] == null || Country.getSelectedList()[1] == null)
+            return;
+        if (fortifyAmount > 0) {
+            Country.getSelectedList()[0].addNumTroops(-fortifyAmount);
+            Country.getSelectedList()[1].addNumTroops(fortifyAmount);
+            TextLog.createStatement("Transfered " + fortifyAmount + " troops to " + Country.getSelectedList()[1].getName(), Phase.FORTIFY);
+            TextLog.createStatement("Changing turns to the next player.", null);
+            switchTurnHandler();
+        }
+        TextLog.clearInput();
     }
     
     private void deployPhaseInit() {
@@ -350,6 +362,10 @@ public class Gameplay {
     
     static public void addNumPlayers(int inc) {
         numPlayers += inc;
+    }
+    
+    public void setFortifyAmount(int _fortifyAmount) {
+        fortifyAmount = _fortifyAmount;
     }
     
     static public int getNumPlayers() {

@@ -51,7 +51,8 @@ public class Player {
         deployableTroops += inc;
     }
     
-    private void checkOwnedCountries() {
+    private void refreshOwnedCountries() {
+        ownedCountries.clear();
         for (Country country : RiskMap.getCountryList()) {
             if (country.getOwner() == this)
                 ownedCountries.add(country);
@@ -76,12 +77,11 @@ public class Player {
     
     // Accessor methods
     private int getContinentsTroopValue() {
-        checkOwnedCountries();
+        refreshOwnedCountries();
         checkOwnedContinents();
         int value = 0;
-        for (Continent continent : ownedContinents) {
+        for (Continent continent : ownedContinents)
             value += continent.getBonus();
-        }
         return value;
     }
     

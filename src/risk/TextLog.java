@@ -46,7 +46,6 @@ public class TextLog {
         y=855;
         for(int i=0;i<statements.size();i++){
             statements.get(i).y-=35;
-            System.out.println(statements.get(i).color.getAlpha() + " alpha " + i );
             statements.get(i).color = new Color(statements.get(i).color.getRed(),statements.get(i).color.getGreen(),statements.get(i).color.getBlue(),statements.get(i).color.getAlpha()-15);
         }
     }
