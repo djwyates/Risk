@@ -56,7 +56,6 @@ public class Risk extends JFrame implements Runnable
             public void mouseClicked(MouseEvent e) {
                 mouseX = e.getX();
                 mouseY = e.getY();
-                Titlescreen.YaYeet(e.getX(), e.getY());
                 Titlescreen.mouseClickHandler(Window.currentFrame, mouseX, mouseY);
                 repaint();
             }
@@ -183,15 +182,13 @@ public class Risk extends JFrame implements Runnable
         g.fillRect(0, 0, Window.xsize, Window.ysize);               
         // ----------------
 
-        // background      
+        // background
         g.setColor(Color.white);
         g.fillPolygon(x, y, 4);
         
         try  {
-            if (Titlescreen.isActive()){
+            if (Titlescreen.isActive())
                     Titlescreen.titlescreenHandler(this, mouseX, mouseY);
-                    Titlescreen.instructionsHand(mouseX,mouseY,g,this);
-            }
             else
                 Titlescreen.getGame().drawAndSoundHandler(this, mouseX, mouseY);
         } catch (FontFormatException ex) {
