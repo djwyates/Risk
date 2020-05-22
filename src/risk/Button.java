@@ -18,10 +18,10 @@ import static risk.Risk.g;
 
 public class Button {
     Risk mainframe;
-    static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
-    static private Image backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
-    static private Image phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
-    static private Image phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButton.png");
+    static private Image muteImage = Toolkit.getDefaultToolkit().getImage("./images/speaker.png");
+    static private Image backImage = Toolkit.getDefaultToolkit().getImage("./images/backButton.png");
+    static private Image phaseImage = Toolkit.getDefaultToolkit().getImage("./images/deploy.png");
+    static private Image phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/deployButton.png");
     static private boolean muteOn = false;
     static private boolean mouseHoldOn = false;
     static private boolean onSetup = false;
@@ -59,19 +59,17 @@ public class Button {
     //Array of colors to assign to players.
     static private ArrayList<Color> playerColors = new ArrayList<Color>();
     static private boolean runFirst = true;
-    
-    
+
+
     static public void mouseClickHandler(Risk frame, int x, int y) {
         mouseHoldOn = false;
         onsliderR = false;
         onsliderG = false;
         onsliderB = false;
         if (onSetup) { activateSetupButton(); }
-        else if (onInstructions) { activateMultiButton(); }
+        else if (onInstructions) { activateInstructionsButton(); }
         else if (onExit) { activateExitButton(); }
         else if (onHome) { activateHomeButton(); }
-        else if (onHost) { activateHostButton(); }
-        else if (onJoin) { activateJoinButton(); }
         else if (onMute) { activateMuteButton(); }
         else if (onBack) { activateBackButton(frame); }
         else if (onPhaseButton) { activatePhaseClickButton(); }
@@ -79,11 +77,11 @@ public class Button {
         else if (onStart) { activateStartButton(frame); }
         else if (onMinus) { activateMinusButton(); }
         else if (onPlus) { activatePlusButton(); }
-        else if (onPlayerDec) { activatePlayerDec(); }
-        else if (onPlayerInc) { activatePlayerInc(); }
+        else if (onPlayerDec) { activatePlayerDecButton(); }
+        else if (onPlayerInc) { activatePlayerIncButton(); }
         else if (onPhase) { activatePhaseButton(); }
     }
-    
+
     static public void mouseDraggedHandler(Risk frame, int x, int y) {
         if (!mouseHoldOn) {
             onsliderR = false;
@@ -95,12 +93,12 @@ public class Button {
         }
         mouseHoldOn = true;
     }
-    
+
     static public void mainHandler(Risk frame, int x, int y) {
         // Singleplayer button detection & sound effect
         if((x>280&&x<483&&y>412&&y<487)) {
             if(!onSetup)
-                Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
+                Titlescreen.getMenuSounds().play("./sounds/swordClash.wav");
             onSetup = true;
             g.setColor(Color.white);
         } else {
@@ -111,7 +109,7 @@ public class Button {
         // Multiplayer button detection & sound effect
         if((x>280&&x<483&&y>520&&y<595)) {
             if(!onInstructions)
-                Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
+                Titlescreen.getMenuSounds().play("./sounds/swordClash.wav");
             onInstructions = true;
             g.setColor(Color.white);
         } else {
@@ -122,7 +120,7 @@ public class Button {
         // Exit button detection & sound effect
         if(x>280 && x<483 && y>620 && y<700) {
             if(!onExit)
-                Titlescreen.getMenuSounds().play("swordClashTitleScreen.wav");
+                Titlescreen.getMenuSounds().play("./sounds/swordClash.wav");
             onExit = true;
             g.setColor(Color.white);
         } else {
@@ -134,7 +132,7 @@ public class Button {
         onMute = x>740 && x<800 && y>740 && y<800;
         drawMute(frame, 760, 760);
     }
-    
+
     static public void setupHandler(int x, int y) throws FileNotFoundException, FontFormatException, IOException {
         if(runFirst){
             runFirst=false;
@@ -147,22 +145,22 @@ public class Button {
             g.setColor(Color.red);
         else
             g.setColor(Color.white);
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,60));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("fonts/allan.ttf"))).deriveFont(Font.PLAIN,60));
         g.drawString("START", 563, 657);
         // Player number +/- detection & drawing of number
         onMinus = x>246 && x<278 && y>150 && y<180;
         onPlus = x>344 && x<374 && y>150 && y<180;
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("fonts/allan.ttf"))).deriveFont(Font.PLAIN,40));
         g.setColor(Color.white);
         g.drawString("" + Gameplay.getNumPlayers(), 300, 180);
         // Player color detection
         onPlayerDec = x>246 && x<278 && y>195 && y<235;
         onPlayerInc = x>344 && x<374 && y>195 && y<235;
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,40));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("fonts/allan.ttf"))).deriveFont(Font.PLAIN,40));
         g.setColor(Color.white);
         g.drawString("" + Titlescreen.getCustomizePlayerNum(), 300, 230);
         // Color sliders & oval
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,20));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("fonts/allan.ttf"))).deriveFont(Font.PLAIN,20));
         g.setColor(Color.RED);
         g.fillOval(rsp[0], rsp[1], 15, 15);
         g.drawString(""+RGB[0],390,294);
@@ -191,7 +189,7 @@ public class Button {
                 gsp[0]=MIN_SLIDER_XPOS;
             if(gsp[0]>MAX_SLIDER_XPOS)
                 gsp[0]=MAX_SLIDER_XPOS;
-            
+
             gsd=gsp[0]-MIN_SLIDER_XPOS;
         }
         if(onsliderB){
@@ -205,67 +203,53 @@ public class Button {
         }
         RGB[0]=(int)(rsd*DIS_TO_RGB);RGB[1]=(int)(gsd*DIS_TO_RGB);RGB[2]=(int)(bsd*DIS_TO_RGB);
         colorSample = new Color(RGB[0],RGB[1],RGB[2]);
-        
+
         if(playerColors.get(Titlescreen.getCustomizePlayerNum()-1)!=colorSample)
             playerColors.set(Titlescreen.getCustomizePlayerNum()-1, colorSample);
-        
+
         onHome = x > 17 && x < 143 && y > 721 && y < 784;
         onMute = x > 740 && x < 800 && y > 740 && y < 800;
     }
-    
+
     static public void instructionsHandler(Risk frame, int x, int y) throws FileNotFoundException, FontFormatException, IOException {
             onHome = x > 17 && x < 143 && y > 721 && y < 784;
             onMute = x>740 && x<800 && y>740 && y<800;
     }
-    
+
     static private void activateSetupButton() {
         Titlescreen.activateSetup();
-        Connect.setGameStarted(true);
         onSetup = false;
     }
-    
-    static private void activateMultiButton() {
-        Titlescreen.activateMulti();
+
+    static private void activateInstructionsButton() {
+        Titlescreen.activateInstructions();
         onInstructions = false;
     }
-    
+
     static private void activateExitButton() {
         System.exit(0);
     }
-    
+
     static private void activateHomeButton() {
         Titlescreen.activateMain();
-        Connect.deleteAllCharsFromHost();
         onHome = false;
     }
-    
-    static private void activateHostButton() {
-        Titlescreen.getMenuSounds().play("multiButtonCheer.wav");
-        Connect.hostGame();
-        onHost = false;
-    }
-    
-    static private void activateJoinButton() {
-        Titlescreen.getMenuSounds().play("multiButtonCheer.wav");
-        Connect.connectToGame();
-        onJoin = false;
-    }
-    
+
     static private void activateMuteButton() {
         SoundManager.toggleMute();
         muteOn = !muteOn;
     }
-    
+
     static private void activateBackButton(Risk frame) {
         Window.changeWindow(frame, Window.MENU_WINDOW_WIDTH, Window.MENU_WINDOW_HEIGHT, "Risk");
         Titlescreen.activateMain();
     }
-    
+
     static private void activatePhaseClickButton() {
         Titlescreen.getGame().switchTurnHandler();
         onPhaseButton = false;
     }
-    
+
     static private void activatePhaseButton() {
         switch(Titlescreen.getGame().getPhase()) {
             case DEPLOY:
@@ -280,13 +264,13 @@ public class Button {
         }
         onPhase = false;
     }
-    
+
     static private void activateStartButton(Risk frame) {
-        Titlescreen.getMenuSounds().play("multiButtonCheer.wav");
+        Titlescreen.getMenuSounds().play("./sounds/cheer.wav");
         Titlescreen.startGame(frame);
         onStart = false;
     }
-    
+
     static private void activateMinusButton() {
         if (Gameplay.getNumPlayers()-1 >= 2) {
             Gameplay.addNumPlayers(-1);
@@ -294,14 +278,14 @@ public class Button {
                 Titlescreen.addCustomizePlayerNum(-1);
         }
     }
-    
+
     static private void activatePlusButton() {
         if (Gameplay.getNumPlayers()+1 <= 70){
             Gameplay.addNumPlayers(1);
         }
     }
-    
-    static private void activatePlayerDec() {
+
+    static private void activatePlayerDecButton() {
         if (Titlescreen.getCustomizePlayerNum()-1 >= 2 || Titlescreen.getCustomizePlayerNum()-1 == 1){
             Titlescreen.addCustomizePlayerNum(-1);
             rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/DIS_TO_RGB);
@@ -312,8 +296,8 @@ public class Button {
             bsp[0]=MIN_SLIDER_XPOS+bsd;
         }
     }
-    
-    static private void activatePlayerInc() {
+
+    static private void activatePlayerIncButton() {
         if (Titlescreen.getCustomizePlayerNum()+1 <= Gameplay.getNumPlayers()){
             Titlescreen.addCustomizePlayerNum(1);
             rsd = (int) ((playerColors.get(Titlescreen.getCustomizePlayerNum()-1).getRed())/DIS_TO_RGB)+1;
@@ -324,26 +308,26 @@ public class Button {
             bsp[0]=MIN_SLIDER_XPOS+bsd;
         }
     }
-    
+
     static public void drawMute(Risk frame, int x, int y) {
         if(muteOn)
-            muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIconMute.png");
+            muteImage = Toolkit.getDefaultToolkit().getImage("./images/speakerMute.png");
         else
-            muteImage = Toolkit.getDefaultToolkit().getImage("./speakerIcon.png");
+            muteImage = Toolkit.getDefaultToolkit().getImage("./images/speaker.png");
         g.drawImage(muteImage, x, y, 20, 20, frame);
     }
-    
+
     static public void drawPhaseClickButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
         if(Titlescreen.getGame().getPhase() == Gameplay.Phase.DEPLOY){
         if (detectPhaseClick(xMousePos, yMousePos)) {
             g.setColor(new Color(255,0,0));
             g.setFont(new Font("AMARILLO",Font.BOLD,25));
             g.drawString("Attack",717,830);
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButtonHighlight.png");
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/deployButtonHighlight.png");
             onPhaseButton = true;
         }
         else {
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./DeployButton.png");
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/deployButton.png");
             onPhaseButton = false;
         }
         }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.ATTACK){
@@ -351,11 +335,11 @@ public class Button {
             g.setColor(new Color(0,0,255));
             g.setFont(new Font("AMARILLO",Font.BOLD,25));
             g.drawString("Fortify",714,830);
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./AttackButtonHighlight.png");
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/attackButtonHighlight.png");
             onPhaseButton = true;
         }
         else {
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./AttackButton.png");
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/attackButton.png");
             onPhaseButton = false;
         }
         }if(Titlescreen.getGame().getPhase() == Gameplay.Phase.FORTIFY){
@@ -363,66 +347,66 @@ public class Button {
             g.setFont(new Font("AMARILLO",Font.BOLD,25));
             g.drawString("Next Turn",697,830);
         if (detectPhaseClick(xMousePos, yMousePos)) {
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButtonHighlight.png"); //Add FortifyButtonHighlight
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/fortifyButtonHighlight.png");
             onPhaseButton = true;
         }
         else {
-            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./FortifyButton.png");
+            phaseButtonImage = Toolkit.getDefaultToolkit().getImage("./images/fortifyButton.png");
             onPhaseButton = false;
         }
         }
         g.drawImage(phaseButtonImage, xDrawPos, yDrawPos, frame);
     }
-    
+
     static public void drawPhaseButton(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
         switch (Titlescreen.getGame().getPhase()) {
             case DEPLOY:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./deploy.png");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./images/deploy.png");
                 break;
             case ATTACK:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./attack.png");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./images/attack.png");
                 break;
             case FORTIFY:
-                phaseImage = Toolkit.getDefaultToolkit().getImage("./fortify.png");
+                phaseImage = Toolkit.getDefaultToolkit().getImage("./images/fortify.png");
                 break;
         }
         g.drawImage(phaseImage, xDrawPos, yDrawPos, 260, 100, frame);
         onPhase = detectPhase(xMousePos, yMousePos);
     }
-    
+
     static public void drawBack(Risk frame, int xDrawPos, int yDrawPos, int xMousePos, int yMousePos) {
         if (detectBack(xMousePos, yMousePos)) {
-            backImage = Toolkit.getDefaultToolkit().getImage("./backButtonHighlight.png");
+            backImage = Toolkit.getDefaultToolkit().getImage("./images/backButtonHighlight.png");
             onBack = true;
         }
         else {
-            backImage = Toolkit.getDefaultToolkit().getImage("./backButton.png");
+            backImage = Toolkit.getDefaultToolkit().getImage("./images/backButton.png");
             onBack = false;
         }
         g.drawImage(backImage, xDrawPos, yDrawPos, frame);
     }
-    
+
     static private boolean detectPhaseClick(int x, int y) {
         int xBoundaryPos[] = { 719,790,790,719 };
         int yBoundaryPos[] = { 830,830,881,881 };
-        Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4); // Note to self: the third variable is the number of points in the polygon
+        Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4);
         return(boundary.contains(x, y));
     }
-    
+
     static private boolean detectPhase(int x, int y) {
         int xBoundaryPos[] = { 860,860,1100,1100 };
         int yBoundaryPos[] = { 800,895,895,800 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 4);
         return(boundary.contains(x, y));
     }
-    
+
     static private boolean detectBack(int x, int y) {
         int xBoundaryPos[] = { 43,4,42,43,117,116,42 };
         int yBoundaryPos[] = { 91,62,33,49,50,71,71 };
         Polygon boundary = new Polygon(xBoundaryPos, yBoundaryPos, 7);
         return(boundary.contains(x, y));
     }
-    
+
     static ArrayList<Color> getPlayerColors() {
         return playerColors;
     }

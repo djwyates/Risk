@@ -17,14 +17,14 @@ public class TextLog {
     private static ArrayList<TextLog> statements = new ArrayList<TextLog>();
     private static Color systemColor  = new Color(47,79,79),
                          deployColor  = new Color(0,100,0),
-                         attackColor  = new Color(139,0,0),  
+                         attackColor  = new Color(139,0,0),
                          fortifyColor = new Color(25,25,112),
                          inputColor   = systemColor;
     private String statement;
     private Color color;
     private int x;
     private int y;
-    
+
     TextLog(String s,Gameplay.Phase p){
         color = systemColor;
         if(p!=null)
@@ -39,8 +39,8 @@ public class TextLog {
                     color = fortifyColor;
                     break;
             }
-        
-            
+
+
         statement=s;
         x=20;
         y=855;
@@ -49,7 +49,7 @@ public class TextLog {
             statements.get(i).color = new Color(statements.get(i).color.getRed(),statements.get(i).color.getGreen(),statements.get(i).color.getBlue(),statements.get(i).color.getAlpha()-15);
         }
     }
-    
+
     static void createStatement(String str,Gameplay.Phase p){
         TextLog s = new TextLog(str,p);
         statements.add(s);
@@ -67,7 +67,7 @@ public class TextLog {
             g.setColor(statements.get(i).color);
             g.drawString(statements.get(i).statement, statements.get(i).x, statements.get(i).y);
         }
-        
+
         //Setting font back to old sets
         g.setColor(oColor);
         g.setFont(oFont);
@@ -78,10 +78,10 @@ public class TextLog {
         Font oFont = g.getFont();
         SetFontsAndColors(20);
         g.setColor(inputColor);
-        
+
         g.drawString(input, 20, 890);
-        
-        
+
+
         //Setting font back to old sets
         g.setColor(oColor);
         g.setFont(oFont);
@@ -96,8 +96,8 @@ public class TextLog {
     static void clearInput(){
         input="";
     }
-    
+
     static void SetFontsAndColors(int fontSize) throws FileNotFoundException, IOException, FontFormatException{
-        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("FontFiles/Allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
+        g.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("fonts/allan.ttf"))).deriveFont(Font.PLAIN,fontSize));
     }
 }

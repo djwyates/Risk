@@ -93,17 +93,13 @@ public class Risk extends JFrame implements Runnable
                     case KeyEvent.VK_NUMPAD7:
                     case KeyEvent.VK_NUMPAD8:
                     case KeyEvent.VK_NUMPAD9:
-                        Connect.addCharToHost(key);
                         Titlescreen.keyPressedHandler(key);
                         break;
                     case KeyEvent.VK_PERIOD:
                     case KeyEvent.VK_DECIMAL:
-                        Connect.addCharToHost(".");
                         break;
                     case KeyEvent.VK_BACK_SPACE:
                         Titlescreen.keyPressedHandler("backspace");
-                        if(Connect.getHost().length() > 0)
-                            Connect.deleteCharFromHost();
                         break;
                     case KeyEvent.VK_ENTER:
                         Titlescreen.keyPressedHandler("enter");
@@ -111,45 +107,7 @@ public class Risk extends JFrame implements Runnable
                     default:
                         break;
                 }
-                if(Connect.getHost().length()>19)
-                    Connect.deleteCharFromHost();
-                if (Connect.gameStarted()) {
-                    switch (e.getKeyCode()) {
-                    //BorderCreator.Reset();
-                        case KeyEvent.VK_W:
-                            break;
-                        case KeyEvent.VK_S:
-                            break;
-                        case KeyEvent.VK_A:
-                            break;
-                        case KeyEvent.VK_D:
-                            break;
-                        default:
-                            break;
-                    }
-                }                                                
-                
                 repaint();
-            }
-            
-            public void keyReleased(KeyEvent e)
-            {
-                if (Connect.gameStarted())
-                {
-                    switch (e.getKeyCode()) {
-                        case KeyEvent.VK_W:
-                            BorderCreator.Reset();
-                            break;
-                        case KeyEvent.VK_S:
-                            break;
-                        case KeyEvent.VK_A:
-                            break;
-                        case KeyEvent.VK_D:
-                            break;
-                        default:
-                            break;
-                    }
-                }
             }
         });
         init();
